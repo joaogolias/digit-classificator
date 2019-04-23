@@ -1,3 +1,8 @@
+
+#ifndef MATRIX_H
+#define MATRIX_H
+
+
 class Matrix {
     double **values;
 
@@ -25,3 +30,5 @@ class Matrix {
     private:
         bool areValidArguments(int row, int column);
 };
+
+#endif

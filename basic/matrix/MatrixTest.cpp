@@ -51,10 +51,12 @@ int main(){
 
 void testConstructorInvalidRow() {
     Matrix *matrix = new Matrix(-1,0);
+    delete matrix;
 }
 
 void testConstructorInvalidColumn() {
     Matrix *matrix = new Matrix(0,-2);
+    delete matrix;
 }
 
 void testVector() {
@@ -67,6 +69,7 @@ void testVector() {
         }
     }
     vector->print();
+    delete vector;
 }
 
 void setMatrix() {
@@ -77,6 +80,8 @@ void setMatrix() {
         }
     }
     matrix->print();
+
+    delete matrix;
 }
 
 void sumMatrix() {
@@ -102,6 +107,10 @@ void sumMatrix() {
     cout << "Result: " << endl;
     Matrix *result = A->add(B);
     result->print();
+
+    delete A;
+    delete B; 
+    delete result;
 }
 
 void subtractMatrix() {
@@ -127,6 +136,10 @@ void subtractMatrix() {
     cout << "Result: " << endl;
     Matrix *result = A->subtract(B);
     result->print();
+
+    delete A;
+    delete B; 
+    delete result;
 }
 
 void multiplyMatrix() {
@@ -151,6 +164,10 @@ void multiplyMatrix() {
     cout << "Result: " << endl;
     Matrix *result = A->multiply(B);
     result->print();
+
+    delete A;
+    delete B;
+    delete result;
 }
 
 void multiplyMatrix2() {
@@ -179,19 +196,26 @@ void multiplyMatrix2() {
     cout << "Result: " << endl;
     Matrix *result = A->multiply(B);
     result->print();
+
+    delete A;
+    delete B;
+    delete result;
 }
 
 void multiplyMatrixError() {
+    Matrix *A = new Matrix(4,5);
+    Matrix *B = new Matrix(3,5);
     try {
-        Matrix *A = new Matrix(4,5);
-        Matrix *B = new Matrix(3,2);
-
         cout << "Result: " << endl;
         Matrix *result = A->multiply(B);
         result->print();
+        delete A;
+        delete B;
     } catch(std::exception* e) {
         cout << "hahahah" << endl;
         cout << e->what() <<endl;
+        delete A;
+        delete B;
     }
     
 }
@@ -211,5 +235,5 @@ void testTranspose() {
     cout << "Matrix A transpose: " << endl;
     A->transpose()->print();
     cout << endl;   
-    
+    delete A;
 }
