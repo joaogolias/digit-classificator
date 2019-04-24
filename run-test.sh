@@ -10,3 +10,9 @@ then
     g++ -std=c++11 basic/matrix/Matrix.cpp  basic/matrixgenerator/$1Test.cpp basic/matrixgenerator/MatrixGenerator.cpp -o $1Test.out
     ./$1Test.out
 fi
+
+if [ $1 = "QR" ] 
+then
+    g++ -std=c++11 factorization/qr/QRFactorization.cpp  factorization/qr/QRFactorizationTest.cpp basic/matrix/Matrix.cpp  -o QRFactorizationTest.out
+    ./QRFactorizationTest.out
+fi

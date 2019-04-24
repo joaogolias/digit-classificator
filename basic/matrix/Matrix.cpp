@@ -1,6 +1,8 @@
 #include "Matrix.h"
 #include <iostream>
 #include <stdexcept>
+#include <iomanip>
+
 #define NIL -1.0
 
 using namespace std;
@@ -123,12 +125,27 @@ bool Matrix::areValidArguments(int row, int column){
 }
 
 void Matrix::print() {
+    cout << fixed << setprecision(6) << setfill(' ');
     for(int i = 0; i<rows; i++){
         for(int j=0;j<columns;j++){
-            cout << at(i,j) << " ";
+            cout << setw(9) <<at(i,j) << " ";
         }
         cout <<endl;
     }
 }
 
-Matrix::~Matrix(){}
+Matrix::~Matrix(){
+    for(int i = 0; i < rows; i++) {
+        free(values[i]);
+    }
+    free(values);
+}
+
+void Matrix::setRow(int row, double value[], int size) {
+    if(size != columns) {
+        throw std::invalid_argument("Invalid argument of size");
+    }
+    for(int j = 0; j <size; j++) {
+        set(row, j, value[j]);
+    }
+}

@@ -25,6 +25,7 @@ class Matrix {
 
         void set(int row, int column, double value);
         void setRow(int row, double* value);
+        void setRow(int row, double value[], int size);
         void print();
 
     private:
