@@ -6,10 +6,16 @@ using namespace std;
 
 void testeExecute(Matrix* W);
 Matrix* generateW();
+Matrix* generateW2();
 
 int main() {
     Matrix*W = generateW();
 
+    cout << endl << "==========Testing Execute==========" << endl;
+    testeExecute(W);
+    cout << endl;
+
+    W = generateW2();
     cout << endl << "==========Testing Execute==========" << endl;
     testeExecute(W);
     cout << endl;
@@ -33,6 +39,20 @@ Matrix* generateW(){
     
     double rowValues5[5] = {0, 0, 0, 3, 1};
     W->setRow(4, rowValues5 , 5);
+
+    return W;
+}
+
+Matrix* generateW2() {
+    Matrix* W = new Matrix(3, 3);
+    double rowValues1[3] = {12, -51, 4};
+    W->setRow(0, rowValues1 , 3);
+
+    double rowValues2[3] = {6, 167, -68};
+    W->setRow(1, rowValues2 , 3);
+    
+    double rowValues3[3] = {-4, 24, -41};
+    W->setRow(2, rowValues3 , 3);
 
     return W;
 }

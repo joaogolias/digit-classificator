@@ -47,8 +47,13 @@ void QrFactorization::Q(Matrix* W, double i, double j, double k) {
         s = calculateS(isWiGreatest, 0, tau);
         c = calculateC(isWiGreatest, s, tau);
     }
-    W->set(i,k, c*wi-s*wj);
-    W->set(j,k, s*wi+c*wj);
+    for(int u = k; u < W->columns; u++) {
+        wi = W->at(i, u);
+        wj = W->at(j, u);
+        W->set(i,u, c*wi-s*wj);
+        W->set(j,u, s*wi+c*wj);
+    }
+    
 }
 
 Matrix* QrFactorization::execute() {
