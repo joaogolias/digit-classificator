@@ -63,7 +63,16 @@ Matrix* Matrix::add(Matrix* B) {
 }
 
 Matrix* Matrix::subtract(Matrix *B){
-    return add(B->mutiplyByConstant(-1.0, true));
+    if(rows == B->rows && columns == B-> columns) {
+        Matrix* returnMatrix = copy();
+        for(int i = 0; i<rows; i++) {
+            for(int j=0; j<columns; j++) {
+                returnMatrix->set(i, j, at(i,j) - B->at(i,j));
+            }
+        }
+        return returnMatrix;
+    }
+    else throw std::invalid_argument("Demensions don't match");
 }
 
 Matrix* Matrix::multiply(Matrix* B) {
@@ -125,10 +134,10 @@ bool Matrix::areValidArguments(int row, int column){
 }
 
 void Matrix::print() {
-    cout << fixed << setprecision(6) << setfill(' ');
+    cout << fixed << setprecision(15) << setfill(' ');
     for(int i = 0; i<rows; i++){
         for(int j=0;j<columns;j++){
-            cout << setw(9) <<at(i,j) << " ";
+            cout << setw(18) << at(i,j) << " ";
         }
         cout <<endl;
     }

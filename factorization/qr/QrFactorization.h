@@ -20,9 +20,8 @@ class QrFactorization {
         Matrix* execute();
 
     private: 
-        double calculateTau(bool isWiGreatest, double wj, double wi);
-        double calculateS(bool isWiGreatest, double c, double tau);
-        double calculateC(bool isWiGreatest, double s, double tau);
+        double calculateS(double wi, double wj);
+        double calculateC(double wi, double wj);
 
 };
 

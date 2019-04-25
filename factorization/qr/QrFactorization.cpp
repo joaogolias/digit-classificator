@@ -12,57 +12,41 @@ QrFactorization::~QrFactorization() {
 }
 
 //k = coluna
-double QrFactorization::calculateTau(bool isWiGreatest, double wj, double wi){
-    if(isWiGreatest){
-        return -wj/wi;
-    } 
-    return -wi/wj;
+
+double QrFactorization::calculateS(double wi, double wj){
+    return -wj/sqrt(wi*wi+wj*wj);
 }
 
-double QrFactorization::calculateS(bool isWiGreatest, double c, double tau){
-    if(isWiGreatest){
-        return c*tau;
-    }
-    return 1/sqrt(1+tau*tau);
-}
-
-double QrFactorization::calculateC(bool isWiGreatest, double s, double tau){
-    if(isWiGreatest){
-        return 1/sqrt(1+tau*tau);
-    }
-    return s*tau;
+double QrFactorization::calculateC(double wi, double wj){
+    return wi/sqrt(wi*wi+wj*wj);
 }
 
 void QrFactorization::Q(Matrix* W, double i, double j, double k) {
-    double wi = W->at(i, k);
-    double wj = W->at(j, k);
-    bool isWiGreatest = abs(wi)>abs(wj);
-    double tau = calculateTau(isWiGreatest, wj, wi);
-    double c;
-    double s;
-    if(isWiGreatest) {
-        c = calculateC(isWiGreatest, 0, tau);
-        s = calculateS(isWiGreatest, c, tau);
-    } else {
-        s = calculateS(isWiGreatest, 0, tau);
-        c = calculateC(isWiGreatest, s, tau);
-    }
-    for(int u = k; u < W->columns; u++) {
+    double wi = W->at(i, k-1);
+    double wj = W->at(j, k-1);
+    double c = calculateC(wi, wj);
+    double s = calculateS(wi,wj);
+    // cout << "Matrix da iteracao " << k << endl;
+
+    for(int u = k-1; u < W->columns; u++) {
         wi = W->at(i, u);
         wj = W->at(j, u);
+        double bi = c*wi-s*wj;
+        double bj = s*wi+c*wj;
+        // cout << "wi: "<< wi << endl << "wj: " << wj << endl;
+        // cout << "bi: "<< wi << endl << "bj: " << bj << endl;
         W->set(i,u, c*wi-s*wj);
         W->set(j,u, s*wi+c*wj);
     }
-    
 }
 
 Matrix* QrFactorization::execute() {
     Matrix* result = W->copy();
-    for(int k = 1; k <= result->columns-1; k++) {
-        for(int j = result->rows -1; j >= k+1; j--){
+    for(int k = 1; k <= result->columns; k++) {
+        for(int j = result->rows; j >= k+1; j--){
             int i = j - 1;
-            if(W->at(j,k) != 0) {
-                Q(result, i, j, k);
+            if(W->at(j-1,k-1) != 0) {
+                Q(result, i-1, j-1, k);
             }
         }
     }
