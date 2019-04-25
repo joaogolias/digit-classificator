@@ -1,6 +1,6 @@
 #include <iostream>
 #include "MatrixGenerator.h"
-#include "../matrix/Matrix.h"
+#include "../../modules/basic/matrix/Matrix.h"
 
 Matrix* MatrixGenerator::identity(int dimension) {
     Matrix* matrix = new Matrix(dimension, dimension);
