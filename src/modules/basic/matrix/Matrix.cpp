@@ -158,3 +158,26 @@ void Matrix::setRow(int row, double value[], int size) {
         set(row, j, value[j]);
     }
 }
+
+bool Matrix::isEqualsTo(Matrix* compare) {
+    if(columns != compare->columns || rows != compare->rows) {
+        return false;
+    }
+    for(int i = 0; i < rows; i++) {
+        for (int j = 0; j<columns; j++){
+            if(at(i,j) != compare->at(i,j)){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+
+bool Matrix::isEqualsTo(Testable* compare) {
+    Matrix* M = dynamic_cast<Matrix*>(compare);
+    if(M != NULL) {
+        return isEqualsTo(M);
+    }
+    return false;
+}
