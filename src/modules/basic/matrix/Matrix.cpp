@@ -184,7 +184,7 @@ bool Matrix::isEqualsTo(Testable* compare) {
 bool Matrix::isANonNegativeMatrix(){
     for(int i = 0; i < rows; i++) {
         for (int j = 0; j<columns; j++){
-            if(at(i,j) <= 0) {
+            if(at(i,j) < 0) {
                 return false;
             }
         }

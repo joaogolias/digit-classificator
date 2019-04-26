@@ -3,7 +3,8 @@
 #include <iostream>
 
 void matrixSum();
-void matrixIsNonNegative();
+void negativeMatrixIsNonNegative();
+void nullMatrixIsNonNegative();
 using namespace std;
 
 int main() {
@@ -12,7 +13,11 @@ int main() {
     cout << endl;
 
     cout << endl << "2. ";
-    matrixIsNonNegative();
+    negativeMatrixIsNonNegative();
+    cout << endl;
+
+    cout << endl << "3. ";
+    nullMatrixIsNonNegative();
     cout << endl;
 
 
@@ -39,9 +44,9 @@ void matrixSum() {
     testManager -> assertEquals(C, B);
 }
 
-void matrixIsNonNegative() {
-    cout << "Testing Matrix Is NonNegative: ";
-    double Mvalues[2][2] = {{0,1}, {1,-1}};
+void negativeMatrixIsNonNegative() {
+    cout << "Testing Is NonNegative to Nagative Matrix: ";
+    double Mvalues[2][2] = {{0,1}, {1, -1}};
     Matrix *M = new Matrix(2,2);
     for(int i = 0; i < 2; i++) {
         M->setRow(i, Mvalues[i]);
@@ -49,4 +54,16 @@ void matrixIsNonNegative() {
 
     TestManager* testManager = new TestManager();
     testManager->assertEquals(M->isANonNegativeMatrix(), false);
+}
+
+void nullMatrixIsNonNegative() {
+    cout << "Testing Is NonNegative to Null Matrix: ";
+    double Mvalues[2][2] = {{0,0}, {0,0}};
+    Matrix *M = new Matrix(2,2);
+    for(int i = 0; i < 2; i++) {
+        M->setRow(i, Mvalues[i]);
+    }
+
+    TestManager* testManager = new TestManager();
+    testManager->assertEquals(M->isANonNegativeMatrix(), true);
 }
