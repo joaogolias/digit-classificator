@@ -173,11 +173,21 @@ bool Matrix::isEqualsTo(Matrix* compare) {
     return true;
 }
 
-
 bool Matrix::isEqualsTo(Testable* compare) {
     Matrix* M = dynamic_cast<Matrix*>(compare);
     if(M != NULL) {
         return isEqualsTo(M);
     }
     return false;
+}
+
+bool Matrix::isANonNegativeMatrix(){
+    for(int i = 0; i < rows; i++) {
+        for (int j = 0; j<columns; j++){
+            if(at(i,j) <= 0) {
+                return false;
+            }
+        }
+    }
+    return true;
 }

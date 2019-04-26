@@ -1,6 +1,7 @@
 #include "./Matrix.h"
 #include <iostream>
 #include <stdexcept>
+#include <math.h>
 
 using namespace std;
 
@@ -12,6 +13,7 @@ void multiplyMatrix();
 void multiplyMatrix2();
 void multiplyMatrixError();
 void testTranspose();
+void testIsANonNegativeMatrix();
 
 int main(){
     cout << endl << "==========Testing Vector==========" << endl;
@@ -44,6 +46,11 @@ int main(){
 
     cout << endl << "==========Testing Transpose Matrix==========" << endl;
     testTranspose();
+    cout << endl;
+    return 0;
+
+    cout << endl << "==========Testing Transpose Matrix==========" << endl;
+    testIsANonNegativeMatrix();
     cout << endl;
     return 0;
 }
@@ -238,4 +245,18 @@ void testTranspose() {
     delete A;
 }
 
+void testIsANonNegativeMatrix(){
+    Matrix *A = new Matrix(2,2);
+    for(int i = 0; i < A->rows; i++) {
+        for (int j = 0; j < A->columns; j++) {
+            A->set(i,j, pow(-1, i+j));
+        }
+    }
+
+    cout << "Matrix A: " << endl;
+    A->print();
+    cout << endl;  
+
+    cout << "Matrix A is a nonnegative matrix: " << A->isANonNegativeMatrix << endl;
+}
 
