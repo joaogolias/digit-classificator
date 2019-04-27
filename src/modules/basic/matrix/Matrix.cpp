@@ -124,6 +124,8 @@ double* Matrix::getRow(int row){
 }
 
 bool Matrix::areValidArguments(int row, int column){
+    // cout << row << endl << column;
+    // cout << "columns: " << columns << endl << "rows: " << rows << endl;
     bool validColumn = true;
     bool validRow = true;
     if(column != NIL && column >= columns) validColumn = false; 

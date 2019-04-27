@@ -18,3 +18,8 @@ then
     ./QRFactorizationTest.out
 fi
 
+if [ $1 = "TriangularSystemsSolver" ] 
+then
+    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp tests/testmanager/TestManager.cpp tests/modules/systems/triangularsystemsolver/TriangularSystemsSolverTest.cpp -o TriangularSystemsSolverTest.out
+    ./TriangularSystemsSolverTest.out
+fi
