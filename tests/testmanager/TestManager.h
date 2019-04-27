@@ -4,6 +4,7 @@
 
 class TestManager {
     public:
+       void assertEquals(Testable* actual, Testable* expected);
        void assertEquals(Testable* actual, Testable* expexted);
        void assertEquals(bool actual, bool expected);
        TestManager();

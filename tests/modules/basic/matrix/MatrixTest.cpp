@@ -3,6 +3,8 @@
 #include <iostream>
 
 void matrixSum();
+void matrixMultiply();
+
 void negativeMatrixIsNonNegative();
 void nullMatrixIsNonNegative();
 using namespace std;
@@ -10,6 +12,10 @@ using namespace std;
 int main() {
     cout << endl << "1. ";
     matrixSum();
+
+
+    cout << endl << "2. ";
+    matrixMultiply();
     cout << endl;
 
     cout << endl << "2. ";
@@ -26,6 +32,7 @@ int main() {
 
 void matrixSum() {
     cout << "Testing Matrix Sum: ";
+
     double Mvalues[2][2] = {{0,0}, {0,0}};
     Matrix *M = new Matrix(2,2);
     for(int i = 0; i < 2; i++) {
@@ -42,6 +49,27 @@ void matrixSum() {
 
     TestManager* testManager = new TestManager();
     testManager -> assertEquals(C, B);
+}
+
+void matrixMultiply(){
+    cout << "Testing Matrix Multiply: ";
+
+    double Mvalues[2][2] = {{0,0}, {0,0}};
+    Matrix *A = new Matrix(2,2);
+    for(int i = 0; i < 2; i++) {
+        A->setRow(i, Mvalues[i]);
+    }
+
+    double Bvalues[2][2] = {{1,1}, {1,1}};
+    Matrix *B = new Matrix(2,2);
+    for(int i = 0; i < 2; i++) {
+        B->setRow(i, Mvalues[i]);
+    }
+
+    Matrix *C = A->multiply(B);
+
+    TestManager* testManager = new TestManager();
+    testManager -> assertEquals(C, A);
 }
 
 void negativeMatrixIsNonNegative() {

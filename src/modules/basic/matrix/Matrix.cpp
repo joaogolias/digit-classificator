@@ -47,6 +47,7 @@ Matrix* Matrix::copy(){
         copyMatrix->setRow(i, values[i]);
     }
     return copyMatrix;
+    
 }
         
 Matrix* Matrix::add(Matrix* B) {

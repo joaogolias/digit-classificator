@@ -1,4 +1,5 @@
 echo Running $1Test.cpp
+
 if [ $1 = "Matrix" ] 
 then
     g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp tests/testmanager/TestManager.cpp tests/testable/Testable.cpp tests/modules/basic/matrix/MatrixTest.cpp -o MatrixTest.out
