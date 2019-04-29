@@ -9,12 +9,21 @@ TestManager::~TestManager() {}
 TestManager::TestManager() {}
 
 
-void TestManager::assertEquals(Testable* actual, Testable* expected){
+TestManager* TestManager::assertEquals(Testable* actual, Testable* expected){
     if(actual->isEqualsTo(expected)){
-        cout << "Test passed successfully" << endl;
-        return;
+        testResult = testResult && true;
+    } else {
+        testResult = testResult && false;
     }
-    cout << "Test failed :(" << endl;
+    return this;
+}
+
+void TestManager::result() {
+    if(testResult) {
+        cout << "Test passed successfully" << endl;
+    } else {
+        cout << "Test failed :(" << endl;
+    }
 }
 
 void TestManager::assertEquals(bool actual,bool expected){

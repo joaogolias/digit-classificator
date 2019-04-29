@@ -1,11 +1,17 @@
-#include "QrFactorization.h"
-#include "../../basic/matrix/Matrix.h"
+#include "../../../../src/modules/factorization/qr/QrFactorization.h"
+#include "../../../../src/modules/basic/matrix/Matrix.h"
+#include "../../../testmanager/TestManager.h"
+#include "../../../../src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.cpp"
 #include <iostream>
 #include <math.h>
 
 using namespace std;
 
-void testeExecute(Matrix* W);
+TestManager* testManager;
+TriangularSystemsSolver *solver;
+
+void executeFirstTest();
+Matrix* testExecute(Matrix *A, Matrix *b);
 void testQ(Matrix *W);
 Matrix* generateW();
 Matrix* generateW2();
@@ -13,22 +19,11 @@ void getSoluction(Matrix* M);
 Matrix* generateW3();
 
 int main() {
-    Matrix*W = generateW3();
-    cout << endl << "==========Testing QR Factorization==========" << endl;
-    cout << endl << "Input Matrix: " << endl;
-    W->print();
-    cout << endl << "Output Matrix: " << endl;
-    testeExecute(W);
-    cout << endl;
-    cout << endl << "Correct Solution: "<< endl;
-    W->set(2,2, -W->at(2,2));
-    W->print();
-    W=generateW();
-    // cout << endl << "==========Testing Q==========" << endl;
-    // testQ(W);
-    // cout << endl;
-
-    return 0;
+    testManager = new TestManager();
+    solver = new TriangularSystemsSolver();
+    cout << endl << "1. ";
+    executeFirstTest();
+    return 0; 
 }
 
 Matrix* generateW(){
@@ -95,15 +90,71 @@ void getSoluction(Matrix* M) {
 }
 
 void testQ(Matrix *W) {
-    QrFactorization* qr = new QrFactorization(W);
-    qr->Q(W, 2,3,3);
+    // QrFactorization* qr = new QrFactorization();
+    // qr->Q(W, 2,3,3);
 
-    W->print();
+    // W->print();
 }
 
-void testeExecute(Matrix *W) {
-    QrFactorization* qr = new QrFactorization(W);
-    Matrix *result = qr->execute();
+void executeFirstTest() {
+    cout << "First Testing Execute: ";
 
-    result->print();
+
+    double Avalues[3][3] = {{-1,2,4}, {5,6,6}, {-3,5,9}};
+    Matrix* A = new Matrix(3,3);  
+    for(int i = 0; i < 3; i++) {
+        A->setRow(i,Avalues[i],3);
+    }
+
+    
+    double bvalues[3][1] = {{1}, {2} , {3}};
+    Matrix* b = new Matrix(3,1);
+     for(int i = 0; i < 3; i++) {
+        b->setRow(i,bvalues[i],1);
+    }
+
+    // double Aresultvalues[3][3] = {
+    //     {3.741657386773941, -1.870828693386971, -1.870828693386971}, 
+    //     {0, 3.240370349203930, 1.080123449734643}, 
+    //     {0,0,-1.154700538379251}
+    //     };
+    // Matrix* Aresult = new Matrix(3,3);  
+
+    // for(int i = 0; i < 3; i++) {
+    //     Aresult->setRow(i,Aresultvalues[i],3);
+    // }
+
+    
+    // double bresultvalues[3][1] = {{3}, {-2}, {-6}};
+    // Matrix* bresult = new Matrix(3,1);
+    //  for(int i = 0; i < 3; i++) {
+    //     bresult->setRow(i,bresultvalues[i],1);
+    // }
+
+    // cout << "A result"<<endl;
+    // Aresult -> print();
+
+    // cout << "B result" << endl;
+    // bresult -> print();
+
+    Matrix *result = testExecute(A,b);
+
+     cout << "A: " << endl;
+    A->print();
+
+    cout << "b: "<< endl;
+    b->print();
+
+    // testManager
+    //     ->assertEquals(result, Aresult)
+    //     ->assertEquals(b, bresult)
+    //     ->result();
 }
+
+Matrix* testExecute(Matrix *A, Matrix *b) {
+    QrFactorization* qr = new QrFactorization();
+    Matrix *result = qr->execute(A, b);
+    // Matrix *result2 = qr->execute(b, NULL);
+    // result2->print();
+    return result;
+} 

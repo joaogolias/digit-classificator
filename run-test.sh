@@ -14,7 +14,7 @@ fi
 
 if [ $1 = "QR" ] 
 then
-    g++ -std=c++11 factorization/qr/QRFactorization.cpp  factorization/qr/QRFactorizationTest.cpp basic/matrix/Matrix.cpp  -o QRFactorizationTest.out
+    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp tests/modules/factorization/qr/QrFactorizationTest.cpp src/modules/factorization/qr/QrFactorization.cpp tests/testmanager/TestManager.cpp tests/testable/Testable.cpp -o QRFactorizationTest.out
     ./QRFactorizationTest.out
 fi
 

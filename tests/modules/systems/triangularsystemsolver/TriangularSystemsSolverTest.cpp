@@ -27,7 +27,6 @@ void testTriangularMatrix(){
     for(int i = 0; i < 3; i++) {
         A->setRow(i,Avalues[i],3);
     }
-
     
     double bvalues[3][1] = {{3}, {-2}, {-6}};
     Matrix* b = new Matrix(3,1);
@@ -42,5 +41,5 @@ void testTriangularMatrix(){
     }
 
     Matrix* X = solver->solveSystem(A,b);
-    testManager->assertEquals(X, expected);
+    testManager->assertEquals(X, expected)->result();
 }

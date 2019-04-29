@@ -3,9 +3,10 @@
 #include "../testable/Testable.h"
 
 class TestManager {
+    bool testResult = true;
     public:
-       void assertEquals(Testable* actual, Testable* expected);
-       void assertEquals(Testable* actual, Testable* expexted);
+       TestManager* assertEquals(Testable* actual, Testable* expected);
+       void result();
        void assertEquals(bool actual, bool expected);
        TestManager();
        ~TestManager();

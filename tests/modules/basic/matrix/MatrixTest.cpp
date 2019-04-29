@@ -48,7 +48,7 @@ void matrixSum() {
     Matrix *C = M->add(B);
 
     TestManager* testManager = new TestManager();
-    testManager -> assertEquals(C, B);
+    testManager -> assertEquals(C, B)->result();
 }
 
 void matrixMultiply(){
@@ -69,7 +69,7 @@ void matrixMultiply(){
     Matrix *C = A->multiply(B);
 
     TestManager* testManager = new TestManager();
-    testManager -> assertEquals(C, A);
+    testManager -> assertEquals(C, A)->result();
 }
 
 void negativeMatrixIsNonNegative() {
