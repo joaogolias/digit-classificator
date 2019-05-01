@@ -16,3 +16,13 @@ void TestManager::assertEquals(Testable* actual, Testable* expected){
     }
     cout << "Test failed :(" << endl;
 }
+
+void TestManager::assertEquals(bool actual,bool expected){
+    if(actual == expected){
+        cout << "Test passed successfully" << endl;
+        return;
+    }
+    
+    cout << "Test failed :(" << endl;
+}
+
