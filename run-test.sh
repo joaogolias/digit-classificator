@@ -20,6 +20,6 @@ fi
 
 if [ $1 = "TriangularSystemsSolver" ] 
 then
-    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp tests/testmanager/TestManager.cpp tests/modules/systems/triangularsystemsolver/TriangularSystemsSolverTest.cpp -o TriangularSystemsSolverTest.out
+    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp src/modules/factorization/qr/QrFactorization.cpp tests/testmanager/TestManager.cpp src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.cpp tests/modules/systems/triangularsystemsolver/TriangularSystemsSolverTest.cpp -o TriangularSystemsSolverTest.out
     ./TriangularSystemsSolverTest.out
 fi

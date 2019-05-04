@@ -1,6 +1,7 @@
 #include "TriangularSystemsSolver.h"
 #include <stdexcept>
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -39,7 +40,7 @@ bool TriangularSystemsSolver::areValidArguments() {
 bool TriangularSystemsSolver::isTriangularSystem(){
     for(int j = 0; j < W->columns; j++) {
         for(int i = W->rows-1; i >= j+1; i--){
-            if(W->at(i,j) != 0){
+            if(abs(W->at(i,j) - 0) > 0.001){
                 throw std::invalid_argument("W must be triangular");
             }
         }

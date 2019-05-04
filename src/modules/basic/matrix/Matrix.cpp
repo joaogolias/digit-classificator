@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <iomanip>
+#include <math.h>
 
 #define NIL -1.0
 
@@ -44,7 +45,9 @@ void Matrix::setRow(int row, double* value){
 Matrix* Matrix::copy(){
     Matrix *copyMatrix = new Matrix(rows, columns);
     for(int i = 0; i < rows; i++) {
-        copyMatrix->setRow(i, values[i]);
+        for(int j = 0; j<columns; j++) {
+            copyMatrix->set(i,j,at(i,j));
+        }
     }
     return copyMatrix;
     
@@ -168,7 +171,7 @@ bool Matrix::isEqualsTo(Matrix* compare) {
     }
     for(int i = 0; i < rows; i++) {
         for (int j = 0; j<columns; j++){
-            if(at(i,j) != compare->at(i,j)){
+            if(abs(at(i,j) - compare->at(i,j)) > 0.001){
                 return false;
             }
         }

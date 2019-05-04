@@ -113,48 +113,33 @@ void executeFirstTest() {
         b->setRow(i,bvalues[i],1);
     }
 
-    // double Aresultvalues[3][3] = {
-    //     {3.741657386773941, -1.870828693386971, -1.870828693386971}, 
-    //     {0, 3.240370349203930, 1.080123449734643}, 
-    //     {0,0,-1.154700538379251}
-    //     };
-    // Matrix* Aresult = new Matrix(3,3);  
+    double Aresultvalues[3][3] = {
+        {5.916, 2.197, -0.169}, 
+        {0, 7.757, 11.521}, 
+        {0,0,0.479}
+        };
+    Matrix* Aresult = new Matrix(3,3);  
 
-    // for(int i = 0; i < 3; i++) {
-    //     Aresult->setRow(i,Aresultvalues[i],3);
-    // }
-
+    for(int i = 0; i < 3; i++) {
+        Aresult->setRow(i,Aresultvalues[i],3);
+    }
     
-    // double bresultvalues[3][1] = {{3}, {-2}, {-6}};
-    // Matrix* bresult = new Matrix(3,1);
-    //  for(int i = 0; i < 3; i++) {
-    //     bresult->setRow(i,bresultvalues[i],1);
-    // }
-
-    // cout << "A result"<<endl;
-    // Aresult -> print();
-
-    // cout << "B result" << endl;
-    // bresult -> print();
+    double bresultvalues[3][1] = {{-0}, {3.738}, {-0.152}};
+    Matrix* bresult = new Matrix(3,1);
+     for(int i = 0; i < 3; i++) {
+        bresult->setRow(i,bresultvalues[i],1);
+    }
 
     Matrix *result = testExecute(A,b);
 
-     cout << "A: " << endl;
-    A->print();
-
-    cout << "b: "<< endl;
-    b->print();
-
-    // testManager
-    //     ->assertEquals(result, Aresult)
-    //     ->assertEquals(b, bresult)
-    //     ->result();
+    testManager
+        ->assertEquals(result, Aresult)
+        ->assertEquals(b, bresult)
+        ->result();
 }
 
 Matrix* testExecute(Matrix *A, Matrix *b) {
     QrFactorization* qr = new QrFactorization();
     Matrix *result = qr->execute(A, b);
-    // Matrix *result2 = qr->execute(b, NULL);
-    // result2->print();
     return result;
 } 
