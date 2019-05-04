@@ -10,8 +10,9 @@ class Matrix : public Testable {
         int columns = 0;
         int rows = 0;
         
-        bool isEqualsTo(Matrix* M); 
+        bool isEqualsTo(Matrix* M, double error); 
         bool isEqualsTo(Testable* compareObject);
+        bool isEqualsTo(Testable* compareObject, double error);
 
         Matrix(int col, int r);
         ~Matrix();

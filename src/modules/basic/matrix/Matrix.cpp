@@ -165,13 +165,13 @@ void Matrix::setRow(int row, double value[], int size) {
     }
 }
 
-bool Matrix::isEqualsTo(Matrix* compare) {
+bool Matrix::isEqualsTo(Matrix* compare, double error) {
     if(columns != compare->columns || rows != compare->rows) {
         return false;
     }
     for(int i = 0; i < rows; i++) {
         for (int j = 0; j<columns; j++){
-            if(abs(at(i,j) - compare->at(i,j)) > 0.001){
+            if(abs(at(i,j) - compare->at(i,j)) > error){
                 return false;
             }
         }
@@ -180,9 +180,13 @@ bool Matrix::isEqualsTo(Matrix* compare) {
 }
 
 bool Matrix::isEqualsTo(Testable* compare) {
+    return isEqualsTo(compare, 0.001);
+}
+
+bool Matrix::isEqualsTo(Testable* compare, double error) {
     Matrix* M = dynamic_cast<Matrix*>(compare);
     if(M != NULL) {
-        return isEqualsTo(M);
+        return isEqualsTo(M, error);
     }
     return false;
 }

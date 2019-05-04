@@ -6,7 +6,9 @@ class Matrix;
 
 class FirstTask {
     public:
-        Matrix* exerciseResultA(Matrix* w, Matrix *b, bool validate);
+        Matrix* resultOfExerciseA(Matrix* w, Matrix *b);
+        Matrix* resultOfExerciseB(Matrix* w, Matrix *b);
+
 
 };
 #endif

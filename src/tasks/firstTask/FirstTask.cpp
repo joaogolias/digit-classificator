@@ -10,7 +10,7 @@ QrFactorization *qr = new QrFactorization();
 TriangularSystemsSolver* solver = new TriangularSystemsSolver();
 
 
-Matrix* FirstTask::exerciseResultA(Matrix* w, Matrix *b, bool printIntermediarySteps) {
+Matrix* FirstTask::resultOfExerciseA(Matrix* w, Matrix *b) {
     int w_size = w->columns;
     int i, j;
     for(i = 1; i < w_size+1; i++) {
@@ -38,5 +38,27 @@ Matrix* FirstTask::exerciseResultA(Matrix* w, Matrix *b, bool printIntermediaryS
     Matrix *r = qr->execute(w,b_copy);
     Matrix*x = solver->solveSystem(r,b_copy);
    
+    return x;
+}
+
+Matrix* FirstTask::resultOfExerciseB(Matrix* w, Matrix *b) {
+    int i, j;
+    for(i=1 ; i<w->rows+1 ; i++) {
+        for(j=1 ; j < w->columns+1; j++) {
+            if(abs(i*1.0 - j*1.0) <= 4) {
+                w->set(i-1,j-1, 1.0/(i+j-1));
+            } else {
+                w->set(i-1,j-1, 0);
+            }
+        }
+    }
+
+    for(i=1;i<b->rows+1;i++) {
+        b->set(i-1,0,i);
+    }
+
+    Matrix* b_copy = b->copy();
+    Matrix* r = qr->execute(w, b_copy);
+    Matrix* x = solver->solveSystem(r, b_copy);
     return x;
 }
