@@ -1,6 +1,5 @@
 #ifndef MATRIX_H
 #define MATRIX_H
-// #include "../../factorization/qr/QrFactorization.h"
 #include "../../../../tests/comparable/Comparable.h"
 
 class Comparable;
@@ -13,7 +12,6 @@ class Matrix : public Comparable {
         int rows = 0;
         
         bool isEqualsTo(Matrix* M, double error); 
-        bool isEqualsTo(Comparable* compareObject);
         bool isEqualsTo(Comparable* compareObject, double error);
 
         Matrix(int col, int r);

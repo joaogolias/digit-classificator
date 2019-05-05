@@ -3,8 +3,7 @@
 
 class Comparable {
     public:
-        virtual bool isEqualsTo(Comparable* compareObject) = 0;
-        virtual bool isEqualsTo(Comparable* compareObject, double error) = 0;
+        virtual bool isEqualsTo(Comparable* compareObject, double error=0.001) = 0;
 };
 
 #endif
