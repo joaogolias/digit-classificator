@@ -188,11 +188,11 @@ bool Matrix::isEqualsTo(Matrix* compare, double error) {
     return true;
 }
 
-bool Matrix::isEqualsTo(Testable* compare) {
+bool Matrix::isEqualsTo(Comparable* compare) {
     return isEqualsTo(compare, 0.001);
 }
 
-bool Matrix::isEqualsTo(Testable* compare, double error) {
+bool Matrix::isEqualsTo(Comparable* compare, double error) {
     Matrix* M = dynamic_cast<Matrix*>(compare);
     if(M != NULL) {
         return isEqualsTo(M, error);

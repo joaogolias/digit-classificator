@@ -3,6 +3,8 @@
 // #include "../../factorization/qr/QrFactorization.h"
 #include "../../../../tests/comparable/Comparable.h"
 
+class Comparable;
+
 class Matrix : public Comparable {
     double **values;
 
@@ -11,8 +13,8 @@ class Matrix : public Comparable {
         int rows = 0;
         
         bool isEqualsTo(Matrix* M, double error); 
-        bool isEqualsTo(Testable* compareObject);
-        bool isEqualsTo(Testable* compareObject, double error);
+        bool isEqualsTo(Comparable* compareObject);
+        bool isEqualsTo(Comparable* compareObject, double error);
 
         Matrix(int col, int r);
         ~Matrix();

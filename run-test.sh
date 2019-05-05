@@ -2,7 +2,7 @@ echo Running $1Test.cpp
 
 if [ $1 = "Matrix" ] 
 then
-    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp tests/testmanager/TestManager.cpp tests/testable/Testable.cpp tests/modules/basic/matrix/MatrixTest.cpp -o MatrixTest.out
+    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp tests/testmanager/TestManager.cpp tests/comparable/Comparable.cpp tests/modules/basic/matrix/MatrixTest.cpp -o MatrixTest.out
     ./MatrixTest.out
 fi
 
@@ -14,7 +14,7 @@ fi
 
 if [ $1 = "QR" ] 
 then
-    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp tests/modules/factorization/qr/QrFactorizationTest.cpp src/modules/factorization/qr/QrFactorization.cpp tests/testmanager/TestManager.cpp tests/testable/Testable.cpp -o QRFactorizationTest.out
+    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp tests/modules/factorization/qr/QrFactorizationTest.cpp src/modules/factorization/qr/QrFactorization.cpp tests/testmanager/TestManager.cpp tests/comparable/Comparable.cpp -o QRFactorizationTest.out
     ./QRFactorizationTest.out
 fi
 

@@ -18,7 +18,7 @@ void TestManager::result() {
     }
 }
 
-TestManager* TestManager::assertEquals(Testable* actual, Testable* expected){
+TestManager* TestManager::assertEquals(Comparable* actual, Comparable* expected){
     testResult = testResult && (actual->isEqualsTo(expected));
     return this;
 }
