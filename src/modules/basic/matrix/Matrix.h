@@ -1,9 +1,9 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 // #include "../../factorization/qr/QrFactorization.h"
-#include "../../../../tests/testable/Testable.h"
+#include "../../../../tests/comparable/Comparable.h"
 
-class Matrix : public Testable {
+class Matrix : public Comparable {
     double **values;
 
     public: 
