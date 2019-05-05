@@ -1,23 +1,25 @@
 #ifndef MATRIX_H
 #define MATRIX_H
-// #include "../../factorization/qr/QrFactorization.h"
-#include "../../../../tests/testable/Testable.h"
+#include "../../../../tests/comparable/Comparable.h"
 
-class Matrix : public Testable {
+class Comparable;
+
+class Matrix : public Comparable {
     double **values;
 
     public: 
         int columns = 0;
         int rows = 0;
         
-        bool isEqualsTo(Matrix* M); 
-        bool isEqualsTo(Testable* compareObject);
+        bool isEqualsTo(Matrix* M, double error); 
+        bool isEqualsTo(Comparable* compareObject, double error);
 
         Matrix(int col, int r);
         ~Matrix();
 
         double at(int row, int column);
         double* getRow(int row);
+        double calculateFrobeniusNorm();
 
         Matrix* copy();
         Matrix* add(Matrix* B);

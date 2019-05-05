@@ -8,21 +8,19 @@ class Matrix;
 
 class QrFactorization {
     Matrix* W;
+    Matrix *b;
     public:
-        QrFactorization(Matrix* W);
-        
-        void generate();
-        void Q(Matrix* W, double i, double j, double k);
-
+        QrFactorization();
         ~QrFactorization();
 
+        void Q(Matrix* W, double i, double j, double k, double c, double s);
 
-        Matrix* execute();
+        Matrix* executeForOneSystem(Matrix* W, Matrix *b);
+        Matrix* execute(Matrix* W, Matrix *A);
 
     private: 
         double calculateS(double wi, double wj);
         double calculateC(double wi, double wj);
-
 };
 
 #endif

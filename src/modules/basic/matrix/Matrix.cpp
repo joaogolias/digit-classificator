@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <iomanip>
+#include <math.h>
 
 #define NIL -1.0
 
@@ -29,6 +30,15 @@ double Matrix::at(int row, int column){
     return NIL;
 }
 
+double Matrix::calculateFrobeniusNorm() {
+    double norm = 0.0;
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j<columns; j++) {
+            norm += at(i,j)*at(i,j);
+        }
+    }
+    return sqrt(norm);
+}
 void Matrix::set(int row, int column, double value) {
     if(areValidArguments(row, column)){
         values[row][column] = value;
@@ -44,9 +54,12 @@ void Matrix::setRow(int row, double* value){
 Matrix* Matrix::copy(){
     Matrix *copyMatrix = new Matrix(rows, columns);
     for(int i = 0; i < rows; i++) {
-        copyMatrix->setRow(i, values[i]);
+        for(int j = 0; j<columns; j++) {
+            copyMatrix->set(i,j,at(i,j));
+        }
     }
     return copyMatrix;
+    
 }
         
 Matrix* Matrix::add(Matrix* B) {
@@ -123,6 +136,8 @@ double* Matrix::getRow(int row){
 }
 
 bool Matrix::areValidArguments(int row, int column){
+    // cout << row << endl << column;
+    // cout << "columns: " << columns << endl << "rows: " << rows << endl;
     bool validColumn = true;
     bool validRow = true;
     if(column != NIL && column >= columns) validColumn = false; 
@@ -159,13 +174,13 @@ void Matrix::setRow(int row, double value[], int size) {
     }
 }
 
-bool Matrix::isEqualsTo(Matrix* compare) {
+bool Matrix::isEqualsTo(Matrix* compare, double error) {
     if(columns != compare->columns || rows != compare->rows) {
         return false;
     }
     for(int i = 0; i < rows; i++) {
         for (int j = 0; j<columns; j++){
-            if(at(i,j) != compare->at(i,j)){
+            if(abs(at(i,j) - compare->at(i,j)) > error){
                 return false;
             }
         }
@@ -173,10 +188,10 @@ bool Matrix::isEqualsTo(Matrix* compare) {
     return true;
 }
 
-bool Matrix::isEqualsTo(Testable* compare) {
+bool Matrix::isEqualsTo(Comparable* compare, double error) {
     Matrix* M = dynamic_cast<Matrix*>(compare);
     if(M != NULL) {
-        return isEqualsTo(M);
+        return isEqualsTo(M, error);
     }
     return false;
 }
