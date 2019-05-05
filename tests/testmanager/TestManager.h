@@ -6,8 +6,8 @@ class TestManager {
     bool testResult = true;
     public:
        TestManager* assertEquals(Testable* actual, Testable* expected);
+       TestManager*  assertEquals(bool actual, bool expected);
        void result();
-       void assertEquals(bool actual, bool expected);
        TestManager();
        ~TestManager();
 };

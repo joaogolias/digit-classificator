@@ -26,12 +26,8 @@ void TestManager::result() {
     }
 }
 
-void TestManager::assertEquals(bool actual,bool expected){
-    if(actual == expected){
-        cout << "Test passed successfully" << endl;
-        return;
-    }
-    
-    cout << "Test failed :(" << endl;
+TestManager* TestManager::assertEquals(bool actual,bool expected){
+    testResult = testResult && (actual == expected);
+    return this;
 }
 
