@@ -30,6 +30,15 @@ double Matrix::at(int row, int column){
     return NIL;
 }
 
+double Matrix::calculateFrobeniusNorm() {
+    double norm = 0.0;
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j<columns; j++) {
+            norm += at(i,j)*at(i,j);
+        }
+    }
+    return sqrt(norm);
+}
 void Matrix::set(int row, int column, double value) {
     if(areValidArguments(row, column)){
         values[row][column] = value;

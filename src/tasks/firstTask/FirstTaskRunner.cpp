@@ -48,5 +48,5 @@ void runExerciseB(bool printResult) {
     } else {
         cout << "but W*X != b" << endl;
     }
-
+    cout << "Norm: "<<  b->subtract(W->multiply(x))->calculateFrobeniusNorm() << endl;
 }

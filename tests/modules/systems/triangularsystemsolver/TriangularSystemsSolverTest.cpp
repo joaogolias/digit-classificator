@@ -13,6 +13,8 @@ QrFactorization* qr;
 
 void testTriangularMatrix();
 void testQRAndSystemSolving();
+void testQRForOverdeterminatedSystem();
+void mmqOverdeterminatedSystemTest();
 
 int main(){
     testManager = new TestManager();
@@ -24,6 +26,12 @@ int main(){
 
     cout << endl << "2. ";
     testQRAndSystemSolving();
+
+    cout << endl << "3. ";
+    testQRForOverdeterminatedSystem();
+
+    cout << endl << "4. ";
+    mmqOverdeterminatedSystemTest();
 
     return 0;
 }
@@ -80,4 +88,48 @@ void testQRAndSystemSolving(){
     }
 
     testManager->assertEquals(X, expected)->result();
+}
+
+
+void testQRForOverdeterminatedSystem() {
+    //https://s-mat-pcs.oulu.fi/~mpa/matreng/eem1_7-1.htm
+    Matrix* A = new Matrix(4,3);
+
+    double Avalues[4][3] = {{1,0,-1}, {1,0,-3}, {0,1,1}, {0, -1, 1}};
+    for(int i = 0; i < 4; i++) {
+        A->setRow(i,Avalues[i],3);
+    }
+
+    
+    double bvalues[4][1] = {{4}, {6} , {-1}, {2}};
+    Matrix* b = new Matrix(4,1);
+     for(int i = 0; i < 4; i++) {
+        b->setRow(i,bvalues[i],1);
+    }
+    Matrix *R = qr->execute(A, b);
+
+    //FAZER TESTE
+}
+
+
+void mmqOverdeterminatedSystemTest() {
+    //https://s-mat-pcs.oulu.fi/~mpa/matreng/eem5_5-1.htm
+    Matrix* A = new Matrix(3,2);
+
+    double Avalues[3][2] = {{1, -1}, {1,1}, {2,1}};
+    for(int i = 0; i < 3; i++) {
+        A->setRow(i,Avalues[i],2);
+    }
+    
+    double bvalues[3][1] = {{2}, {4} , {8}};
+    Matrix* b = new Matrix(3,1);
+     for(int i = 0; i < 3; i++) {
+        b->setRow(i,bvalues[i],1);
+    }
+
+    Matrix *b_copy = b->copy();
+    Matrix *R = qr->execute(A, b_copy);
+
+    Matrix* X = solver->solveSystem(R,b_copy);
+    cout << " Norm: "<<  b->subtract(A->multiply(X))->calculateFrobeniusNorm() << endl;
 }

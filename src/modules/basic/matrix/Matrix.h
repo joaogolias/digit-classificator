@@ -19,6 +19,7 @@ class Matrix : public Testable {
 
         double at(int row, int column);
         double* getRow(int row);
+        double calculateFrobeniusNorm();
 
         Matrix* copy();
         Matrix* add(Matrix* B);
