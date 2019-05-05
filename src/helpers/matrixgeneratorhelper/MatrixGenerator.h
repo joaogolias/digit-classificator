@@ -1,7 +1,7 @@
 #ifndef MATRIXGENERATOR_H
 #define MATRIXGENERATOR_H
 
-#include "../matrix/Matrix.h"
+#include "../../modules/basic/matrix/Matrix.h"
 
 class Matrix;
 

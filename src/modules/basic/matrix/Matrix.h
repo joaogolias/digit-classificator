@@ -12,7 +12,7 @@ class Matrix : public Comparable {
         int rows = 0;
         
         bool isEqualsTo(Matrix* M, double error); 
-        bool isEqualsTo(Comparable* compareObject, double error=0.001);
+        bool isEqualsTo(Comparable* compareObject, double error = 0.001);
 
         Matrix(int col, int r);
         ~Matrix();
