@@ -30,6 +30,24 @@ Matrix* TriangularSystemsSolver::solveSystem(Matrix*W, Matrix*b) {
     return NULL;
 }
 
+Matrix* TriangularSystemsSolver::solveSimutaneousSystems(Matrix*W, Matrix*A){
+    int n = A->rows;
+    int m = A->columns;
+    int p = W->columns;
+    Matrix *H = new Matrix(p, m);
+    for(int k=p; k>=1 ; k--){
+        for(int j=1; j<=m; j++) {
+            double finalValue = A->at(k-1,j-1);
+            for(int i = k+1; i<=p; i++) {
+                finalValue = finalValue - (W->at(k-1,i-1)*H->at(i-1,j-1));
+            }
+            finalValue = finalValue/W->at(k-1,k-1);
+            H->set(k-1, j-1, finalValue);
+        }
+    }
+    return H;
+}
+
 bool TriangularSystemsSolver::areValidArguments() {
     if(W->rows == b->rows && isTriangularSystem()){
         return true;

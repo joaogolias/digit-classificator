@@ -11,6 +11,7 @@ class TriangularSystemsSolver {
         TriangularSystemsSolver();
         ~TriangularSystemsSolver();
         Matrix* solveSystem(Matrix*W, Matrix*b);
+        Matrix* solveSimutaneousSystems(Matrix*W, Matrix*A);
     private: 
         bool isTriangularSystem();
         bool areValidArguments();

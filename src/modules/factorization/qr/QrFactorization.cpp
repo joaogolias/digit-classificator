@@ -53,3 +53,29 @@ Matrix* QrFactorization::execute(Matrix* W, Matrix *b) {
     }
     return result;
 }
+
+
+Matrix* QrFactorization::executeSimultaneousSystems(Matrix* W, Matrix *A) {
+    int n = A->rows;
+    int m = A->columns;
+    int p = W->columns;
+    double wi, wj, c, s;
+    Matrix* result = W->copy();
+    for(int k = 1; k <= p; k++) {
+        int j;
+        int i;
+        for(j = n; j >= k+1; j--){
+            i = j - 1;
+            if(W->at(j-1,k-1) != 0) {
+                wi = result->at(i-1, k-1);
+                wj = result->at(j-1, k-1);
+                c = calculateC(wi, wj);
+                s = calculateS(wi,wj);
+                Q(result, i-1, j-1, k, c, s);
+                if(A != NULL) Q(A, i-1,j-1,k,c,s);
+            
+            }
+        }
+    }
+    return result;
+}

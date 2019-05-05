@@ -8,6 +8,7 @@ class FirstTask {
     public:
         Matrix* resultOfExerciseA(Matrix* w, Matrix *b);
         Matrix* resultOfExerciseB(Matrix* w, Matrix *b);
+        Matrix* resultOfExerciseC(Matrix* w, Matrix *a);
 
 
 };
