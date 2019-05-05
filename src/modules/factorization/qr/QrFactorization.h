@@ -11,12 +11,9 @@ class QrFactorization {
     Matrix *b;
     public:
         QrFactorization();
-        
-        void generate();
-        void Q(Matrix* W, double i, double j, double k, double c, double s);
-
         ~QrFactorization();
 
+        void Q(Matrix* W, double i, double j, double k, double c, double s);
 
         Matrix* executeForOneSystem(Matrix* W, Matrix *b);
         Matrix* execute(Matrix* W, Matrix *A);
@@ -24,7 +21,6 @@ class QrFactorization {
     private: 
         double calculateS(double wi, double wj);
         double calculateC(double wi, double wj);
-
 };
 
 #endif

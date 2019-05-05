@@ -9,95 +9,26 @@ using namespace std;
 
 TestManager* testManager;
 TriangularSystemsSolver *solver;
+QrFactorization* qr;
 
-void executeFirstTest();
-Matrix* testExecute(Matrix *A, Matrix *b);
-void testQ(Matrix *W);
-Matrix* generateW();
-Matrix* generateW2();
-void getSoluction(Matrix* M);
-Matrix* generateW3();
+void oneSystemFactorizationQr();
+void qrForOverdeterminatedSystemTest();
 
 int main() {
     testManager = new TestManager();
     solver = new TriangularSystemsSolver();
+    qr = new QrFactorization();
+
     cout << endl << "1. ";
-    executeFirstTest();
+    oneSystemFactorizationQr();
+
+    cout << endl << "2. ";
+    qrForOverdeterminatedSystemTest();
     return 0; 
 }
 
-Matrix* generateW(){
-    Matrix* W = new Matrix(5, 5);
-    double matrix[5][5] = {
-        {2, 1, 1, -1, 1},
-        {0, 3, 0, 1, 2},
-        {0, 0, 2, 2, -1}, 
-        {0, 0, -1, 1, 2}, 
-        {0, 0, 0, 3, 1}
-    };
-    for(int i=0; i<5; i++) {
-        W->setRow(i, matrix[i],5 );
-    };
-    return W;
-}
-
-Matrix* generateW2() {
-    Matrix* W = new Matrix(5, 3);
-    double matrix[5][3] = {
-        {0.8147, 0.0975, 0.1576},
-        {0.9058, 0.2785, 0.9706},
-        {0.1270, 0.5469, 0.9572}, 
-        {0.9134, 0.9575, 0.4854}, 
-        {0.6324, 0.9649, 0.8003}
-    };
-    for(int i=0; i<5; i++) {
-        W->setRow(i, matrix[i], 3);
-    };
-    // W->print();
-    return W;
-}
-
-Matrix* generateW3() {
-    Matrix* W = new Matrix(3, 3);
-    double matrix[3][3] = {
-        {12, -51, 4},
-        {6, 167, -68},
-        {-4, 24, -41}
-    };
-    for(int i=0; i<3; i++) {
-        W->setRow(i, matrix[i], 3);
-    };
-    W->print();
-    return W;
-}
-
-void getSoluction(Matrix* M) {
-    for(int i=0 ; i<M->rows; i++) {
-        cout << i << endl;
-                    cout << M->at(i+1, M->columns-1) << endl;
-             cout << M->at(i, M->columns-1) << endl;
-        if(i == M->rows-1){
-            cout << "here" << endl;
-
-            M->set(i, M->columns-1, -M->at(i, M->columns-1));
-        } else {
-            if(abs(M->at(i+1, M->columns-1)) == 0.00000) {
-                M->set(i, M->columns-1, -M->at(i, M->columns-1));
-                break;
-            }
-        }
-    }
-}
-
-void testQ(Matrix *W) {
-    // QrFactorization* qr = new QrFactorization();
-    // qr->Q(W, 2,3,3);
-
-    // W->print();
-}
-
-void executeFirstTest() {
-    cout << "First Testing Execute: ";
+void oneSystemFactorizationQr() {
+    cout << "Testing Qr factorization for one system: ";
 
 
     double Avalues[3][3] = {{-1,2,4}, {5,6,6}, {-3,5,9}};
@@ -130,7 +61,7 @@ void executeFirstTest() {
         bresult->setRow(i,bresultvalues[i],1);
     }
 
-    Matrix *result = testExecute(A,b);
+    Matrix *result = qr->execute(A,b);
 
     testManager
         ->assertEquals(result, Aresult)
@@ -138,8 +69,35 @@ void executeFirstTest() {
         ->result();
 }
 
-Matrix* testExecute(Matrix *A, Matrix *b) {
-    QrFactorization* qr = new QrFactorization();
-    Matrix *result = qr->execute(A, b);
-    return result;
-} 
+
+void qrForOverdeterminatedSystemTest() {
+    //https://s-mat-pcs.oulu.fi/~mpa/matreng/eem1_7-1.htm
+
+    cout << "Testing Qr factorization for overdeterminated system: ";
+
+    Matrix* A = new Matrix(4,3);
+
+    double Avalues[4][3] = {{1,0,-1}, {1,0,-3}, {0,1,1}, {0, -1, 1}};
+    for(int i = 0; i < 4; i++) {
+        A->setRow(i,Avalues[i],3);
+    }
+
+    
+    double bvalues[4][1] = {{4}, {6} , {-1}, {2}};
+    Matrix* b = new Matrix(4,1);
+     for(int i = 0; i < 4; i++) {
+        b->setRow(i,bvalues[i],1);
+    }
+
+    Matrix *R = qr->execute(A, b);
+
+    double realResultValues[4][3] = {{sqrt(2), 0, -2*sqrt(2)}, {0, sqrt(2), 0}, {0, 0, 2}, {0,0,0}};
+    Matrix* realResult = new Matrix(4,3);
+    for(int i = 0; i < 4; i++) {
+        realResult->setRow(i,realResultValues[i],3);
+    }
+
+    testManager
+        ->assertEquals(R, realResult)
+        ->result();
+}

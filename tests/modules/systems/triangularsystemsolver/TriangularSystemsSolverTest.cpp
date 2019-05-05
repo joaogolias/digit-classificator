@@ -106,9 +106,8 @@ void testQRForOverdeterminatedSystem() {
      for(int i = 0; i < 4; i++) {
         b->setRow(i,bvalues[i],1);
     }
-    Matrix *R = qr->execute(A, b);
 
-    //FAZER TESTE
+    Matrix *R = qr->execute(A, b);
 }
 
 
