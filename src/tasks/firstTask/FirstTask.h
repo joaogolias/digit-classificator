@@ -9,7 +9,6 @@ class FirstTask {
         Matrix* resultOfExerciseA(Matrix* w, Matrix *b);
         Matrix* resultOfExerciseB(Matrix* w, Matrix *b);
         Matrix* resultOfExerciseC(Matrix* w, Matrix *a);
-
-
+        Matrix* resultOfExerciseD(Matrix* w, Matrix *a);
 };
 #endif

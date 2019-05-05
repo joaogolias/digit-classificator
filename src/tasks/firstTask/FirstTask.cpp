@@ -93,3 +93,28 @@ Matrix* FirstTask::resultOfExerciseC(Matrix* w, Matrix *a){
     Matrix* x = solver->solveSimutaneousSystems(r, a_copy);
     return x;
 }
+
+Matrix* FirstTask::resultOfExerciseD(Matrix* w, Matrix *a){
+    int w_size = w->columns;
+    int i, j;
+    for(i=1 ; i<w->rows+1 ; i++) {
+        for(j=1 ; j < w->columns+1; j++) {
+            if(abs(i*1.0 - j*1.0) <= 4) {
+                w->set(i-1,j-1, 1.0/(i+j-1));
+            } else {
+                w->set(i-1,j-1, 0);
+            }
+        }
+    }
+
+    for(int i = 1; i < w_size+1; i++){
+        a->set(i-1,0, 1);
+        a->set(i-1,1, i);
+        a->set(i-1,2, 2*i-1);
+    }
+
+    Matrix* a_copy = a->copy();
+    Matrix* r = qr->executeSimultaneousSystems(w, a_copy);
+    Matrix* x = solver->solveSimutaneousSystems(r, a_copy);
+    return x;
+}

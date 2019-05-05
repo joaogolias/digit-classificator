@@ -8,11 +8,13 @@ FirstTask *firstTask = new FirstTask();
 void runExerciseA(bool printResult);
 void runExerciseB(bool printResult);
 void runExerciseC(bool printResult);
+void runExerciseD(bool printResult);
 
 int main() {
     runExerciseA(false);
     runExerciseB(true);
     runExerciseC(false);
+    runExerciseD(true);
 }
 
 void runExerciseA(bool printResult) {
@@ -55,18 +57,36 @@ void runExerciseB(bool printResult) {
 
 void runExerciseC(bool printResult) {
     Matrix *W = new Matrix(64,64);
-    Matrix *H = new Matrix(64,3);
+    Matrix *A = new Matrix(64,3);
 
-    Matrix* x = firstTask->resultOfExerciseC(W,H);
+    Matrix*H  = firstTask->resultOfExerciseC(W,A);
 
     cout << endl << "Exercise approximate C answer is correct, ";
 
-    Matrix* HfromX = W->multiply(x);
+    Matrix* HfromX = W->multiply(H);
 
-    if(HfromX->isEqualsTo(H)) {
+    if(HfromX->isEqualsTo(A)) {
         cout << "because W*X = b" << endl;
     } else {
         cout << "but W*X != b" << endl;
     }
-    cout << "Norm: "<<  H->subtract(W->multiply(x))->calculateFrobeniusNorm() << endl;
+    cout << "Norm: "<<  A->subtract(W->multiply(H))->calculateFrobeniusNorm() << endl;
+}
+
+void runExerciseD(bool printResult) {
+    Matrix *W = new Matrix(20,17);
+    Matrix *A = new Matrix(20,3);
+
+    Matrix* H = firstTask->resultOfExerciseD(W,A);
+
+    cout << endl << "Exercise approximate D answer is correct, ";
+
+    Matrix* HfromX = W->multiply(H);
+
+    if(HfromX->isEqualsTo(A)) {
+        cout << "because W*X = b" << endl;
+    } else {
+        cout << "but W*X != b" << endl;
+    }
+    cout << "Norm: "<<  A->subtract(W->multiply(H))->calculateFrobeniusNorm() << endl;
 }
