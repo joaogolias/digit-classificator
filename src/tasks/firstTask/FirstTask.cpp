@@ -35,8 +35,8 @@ Matrix* FirstTask::resultOfExerciseA(Matrix* w, Matrix *b) {
 
     Matrix*b_copy = b->copy();
 
-    Matrix *r = qr->execute(w,b_copy);
-    Matrix*x = solver->solveSystem(r,b_copy);
+    Matrix *r = qr->executeSs(w,b_copy);
+    Matrix*x = solver->solveSystems(r,b_copy);
    
     return x;
 }
@@ -58,8 +58,8 @@ Matrix* FirstTask::resultOfExerciseB(Matrix* w, Matrix *b) {
     }
 
     Matrix* b_copy = b->copy();
-    Matrix* r = qr->execute(w, b_copy);
-    Matrix* x = solver->solveSystem(r, b_copy);
+    Matrix* r = qr->executeSs(w, b_copy);
+    Matrix* x = solver->solveSystems(r, b_copy);
     return x;
 }
 
@@ -89,8 +89,8 @@ Matrix* FirstTask::resultOfExerciseC(Matrix* w, Matrix *a){
     }
 
     Matrix* a_copy = a->copy();
-    Matrix* r = qr->executeSimultaneousSystems(w, a_copy);
-    Matrix* x = solver->solveSimutaneousSystems(r, a_copy);
+    Matrix* r = qr->executeSs(w, a_copy);
+    Matrix* x = solver->solveSystems(r, a_copy);
     return x;
 }
 
@@ -114,7 +114,7 @@ Matrix* FirstTask::resultOfExerciseD(Matrix* w, Matrix *a){
     }
 
     Matrix* a_copy = a->copy();
-    Matrix* r = qr->executeSimultaneousSystems(w, a_copy);
-    Matrix* x = solver->solveSimutaneousSystems(r, a_copy);
+    Matrix* r = qr->executeSs(w, a_copy);
+    Matrix* x = solver->solveSystems(r, a_copy);
     return x;
 }

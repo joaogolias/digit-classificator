@@ -12,7 +12,7 @@ TriangularSystemsSolver::~TriangularSystemsSolver(){
     delete b;
 }
 
-Matrix* TriangularSystemsSolver::solveSystem(Matrix*W, Matrix*b) {
+Matrix* TriangularSystemsSolver::solveOneSystem(Matrix*W, Matrix*b) {
     this-> W = W;
     this-> b = b;
     if(areValidArguments()) {
@@ -30,7 +30,7 @@ Matrix* TriangularSystemsSolver::solveSystem(Matrix*W, Matrix*b) {
     return NULL;
 }
 
-Matrix* TriangularSystemsSolver::solveSimutaneousSystems(Matrix*W, Matrix*A){
+Matrix* TriangularSystemsSolver::solveSystems(Matrix*W, Matrix*A){
     int n = A->rows;
     int m = A->columns;
     int p = W->columns;

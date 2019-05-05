@@ -18,8 +18,8 @@ class QrFactorization {
         ~QrFactorization();
 
 
-        Matrix* execute(Matrix* W, Matrix *b);
-        Matrix* executeSimultaneousSystems(Matrix* W, Matrix *A);
+        Matrix* executeForOneSystem(Matrix* W, Matrix *b);
+        Matrix* execute(Matrix* W, Matrix *A);
 
     private: 
         double calculateS(double wi, double wj);

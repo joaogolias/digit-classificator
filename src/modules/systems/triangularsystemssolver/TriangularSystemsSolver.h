@@ -10,8 +10,8 @@ class TriangularSystemsSolver {
     public:
         TriangularSystemsSolver();
         ~TriangularSystemsSolver();
-        Matrix* solveSystem(Matrix*W, Matrix*b);
-        Matrix* solveSimutaneousSystems(Matrix*W, Matrix*A);
+        Matrix* solveOneSystem(Matrix*W, Matrix*b);
+        Matrix* solveSystems(Matrix*W, Matrix*A);
     private: 
         bool isTriangularSystem();
         bool areValidArguments();

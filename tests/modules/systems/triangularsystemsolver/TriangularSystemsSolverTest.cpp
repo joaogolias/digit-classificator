@@ -58,7 +58,7 @@ void testTriangularMatrix(){
         expected->setRow(i,expectedValues[i],1);
     }
 
-    Matrix* X = solver->solveSystem(A,b);
+    Matrix* X = solver->solveSystems(A,b);
     testManager->assertEquals(X, expected)->result();
 }
 
@@ -79,7 +79,7 @@ void testQRAndSystemSolving(){
     }
     Matrix *R = qr->execute(A, b);
 
-    Matrix* X = solver->solveSystem(R,b);
+    Matrix* X = solver->solveSystems(R,b);
 
     double expectedValues[3][1] = {{-0.364}, {0.955}, {-0.318}};
     Matrix* expected = new Matrix(3,1);
@@ -130,6 +130,6 @@ void mmqOverdeterminatedSystemTest() {
     Matrix *b_copy = b->copy();
     Matrix *R = qr->execute(A, b_copy);
 
-    Matrix* X = solver->solveSystem(R,b_copy);
+    Matrix* X = solver->solveSystems(R,b_copy);
     cout << " Norm: "<<  b->subtract(A->multiply(X))->calculateFrobeniusNorm() << endl;
 }

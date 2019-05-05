@@ -30,7 +30,7 @@ void QrFactorization::Q(Matrix* A, double i, double j, double k,  double c, doub
     }
 }
 
-Matrix* QrFactorization::execute(Matrix* W, Matrix *b) {
+Matrix* QrFactorization::executeForOneSystem(Matrix* W, Matrix *b) {
     this->W = W;
     this->b = b;
     double wi, wj, c, s;
@@ -55,7 +55,7 @@ Matrix* QrFactorization::execute(Matrix* W, Matrix *b) {
 }
 
 
-Matrix* QrFactorization::executeSimultaneousSystems(Matrix* W, Matrix *A) {
+Matrix* QrFactorization::execute(Matrix* W, Matrix *A) {
     int n = A->rows;
     int m = A->columns;
     int p = W->columns;
