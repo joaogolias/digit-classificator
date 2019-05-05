@@ -1,14 +1,12 @@
 #include "../../../../src/modules/factorization/qr/QrFactorization.h"
 #include "../../../../src/modules/basic/matrix/Matrix.h"
 #include "../../../testmanager/TestManager.h"
-#include "../../../../src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.cpp"
 #include <iostream>
 #include <math.h>
 
 using namespace std;
 
 TestManager* testManager;
-TriangularSystemsSolver *solver;
 QrFactorization* qr;
 
 void oneSystemFactorizationQr();
@@ -16,7 +14,6 @@ void qrForOverdeterminatedSystemTest();
 
 int main() {
     testManager = new TestManager();
-    solver = new TriangularSystemsSolver();
     qr = new QrFactorization();
 
     cout << endl << "1. ";
@@ -25,6 +22,9 @@ int main() {
     cout << endl << "2. ";
     qrForOverdeterminatedSystemTest();
     return 0; 
+
+    delete testManager;
+    delete qr;
 }
 
 void oneSystemFactorizationQr() {
@@ -67,6 +67,11 @@ void oneSystemFactorizationQr() {
         ->assertEquals(result, Aresult)
         ->assertEquals(b, bresult)
         ->result();
+
+    delete A;
+    delete b;
+    delete Aresult;
+    delete result;
 }
 
 
@@ -100,4 +105,9 @@ void qrForOverdeterminatedSystemTest() {
     testManager
         ->assertEquals(R, realResult)
         ->result();
+
+    delete A;
+    delete b;
+    delete R;
+    delete realResult;
 }
