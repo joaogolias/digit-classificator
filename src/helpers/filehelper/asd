@@ -1,0 +1,4 @@
+String ekkosValue = getString(R.string.money_prefix, mNumberOfEkkos);
+        String ekkos = getString(R.string.register_success_subtitle, ekkosValue);
+        SpannableStringBuilder boldPartialText = StringHelper.boldText(ekkos, ekkosValue);
+        mEkkosText.setText(StringHelper.colorText(boldPartialText, ekkosValue, ContextCompat.getColor(this, R.color.colorAccent)));
