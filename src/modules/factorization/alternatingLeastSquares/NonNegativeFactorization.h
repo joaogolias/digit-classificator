@@ -7,9 +7,8 @@
 class Matrix;
 
 class NonNegativeFactorization {
-    Matrix* W;
     public:
-        NonNegativeFactorization(Matrix* W);
+        NonNegativeFactorization();
         
         void normalize(Matrix* M);
         void generate();
@@ -17,7 +16,7 @@ class NonNegativeFactorization {
 
         ~NonNegativeFactorization();
 
-        Matrix* execute(Matrix* A);
+        int execute(Matrix* A, Matrix* W, Matrix* H);
 
     private:
         double calculateS(Matrix *M, int column);
