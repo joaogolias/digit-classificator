@@ -106,9 +106,9 @@ Matrix* Matrix::multiply(Matrix* B) {
     throw std::invalid_argument("A columns must be equal to B rows.");
 }
 
-Matrix* Matrix::mutiplyByConstant(double c, bool createNewMatrix) {
+Matrix* Matrix::mutiplyByConstant(double c, bool useSameMatrix) {
     Matrix* returnMatrix;
-    if(createNewMatrix) returnMatrix = this;
+    if(useSameMatrix) returnMatrix = this;
     else returnMatrix = new Matrix(this->rows, this->columns);
     for(int i = 0; i<rows; i++) {
         for(int j = 0; j<columns; j++)  {

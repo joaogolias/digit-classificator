@@ -11,8 +11,9 @@ class ImageProcessor {
 
         Matrix* generateVector(Matrix* image);
         Matrix* joinVectors(Matrix** vectors, int vectorsQuantity);
-        
+
         void normalize(Matrix* image);
+        void unnormalize(Matrix* image);
 };
 
 #endif
