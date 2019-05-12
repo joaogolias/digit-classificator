@@ -72,7 +72,7 @@ double NonNegativeFactorization::calculateError(Matrix *A, Matrix *W, Matrix *H)
 
 int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
 {   
-    
+
     if (!A->isANonNegativeMatrix())
         throw std::invalid_argument("All matrix values must be non negatives");
 
@@ -87,7 +87,6 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
     {   
         if(iterationCount >= itmax)
             break;
-
         Matrix *A_Copy = A->copy();
 
         //TODO: Normalizar W tal que a norma de cada uma das colunas seja 1
