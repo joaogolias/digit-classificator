@@ -69,7 +69,7 @@ void ImageProcessor::unnormalize(Matrix* image){
     image = image->mutiplyByConstant(255.0);
 }
 
-void ImageProcessor::execute(Matrix** images, int imageQuantity, bool reverse, int rows, int columns) {
+Matrix* ImageProcessor::execute(Matrix** images, int imageQuantity, bool reverse, int rows, int columns) {
     Matrix** vectors = new Matrix*[imageQuantity];
     for(int k = 0; k < imageQuantity; k++) {
         Matrix* image = images[k];
@@ -88,24 +88,42 @@ void ImageProcessor::execute(Matrix** images, int imageQuantity, bool reverse, i
     cout << endl << "Normalized Matrix A" << endl;
     normalize(A);
     A->print();
-
     if(reverse) { 
+        this->reverse(A, rows, columns);
+        // cout << endl << "Unnormalized Matrix A" << endl;
+        // unnormalize(A);
+        // A->print();
 
-        cout << endl << "Unnormalized Matrix A" << endl;
-        unnormalize(A);
-        A->print();
+        // Matrix** vectors = splitVectors(A);
+        // for(int l = 0 ; l < imageQuantity; l++) {
+        //     cout << "v" << l+1 << ": " << endl;
+        //     vectors[l]->print();
 
-        Matrix** vectors = splitVectors(A);
-        for(int l = 0 ; l < imageQuantity; l++) {
-            cout << "v" << l+1 << ": " << endl;
-            vectors[l]->print();
-
-            Matrix* reversedMatrix = regenerateMatrix(vectors[l], rows, columns);
-            cout << "Matrix" << l+1 << ": " << endl;
-            reversedMatrix->print();
-        }
-
-        
-
+        //     Matrix* reversedMatrix = regenerateMatrix(vectors[l], rows, columns);
+        //     cout << "Matrix" << l+1 << ": " << endl;
+        //     reversedMatrix->print();
+        // }
     }
+    return A;
+}
+
+Matrix** ImageProcessor::reverse(Matrix* A, int rows, int columns){
+    cout << endl << "Unnormalized Matrix A" << endl;
+    unnormalize(A);
+    A->print();
+
+    Matrix** matrixes = new Matrix*[A->columns];
+    Matrix** vectors = splitVectors(A);
+    for(int l = 0 ; l < A->columns; l++) {
+        cout << "v" << l+1 << ": " << endl;
+        vectors[l]->print();
+
+        Matrix* reversedMatrix = regenerateMatrix(vectors[l], rows, columns);
+        cout << "Matrix" << l+1 << ": " << endl;
+        reversedMatrix->print();
+
+        matrixes[l] = reversedMatrix;
+    }
+
+    return matrixes;
 }
