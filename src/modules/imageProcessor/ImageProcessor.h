@@ -9,7 +9,7 @@ class ImageProcessor {
         ImageProcessor();
         ~ImageProcessor();
         Matrix* generateVector(Matrix* image);
-        // Matrix* joinVectors(Matrix** vectors);
+        Matrix* joinVectors(Matrix** vectors, int vectorsQuantity);
         // Matrix* normalize(Matrix* image);
 };
 

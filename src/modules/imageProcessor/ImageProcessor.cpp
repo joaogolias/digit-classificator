@@ -17,5 +17,13 @@ Matrix* ImageProcessor::generateVector(Matrix* image){
     return vector;
 }
 
-// Matrix* joinVectors(Matrix** vectors);
+Matrix* ImageProcessor::joinVectors(Matrix** vectors, int vectorsQuantity){
+    Matrix *result = new Matrix(vectors[0]->rows, vectorsQuantity);
+    for(int i = 0; i < vectorsQuantity; i++) {
+        for(int j = 0 ; j < result->rows; j++) {
+            result->set(j,i, vectors[i]->at(j,0));
+        }
+    }
+    return result;
+}
 // Matrix* normalize(Matrix* image);
