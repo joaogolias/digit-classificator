@@ -26,4 +26,11 @@ Matrix* ImageProcessor::joinVectors(Matrix** vectors, int vectorsQuantity){
     }
     return result;
 }
-// Matrix* normalize(Matrix* image);
+
+void ImageProcessor::normalize(Matrix* image){
+    for(int i = 0; i < image->rows; i++) {
+        for(int j = 0 ; j < image->columns; j++) {
+            image->set(i,j, (image->at(i,j)/(255.0)));
+        }
+    }
+}

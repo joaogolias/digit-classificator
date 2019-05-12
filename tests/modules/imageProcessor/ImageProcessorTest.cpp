@@ -12,6 +12,8 @@ void firstTestOfJoinVectors();
 void secondTestOfJoinVectors();
 void thirdTestOfJoinVectors();
 
+void firstTextOfNormalize();
+
 using namespace std;
 
 ImageProcessor* imgprocessor = new ImageProcessor();
@@ -23,6 +25,8 @@ int main() {
     firstTestOfJoinVectors();
     secondTestOfJoinVectors();
     thirdTestOfJoinVectors();
+
+    firstTextOfNormalize();
 }
 
 void firstTest() {
@@ -145,5 +149,19 @@ void thirdTestOfJoinVectors(){
     vectors[2] = v3;
 
     Matrix* M = imgprocessor->joinVectors(vectors,3);
+    M->print();
+}
+
+
+void firstTextOfNormalize(){
+    cout << endl << endl << "FirstTest of Normalize" << endl;
+    
+    Matrix* M = new Matrix(3,3);
+    double Mvalues[3][3] = {{255, 127.5, 0}, {255, 127.5, 0}, {255, 127.5, 0}};
+    for(int i = 0; i < 3; i++) {
+        M->setRow(i, Mvalues[i], 3);
+    }
+
+    imgprocessor->normalize(M);
     M->print();
 }

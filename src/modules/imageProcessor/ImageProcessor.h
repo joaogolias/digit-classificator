@@ -8,9 +8,11 @@ class ImageProcessor {
     public: 
         ImageProcessor();
         ~ImageProcessor();
+
         Matrix* generateVector(Matrix* image);
         Matrix* joinVectors(Matrix** vectors, int vectorsQuantity);
-        // Matrix* normalize(Matrix* image);
+        
+        void normalize(Matrix* image);
 };
 
 #endif
