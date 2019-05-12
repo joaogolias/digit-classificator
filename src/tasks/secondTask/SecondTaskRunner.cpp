@@ -34,7 +34,7 @@ void runExerciseA(bool printResult)
     {
         for (int j = 0; j < W->columns; j++)
         {
-            W->set(i, j, 1);
+            W->set(i, j, rand());
         }
     }
     Matrix *H = new Matrix(p, 3);
