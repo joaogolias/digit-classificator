@@ -6,9 +6,11 @@ class Matrix;
 
 class ImageProcessor {
     public: 
+        ImageProcessor();
+        ~ImageProcessor();
         Matrix* generateVector(Matrix* image);
-        Matrix* joinVectors(Matrix** vectors);
-        Matrix* normalize(Matrix* image);
+        // Matrix* joinVectors(Matrix** vectors);
+        // Matrix* normalize(Matrix* image);
 };
 
 #endif
