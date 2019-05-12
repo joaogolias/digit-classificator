@@ -90,19 +90,6 @@ Matrix* ImageProcessor::execute(Matrix** images, int imageQuantity, bool reverse
     A->print();
     if(reverse) { 
         this->reverse(A, rows, columns);
-        // cout << endl << "Unnormalized Matrix A" << endl;
-        // unnormalize(A);
-        // A->print();
-
-        // Matrix** vectors = splitVectors(A);
-        // for(int l = 0 ; l < imageQuantity; l++) {
-        //     cout << "v" << l+1 << ": " << endl;
-        //     vectors[l]->print();
-
-        //     Matrix* reversedMatrix = regenerateMatrix(vectors[l], rows, columns);
-        //     cout << "Matrix" << l+1 << ": " << endl;
-        //     reversedMatrix->print();
-        // }
     }
     return A;
 }

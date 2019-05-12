@@ -35,3 +35,9 @@ then
     g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp  src/modules/imageProcessor/ImageProcessor.cpp tests/testmanager/TestManager.cpp tests/modules/imageProcessor/ImageProcessorTest.cpp -o ImageProcessor.out
     ./ImageProcessor.out
 fi
+
+if [ $1 = "Learning" ] 
+then
+    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp  src/modules/imageProcessor/ImageProcessor.cpp tests/testmanager/TestManager.cpp src/modules/learning/Learning.cpp tests/modules/learning/LearningTest.cpp -o Learning.out
+    ./Learning.out
+fi
