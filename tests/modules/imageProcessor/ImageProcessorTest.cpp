@@ -43,6 +43,10 @@ void firstTest() {
     cout << "v: " << endl;
     Matrix* v = imgprocessor->generateVector(M);
     v->print();
+
+    cout << "M: " << endl;
+    M = imgprocessor->regenerateMatrix(v, 3, 3);
+    M->print();
 }
 
 void secondTest() {
@@ -55,6 +59,10 @@ void secondTest() {
     cout << "v: " << endl;
     Matrix* v = imgprocessor->generateVector(M);
     v->print();
+
+    cout << "M: " << endl;
+    M = imgprocessor->regenerateMatrix(v, 2, 3);
+    M->print();
 }
 
 void thirdTest() {
@@ -68,6 +76,10 @@ void thirdTest() {
     cout << "v: " << endl;
     Matrix* v = imgprocessor->generateVector(M);
     v->print();
+
+    cout << "M: " << endl;
+    M = imgprocessor->regenerateMatrix(v, 3, 2);
+    M->print();
 }
 
 void firstTestOfJoinVectors(){

@@ -10,6 +10,7 @@ class ImageProcessor {
         ~ImageProcessor();
 
         Matrix* generateVector(Matrix* image);
+        Matrix* regenerateMatrix(Matrix* vector, int rows, int columns);
         Matrix* joinVectors(Matrix** vectors, int vectorsQuantity);
 
         Matrix** splitVectors(Matrix* matrixOfVectors);
