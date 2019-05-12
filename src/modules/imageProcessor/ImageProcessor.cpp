@@ -68,3 +68,44 @@ void ImageProcessor::normalize(Matrix* image){
 void ImageProcessor::unnormalize(Matrix* image){
     image = image->mutiplyByConstant(255.0);
 }
+
+void ImageProcessor::execute(Matrix** images, int imageQuantity, bool reverse, int rows, int columns) {
+    Matrix** vectors = new Matrix*[imageQuantity];
+    for(int k = 0; k < imageQuantity; k++) {
+        Matrix* image = images[k];
+
+        Matrix* vector = generateVector(image);
+        vectors[k] = vector;
+
+        cout << "v" << k+1 << ": " << endl;
+        vector->print();
+    }
+
+    cout << endl << "Matrix A" << endl;
+    Matrix* A = joinVectors(vectors, imageQuantity);
+    A->print();
+
+    cout << endl << "Normalized Matrix A" << endl;
+    normalize(A);
+    A->print();
+
+    if(reverse) { 
+
+        cout << endl << "Unnormalized Matrix A" << endl;
+        unnormalize(A);
+        A->print();
+
+        Matrix** vectors = splitVectors(A);
+        for(int l = 0 ; l < imageQuantity; l++) {
+            cout << "v" << l+1 << ": " << endl;
+            vectors[l]->print();
+
+            Matrix* reversedMatrix = regenerateMatrix(vectors[l], rows, columns);
+            cout << "Matrix" << l+1 << ": " << endl;
+            reversedMatrix->print();
+        }
+
+        
+
+    }
+}

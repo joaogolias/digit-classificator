@@ -16,6 +16,9 @@ void firstTextOfNormalize();
 
 void firstTextOfUnnormalize();
 
+void firstTextExecute();
+void secondTextExecute();
+
 using namespace std;
 
 ImageProcessor* imgprocessor = new ImageProcessor();
@@ -31,6 +34,9 @@ int main() {
     firstTextOfNormalize();
 
     firstTextOfUnnormalize();
+
+    firstTextExecute();
+    secondTextExecute();
 }
 
 void firstTest() {
@@ -211,4 +217,61 @@ void firstTextOfUnnormalize(){
 
     imgprocessor->unnormalize(M);
     M->print();
+}
+
+void firstTextExecute() {
+    cout << endl << endl << "FirstTest of execute" << endl;
+    int imageQuantity = 2;
+    Matrix** images = new Matrix*[imageQuantity];
+
+    Matrix* img0 = new Matrix(3,3);
+    double img0Values[3][3] = {{255, 127.5, 0}, {255, 127.5, 0}, {255, 127.5, 0}};
+    for(int i = 0; i < 3; i++) {
+        img0->setRow(i, img0Values[i], 3);
+    }
+
+    images[0] = img0;
+
+    Matrix* img1 = new Matrix(3,3);
+    double img1Values[3][3] = {{0, 127.5, 255}, {0, 127.5, 255}, {0, 127.5, 255}};
+    for(int i = 0; i < 3; i++) {
+        img1->setRow(i, img1Values[i], 3);
+    }
+
+    images[1] = img1;
+
+    imgprocessor -> execute(images, imageQuantity, true, 3, 3);
+}
+
+void secondTextExecute() {
+    cout << endl << endl << "SecondTest of execute" << endl;
+    int imageQuantity = 3;
+    Matrix** images = new Matrix*[imageQuantity];
+
+    Matrix* img0 = new Matrix(2,3);
+    double img0Values[2][3] = {{255, 127.5, 0}, {255, 127.5, 0}};
+    for(int i = 0; i < 2; i++) {
+        img0->setRow(i, img0Values[i], 3);
+    }
+
+    images[0] = img0;
+
+    Matrix* img1 = new Matrix(2,3);
+    double img1Values[2][3] = {{0, 127.5, 255}, {0, 127.5, 255}};
+    for(int i = 0; i < 2; i++) {
+        img1->setRow(i, img1Values[i], 3);
+    }
+
+    images[1] = img1;
+
+
+    Matrix* img2 = new Matrix(2,3);
+    double img2Values[2][3] = {{63.75, 127.5, 0}, {63.75, 127.5, 0}};
+    for(int i = 0; i < 2; i++) {
+        img2->setRow(i, img2Values[i], 3);
+    }
+
+    images[2] = img2;
+
+    imgprocessor -> execute(images, imageQuantity, true, 2, 3);
 }
