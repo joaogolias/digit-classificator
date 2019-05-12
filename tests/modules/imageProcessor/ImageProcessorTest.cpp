@@ -98,6 +98,12 @@ void firstTestOfJoinVectors(){
 
     Matrix* M = imgprocessor->joinVectors(vectors,3);
     M->print();
+
+    vectors = imgprocessor->splitVectors(M);
+    for(int i = 0; i < 3; i++){
+        cout << endl << "v" << i+1 << ": " << endl;
+        vectors[i]->print();
+    }
 }
 
 void secondTestOfJoinVectors(){
@@ -122,6 +128,12 @@ void secondTestOfJoinVectors(){
 
     Matrix* M = imgprocessor->joinVectors(vectors,2);
     M->print();
+
+    vectors = imgprocessor->splitVectors(M);
+    for(int i = 0; i < 2; i++){
+        cout << endl << "v" << i+1 << ": " << endl;
+        vectors[i]->print();
+    }
 }
 
 
@@ -154,6 +166,12 @@ void thirdTestOfJoinVectors(){
 
     Matrix* M = imgprocessor->joinVectors(vectors,3);
     M->print();
+
+    vectors = imgprocessor->splitVectors(M);
+    for(int i = 0; i < 3; i++){
+        cout << endl << "v" << i+1 << ": " << endl;
+        vectors[i]->print();
+    }
 }
 
 
