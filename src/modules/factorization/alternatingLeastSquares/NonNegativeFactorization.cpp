@@ -83,7 +83,8 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
     double errorChange = 10;
     double oldError = 0;
 
-    while (errorChange > epsilon)
+
+    while (abs(errorChange) > epsilon)
     {   
         if(iterationCount >= itmax)
             break;
@@ -113,11 +114,21 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
         handleNegativeValues(W);
 
         double newError = calculateError(A, W, H);
-        errorChange = newError - oldError;
+        errorChange = oldError - newError;
         oldError = newError;
-        
+
         iterationCount++;
     }
+    this->Wresult = W;
+    this->Hresult = H;
 
     return iterationCount;
+}
+
+Matrix* NonNegativeFactorization::getH() {
+    return this->Hresult;
+}
+
+Matrix* NonNegativeFactorization::getW() {
+    return this->Wresult;
 }

@@ -96,6 +96,9 @@ void qrForOverdeterminatedSystemTest() {
 
     Matrix *R = qr->execute(A, b);
 
+    cout << "R: " << endl;
+    R->print();
+
     double realResultValues[4][3] = {{sqrt(2), 0, -2*sqrt(2)}, {0, sqrt(2), 0}, {0, 0, 2}, {0,0,0}};
     Matrix* realResult = new Matrix(4,3);
     for(int i = 0; i < 4; i++) {

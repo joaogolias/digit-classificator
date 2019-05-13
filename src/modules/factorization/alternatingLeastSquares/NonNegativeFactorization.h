@@ -18,7 +18,12 @@ class NonNegativeFactorization {
 
         int execute(Matrix* A, Matrix* W, Matrix* H);
 
+        Matrix* getH();
+        Matrix* getW();
+
     private:
+        Matrix *Hresult;
+        Matrix *Wresult;
         double calculateS(Matrix *M, int column);
         double calculateC(double wi, double wj);
         double calculateError(Matrix* A, Matrix* W, Matrix* H);

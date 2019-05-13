@@ -3,6 +3,7 @@
 #include "../../../src/modules/factorization/qr/QrFactorization.h"
 #include "../../../src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.h"
 #include <iostream>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -29,6 +30,14 @@ void runExerciseA(bool printResult)
         A->setRow(i, Avalues[i], 3);
     }
 
+    int i, n;
+   time_t t;
+   
+   n = 5;
+   
+   /* Intializes random number generator */
+   srand((unsigned) time(&t));
+
     Matrix *W = new Matrix(A->rows, p);
     for (int i = 0; i < W->rows; i++)
     {
@@ -41,9 +50,13 @@ void runExerciseA(bool printResult)
 
     int iterations = nonNegativeFac->execute(A, W, H);
 
-    cout << endl << "Exercise approximate A answer is: ";
+    H = nonNegativeFac->getH();
+
+    W = nonNegativeFac->getW();
+
     if (printResult)
     {
+        cout << endl << "Result given in: ";
         cout << iterations << "interacoes" << endl;
         cout << "Matriz A ============================" << endl;
         A->print();
@@ -54,6 +67,8 @@ void runExerciseA(bool printResult)
     }
 
     Matrix *aproxA = W->multiply(H);
+    cout << "Matriz aproxA=======================" <<endl;
+    aproxA->print();
 
     if (aproxA->isEqualsTo(A))
     {
