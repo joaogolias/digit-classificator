@@ -25,15 +25,6 @@ Matrix* ImageProcessor::regenerateMatrix(Matrix* vector, int rows, int columns){
         }
     }
     return M;
-    // int rows = image->rows*image->columns;
-    // Matrix* vector = new Matrix(rows, 1);
-
-    // for(int j = 0; j < image->columns; j++) {
-    //     for(int i = 0; i < image -> rows; i++) {
-    //         vector->set(j*image->rows + i, 0, image->at(i,j));
-    //     }
-    // }
-    // return vector;
 }
 
 Matrix* ImageProcessor::joinVectors(Matrix** vectors, int vectorsQuantity){
@@ -88,7 +79,7 @@ Matrix* ImageProcessor::execute(Matrix** images, int imageQuantity, bool reverse
     cout << endl << "Normalized Matrix A" << endl;
     normalize(A);
     A->print();
-    if(reverse) { 
+    if(reverse && rows !=0 && columns != 0) { 
         this->reverse(A, rows, columns);
     }
     return A;
