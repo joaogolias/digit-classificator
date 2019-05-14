@@ -29,6 +29,9 @@ void runExerciseA(bool printResult) {
 
     Matrix* b_from_x = W->multiply(x);
 
+
+    b_from_x->copy();
+    
     if(b_from_x->isEqualsTo(b)) {
         cout << "Correct, because W*X = b" << endl;
     } else {
