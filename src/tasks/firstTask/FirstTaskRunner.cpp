@@ -66,9 +66,9 @@ void runExerciseC(bool printResult) {
     Matrix* HfromX = W->multiply(H);
 
     if(HfromX->isEqualsTo(A)) {
-        cout << "because W*X = b" << endl;
+        cout << "because W*X = A" << endl;
     } else {
-        cout << "but W*X != b" << endl;
+        cout << "but W*H != b" << endl;
     }
     cout << "Norm: "<<  A->subtract(W->multiply(H))->calculateFrobeniusNorm() << endl;
 }

@@ -41,3 +41,8 @@ then
     g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp  src/modules/imageProcessor/ImageProcessor.cpp tests/testmanager/TestManager.cpp src/modules/learning/Learning.cpp tests/modules/learning/LearningTest.cpp -o Learning.out
     ./Learning.out
 fi
+if [ $1 = "SecondTask" ] 
+then
+    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp src/modules/factorization/qr/QrFactorization.cpp src/modules/factorization/alternatingLeastSquares/NonNegativeFactorization.cpp tests/testmanager/TestManager.cpp src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.cpp src/tasks/secondTask/SecondTask.cpp src/tasks/secondTask/SecondTaskRunner.cpp -o SecondTask.out
+    ./SecondTask.out
+fi
