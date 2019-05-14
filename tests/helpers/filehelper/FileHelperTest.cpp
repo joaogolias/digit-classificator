@@ -12,23 +12,25 @@ void fileDoesNotExistTest();
 
 int main(){
     fileHelper = new FileHelper();
+    testManager = new TestManager();
+    
     fileExistsTest();
     fileDoesNotExistTest();
 }
 
 void fileExistsTest(){
     cout << endl << "1. ";
-    cout << "Should return true if a file does exists";
+    cout << "Should return true if a file does exists: ";
     char* fileName = "test.txt";
     testManager
             ->assertEquals(fileHelper->checkFileExists(fileName), true)
             ->result();
 }
 void fileDoesNotExistTest(){
-    // cout << "1. ";
-    // cout << "Should return false if a file does not exist";
-    // char* fileName = "test1.txt";
-    // testManager
-    //     ->assertEquals(fileHelper->checkFileExists(fileName), false)
-    //     ->result();
+    cout << "1. ";
+    cout << "Should return false if a file does not exist: ";
+    char* fileName = "test1.txt";
+    testManager
+        ->assertEquals(fileHelper->checkFileExists(fileName), false)
+        ->result();
 }

@@ -17,9 +17,9 @@ FileHelper::~FileHelper(){}
 // }
 
 bool FileHelper::checkFileExists(char* name) {
-    ifstream reader(name);
-    cout << "kkkk" << endl;
-    if(reader.is_open()) {
+    fstream fs;
+    fs.open (name);
+    if(fs.good()) {
         return true;
     } else {
         return false;
