@@ -25,7 +25,7 @@ class Matrix : public Comparable {
         Matrix* add(Matrix* B);
         Matrix* subtract(Matrix *B);
         Matrix* multiply(Matrix* B);
-        Matrix* mutiplyByConstant(double c, bool createNewMatrix);
+        Matrix* mutiplyByConstant(double c, bool useSameMatrix = true);
         Matrix* transpose();
 
         bool isANonNegativeMatrix();
