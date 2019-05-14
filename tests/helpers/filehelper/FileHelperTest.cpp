@@ -10,12 +10,16 @@ TestManager* testManager;
 void fileExistsTest();
 void fileDoesNotExistTest();
 
+void readSampleMatricesTest();
+
 int main(){
     fileHelper = new FileHelper();
     testManager = new TestManager();
     
     fileExistsTest();
     fileDoesNotExistTest();
+
+    readSampleMatricesTest();
 }
 
 void fileExistsTest(){
@@ -27,10 +31,19 @@ void fileExistsTest(){
             ->result();
 }
 void fileDoesNotExistTest(){
-    cout << "1. ";
+    cout << "2. ";
     cout << "Should return false if a file does not exist: ";
     char* fileName = "test1.txt";
     testManager
         ->assertEquals(fileHelper->checkFileExists(fileName), false)
+        ->result();
+}
+
+void readSampleMatricesTest(){
+    cout << "3. ";
+    cout << "Should read a matrix: ";
+    char* fileName = "train.txt";
+    fileHelper->readSampleMatrixes(fileName, 2);
+    testManager
         ->result();
 }
