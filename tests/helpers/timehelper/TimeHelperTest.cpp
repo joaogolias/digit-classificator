@@ -44,7 +44,7 @@ void testCallingEndWithoutStart() {
     } catch(std::domain_error &e) {
         anErrorOccurred = true;
     }
-    cout << "Testing if an error is thorwn if end() function is called whithout calling start() function: ";
+    cout << "Testing if an error is thrown if end() function is called whithout calling start() function: ";
     testManager
         -> assertEquals(anErrorOccurred, true)
         -> result();
@@ -61,7 +61,7 @@ void testTwoConsecutivesEnds() {
         anErrorOccurred = true;
     }
 
-    cout << "Testing if an error is thorwn if end() function is called twice consecutively: ";
+    cout << "Testing if an error is thrown if end() function is called twice consecutively: ";
     testManager
         -> assertEquals(anErrorOccurred, true)
         -> result();

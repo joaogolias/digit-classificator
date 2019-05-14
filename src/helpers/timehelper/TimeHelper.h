@@ -19,7 +19,7 @@ class TimeHelper {
         clock_t startTime;
         clock_t endTime;
         bool isInEndState;
-        bool isEndStateValid(bool expected);
+        bool checkState(bool expected);
 };
 
 #endif

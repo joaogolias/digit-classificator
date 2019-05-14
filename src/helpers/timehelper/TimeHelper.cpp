@@ -12,7 +12,7 @@ TimeHelper::TimeHelper(){
 
 TimeHelper::~TimeHelper(){}
 
-bool TimeHelper::isEndStateValid(bool expected) {
+bool TimeHelper::checkState(bool expected) {
     if(isInEndState == expected) {
         return true;
     } else {
@@ -33,7 +33,7 @@ TimeHelper* TimeHelper::start() {
 }
 
 TimeHelper* TimeHelper::end() {
-    if(isEndStateValid(false)) {
+    if(checkState(false)) {
         endTime = clock();
         isInEndState = true;
     }
@@ -42,7 +42,7 @@ TimeHelper* TimeHelper::end() {
 
 double TimeHelper::calculateSpentTime() {
     double finalValue;
-    if(isEndStateValid(true)){
+    if(checkState(true)){
         finalValue =  ((double) (endTime - startTime)) / CLOCKS_PER_SEC;
     }
     return finalValue;
@@ -50,7 +50,7 @@ double TimeHelper::calculateSpentTime() {
 
 char* TimeHelper::generateStringTime() {
     static char stringTime[100] = "";
-    if(isEndStateValid(true)){
+    if(checkState(true)){
         double spentTime = calculateSpentTime();
         if(spentTime < 60) {
             strcpy(stringTime, std::to_string(spentTime).c_str());
