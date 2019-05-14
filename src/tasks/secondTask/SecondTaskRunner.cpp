@@ -1,7 +1,5 @@
 #include "./SecondTask.h"
 #include "../../../src/modules/factorization/alternatingLeastSquares/NonNegativeFactorization.h"
-#include "../../../src/modules/factorization/qr/QrFactorization.h"
-#include "../../../src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.h"
 #include <iostream>
 #include <stdlib.h>
 
@@ -9,8 +7,6 @@ using namespace std;
 
 SecondTask *secondTask = new SecondTask();
 NonNegativeFactorization *nonNegativeFac = new NonNegativeFactorization();
-QrFactorization *qr = new QrFactorization();
-TriangularSystemsSolver *solver = new TriangularSystemsSolver();
 
 void runExerciseA(bool printResult);
 
@@ -30,13 +26,13 @@ void runExerciseA(bool printResult)
         A->setRow(i, Avalues[i], 3);
     }
 
-    int i, n;
-   time_t t;
+    int  n;
+    time_t t;
    
-   n = 5;
+    n = 5;
    
-   /* Intializes random number generator */
-   srand((unsigned) time(&t));
+    /* Intializes random number generator */
+    srand((unsigned) time(&t));
 
     Matrix *W = new Matrix(A->rows, p);
     for (int i = 0; i < W->rows; i++)
