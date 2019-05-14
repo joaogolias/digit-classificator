@@ -12,12 +12,12 @@ void firstTestOfJoinVectors();
 void secondTestOfJoinVectors();
 void thirdTestOfJoinVectors();
 
-void firstTextOfNormalize();
+void firstTestOfNormalize();
 
-void firstTextOfUnnormalize();
+void firstTestOfUnnormalize();
 
-void firstTextExecute();
-void secondTextExecute();
+void firstTestExecute();
+void secondTestExecute();
 
 using namespace std;
 
@@ -31,12 +31,12 @@ int main() {
     secondTestOfJoinVectors();
     thirdTestOfJoinVectors();
 
-    firstTextOfNormalize();
+    firstTestOfNormalize();
 
-    firstTextOfUnnormalize();
+    firstTestOfUnnormalize();
 
-    firstTextExecute();
-    secondTextExecute();
+    firstTestExecute();
+    secondTestExecute();
 }
 
 void firstTest() {
@@ -193,7 +193,7 @@ void thirdTestOfJoinVectors(){
 }
 
 
-void firstTextOfNormalize(){
+void firstTestOfNormalize(){
     cout << endl << endl << "FirstTest of Normalize" << endl;
     
     Matrix* M = new Matrix(3,3);
@@ -206,7 +206,7 @@ void firstTextOfNormalize(){
     M->print();
 }
 
-void firstTextOfUnnormalize(){
+void firstTestOfUnnormalize(){
     cout << endl << endl << "FirstTest of Unnormalize" << endl;
     
     Matrix* M = new Matrix(3,3);
@@ -219,7 +219,7 @@ void firstTextOfUnnormalize(){
     M->print();
 }
 
-void firstTextExecute() {
+void firstTestExecute() {
     cout << endl << endl << "FirstTest of execute" << endl;
     int imageQuantity = 2;
     Matrix** images = new Matrix*[imageQuantity];
@@ -243,7 +243,7 @@ void firstTextExecute() {
     imgprocessor -> execute(images, imageQuantity, true, 3, 3);
 }
 
-void secondTextExecute() {
+void secondTestExecute() {
     cout << endl << endl << "SecondTest of execute" << endl;
     int imageQuantity = 3;
     Matrix** images = new Matrix*[imageQuantity];
