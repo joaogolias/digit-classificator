@@ -18,17 +18,9 @@ Matrix** FileHelper::readSampleMatrixes(char* name, int ndig_treino) {
     for (int k = 0; k < ndig_treino; k++) {
         matrices[k] = new Matrix(VECTOR_ROWS_QUANTITY, 1);
     }
-    cout << name << endl;    
     if(checkFileExists(name)){
         input.open(name);
-        string* line;
-        cout << "File exists" << endl;
-        int a,b,c,d,e,f,g,h;
 
-        // input >> a >> b >> c >> d >> e >> f >> g >> h;
-
-        // cout << a << endl << b << endl << c << endl << d << endl;
-        
         char fileContent;
         int totalReadNUmbersQuantity = 0;
         int readRows = 0;
@@ -36,9 +28,9 @@ Matrix** FileHelper::readSampleMatrixes(char* name, int ndig_treino) {
         
         while(input.get(fileContent)){
             if(readRows < ndig_treino) {
-                input >> a;
-                cout << a << "_";
-                matrices[readRows]->set(row, 0, (int)a);
+                int num;
+                input >> num;
+                matrices[readRows]->set(row, 0, (int)num);
                 readRows++;
                 totalReadNUmbersQuantity++;
             }
@@ -47,8 +39,6 @@ Matrix** FileHelper::readSampleMatrixes(char* name, int ndig_treino) {
                 row++;
             }
         }
-
-        
 
     } 
     input.close();

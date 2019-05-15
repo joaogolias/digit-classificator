@@ -47,13 +47,6 @@ void readSampleMatricesTest(){
     char* fileName = "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/train.txt";
     Matrix **matrices = fileHelper->readSampleMatrixes(fileName, 20);
 
-    for(int c = 0 ; c < 20; c ++){
-        ImageProcessor * img = new ImageProcessor();
-
-        Matrix*m = img->regenerateMatrix(matrices[c], 28, 28);
-        // m->transpose()->print();
-        m->print();
-    }
     testManager
         ->result();
 }
