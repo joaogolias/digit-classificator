@@ -22,9 +22,10 @@ Matrix* ImageProcessor::regenerateMatrix(Matrix* vector, int rows, int columns){
     for(int j = 0; j < columns; j++) {
         for(int i = 0; i < rows; i++) {
             M->set(i,j,vector->at(j*rows + i,0));
+            // M->set(i,j ,vector->at(rows*(rows-j-1) +i, 0));
         }
     }
-    return M;
+    return M->transpose();
 }
 
 Matrix* ImageProcessor::joinVectors(Matrix** vectors, int vectorsQuantity){

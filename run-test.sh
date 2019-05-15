@@ -53,3 +53,9 @@ then
     g++ -std=c++11 src/helpers/timehelper/TimeHelper.cpp tests/testmanager/TestManager.cpp tests/helpers/timehelper/TimeHelperTest.cpp -o TimeHelperTest.out
     ./TimeHelperTest.out
 fi
+
+if [ $1 = "FileHelper" ] 
+then
+    g++ -std=c++11 -Wno-writable-strings tests/testmanager/TestManager.cpp src/modules/basic/matrix/Matrix.cpp src/modules/imageProcessor/ImageProcessor.cpp  tests/helpers/filehelper/FileHelperTest.cpp src/helpers/filehelper/FileHelper.cpp -o FileHelper.out
+    ./FileHelper.out
+fi
