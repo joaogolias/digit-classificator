@@ -1,4 +1,5 @@
 #include "FileHelper.h"
+#include "../../modules/imageProcessor/ImageProcessor.h"
 
 #include <string>
 #include <fstream>
@@ -14,26 +15,54 @@ FileHelper::~FileHelper(){}
 
 Matrix** FileHelper::readSampleMatrixes(char* name, int ndig_treino) {
     Matrix** matrices = new Matrix*[ndig_treino];
+    for (int k = 0; k < ndig_treino; k++) {
+        matrices[k] = new Matrix(VECTOR_ROWS_QUANTITY, 1);
+    }
     cout << name << endl;    
     if(checkFileExists(name)){
-        int i = 0;
-        string line;
-        int maxSize = 0;
-        cout << "file exists" << endl;
-        while(fs.eof()) {
-            getline(fs, line);
-            cout << line.size() << endl;
+        input.open(name);
+        string* line;
+        cout << "File exists" << endl;
+        int a,b,c,d,e,f,g,h;
+
+        // input >> a >> b >> c >> d >> e >> f >> g >> h;
+
+        // cout << a << endl << b << endl << c << endl << d << endl;
+        
+        char fileContent;
+        int totalReadNUmbersQuantity = 0;
+        int readRows = 0;
+        int row = 0;
+        
+        while(input.get(fileContent)){
+            if(readRows < ndig_treino) {
+                input >> a;
+                cout << a << "_";
+                matrices[readRows]->set(row, 0, (int)a);
+                readRows++;
+                totalReadNUmbersQuantity++;
+            }
+            if(fileContent == '\n'){
+                readRows=0;
+                row++;
+            }
         }
+
+        
+
     } 
+    input.close();
     return matrices;
 }
 
 bool FileHelper::checkFileExists(char* name) {
-    fs.open (name);
-    if(fs.good()) {
+    input.open (name);
+    if(input.good()) {
+        input.close();
         return true;
     } else {
         cout << "file does not exist" << endl;
+        input.close();
         return false;
     }
 }

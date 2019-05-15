@@ -56,6 +56,6 @@ fi
 
 if [ $1 = "FileHelper" ] 
 then
-    g++ -std=c++11 -Wno-writable-strings tests/testmanager/TestManager.cpp src/modules/basic/matrix/Matrix.cpp tests/helpers/filehelper/FileHelperTest.cpp src/helpers/filehelper/FileHelper.cpp -o FileHelper.out
+    g++ -std=c++11 -Wno-writable-strings tests/testmanager/TestManager.cpp src/modules/basic/matrix/Matrix.cpp src/modules/imageProcessor/ImageProcessor.cpp  tests/helpers/filehelper/FileHelperTest.cpp src/helpers/filehelper/FileHelper.cpp -o FileHelper.out
     ./FileHelper.out
 fi

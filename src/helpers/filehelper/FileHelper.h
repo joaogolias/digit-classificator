@@ -9,7 +9,7 @@ using namespace std;
 class Matrix; 
 
 class FileHelper {
-    fstream fs;
+    ifstream input;
     
     public:
         FileHelper();
@@ -17,5 +17,6 @@ class FileHelper {
         Matrix** readSampleMatrixes(char* name, int ndig_treino);
         // void writeFile(char* name, char* content, bool overrideFile);
         bool checkFileExists(char* name);
+        const int VECTOR_ROWS_QUANTITY = 784;
 };
 #endif

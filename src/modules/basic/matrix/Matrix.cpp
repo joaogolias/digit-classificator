@@ -149,10 +149,12 @@ bool Matrix::areValidArguments(int row, int column){
 }
 
 void Matrix::print() {
-    cout << fixed << setprecision(15) << setfill(' ');
+    // cout << fixed << setprecision(15) << setfill(' ');
+    cout << fixed << setprecision(0) << setfill(' ');
     for(int i = 0; i<rows; i++){
         for(int j=0;j<columns;j++){
-            cout << setw(18) << at(i,j) << " ";
+            // cout << setw(18) << at(i,j) << " ";
+            cout << setw(3) << at(i,j) << " ";
         }
         cout <<endl;
     }

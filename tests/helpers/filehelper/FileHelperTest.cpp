@@ -1,5 +1,7 @@
 #include "../../../src/helpers/filehelper/FileHelper.h"
 #include "../../testmanager/TestManager.h"
+#include "../../../src/modules/imageProcessor/ImageProcessor.h"
+
 
 #include <iostream>
 
@@ -25,7 +27,7 @@ int main(){
 void fileExistsTest(){
     cout << endl << "1. ";
     cout << "Should return true if a file does exists: ";
-    char* fileName = "test.txt";
+    char* fileName = "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/test1.txt";
     testManager
             ->assertEquals(fileHelper->checkFileExists(fileName), true)
             ->result();
@@ -33,7 +35,7 @@ void fileExistsTest(){
 void fileDoesNotExistTest(){
     cout << "2. ";
     cout << "Should return false if a file does not exist: ";
-    char* fileName = "test1.txt";
+    char* fileName = "test2.txt";
     testManager
         ->assertEquals(fileHelper->checkFileExists(fileName), false)
         ->result();
@@ -42,8 +44,16 @@ void fileDoesNotExistTest(){
 void readSampleMatricesTest(){
     cout << "3. ";
     cout << "Should read a matrix: ";
-    char* fileName = "train.txt";
-    fileHelper->readSampleMatrixes(fileName, 2);
+    char* fileName = "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/train.txt";
+    Matrix **matrices = fileHelper->readSampleMatrixes(fileName, 20);
+
+    for(int c = 0 ; c < 20; c ++){
+        ImageProcessor * img = new ImageProcessor();
+
+        Matrix*m = img->regenerateMatrix(matrices[c], 28, 28);
+        // m->transpose()->print();
+        m->print();
+    }
     testManager
         ->result();
 }
