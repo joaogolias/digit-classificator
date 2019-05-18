@@ -30,11 +30,12 @@ Matrix* ImageProcessor::regenerateMatrix(Matrix* vector, int rows, int columns){
     return M->transpose();
 }
 
-Matrix* ImageProcessor::joinVectors(Matrix** vectors, int vectorsQuantity){
+Matrix* ImageProcessor::joinVectors(Matrix** vectors, int vectorsQuantity, bool normalize){
     Matrix *result = new Matrix(vectors[0]->rows, vectorsQuantity);
     for(int i = 0; i < vectorsQuantity; i++) {
         for(int j = 0 ; j < result->rows; j++) {
-            result->set(j,i, vectors[i]->at(j,0));
+            if(normalize) result->set(j,i, (vectors[i]->at(j,0))/255.0);
+            else result->set(j,i, vectors[i]->at(j,0));
         }
     }
     return result;

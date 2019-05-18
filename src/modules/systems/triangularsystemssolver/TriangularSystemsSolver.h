@@ -5,16 +5,14 @@
 class Matrix;
 
 class TriangularSystemsSolver {
-    Matrix *W;
-    Matrix *b;
     public:
         TriangularSystemsSolver();
         ~TriangularSystemsSolver();
         Matrix* solveOneSystem(Matrix*W, Matrix*b);
         Matrix* solveSystems(Matrix*W, Matrix*A);
     private: 
-        bool isTriangularSystem();
-        bool areValidArguments();
+        bool isTriangularSystem(Matrix*W);
+        bool areValidArguments(Matrix* W, Matrix*b);
 };
 
 #endif

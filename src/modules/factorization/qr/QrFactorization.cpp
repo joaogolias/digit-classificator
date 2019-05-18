@@ -5,10 +5,7 @@ using namespace std;
 
 QrFactorization::QrFactorization() {}
 
-QrFactorization::~QrFactorization() {
-    delete W;
-    delete b;
-}
+QrFactorization::~QrFactorization() { }
 
 double QrFactorization::calculateS(double wi, double wj){
     return -wj/sqrt(wi*wi+wj*wj);
@@ -31,8 +28,6 @@ void QrFactorization::Q(Matrix* A, double i, double j, double k,  double c, doub
 }
 
 Matrix* QrFactorization::executeForOneSystem(Matrix* W, Matrix *b) {
-    this->W = W;
-    this->b = b;
     double wi, wj, c, s;
     Matrix* result = W->copy();
     for(int k = 1; k <= result->columns; k++) {
@@ -60,22 +55,22 @@ Matrix* QrFactorization::execute(Matrix* W, Matrix *A) {
     int m = A->columns;
     int p = W->columns;
     double wi, wj, c, s;
-    Matrix* result = W->copy();
+    // Matrix* result = W->copy();
     for(int k = 1; k <= p; k++) {
         int j;
         int i;
         for(j = n; j >= k+1; j--){
             i = j - 1;
-            if(result->at(j-1,k-1) != 0) {
-                wi = result->at(i-1, k-1);
-                wj = result->at(j-1, k-1);
+            if(W->at(j-1,k-1) != 0) {
+                wi = W->at(i-1, k-1);
+                wj = W->at(j-1, k-1);
                 c = calculateC(wi, wj);
                 s = calculateS(wi,wj);
-                Q(result, i-1, j-1, k, c, s);
+                Q(W, i-1, j-1, k, c, s);
                 if(A != NULL) Q(A, i-1,j-1,k,c,s);
             
             }
         }
     }
-    return result;
+    return W;
 }

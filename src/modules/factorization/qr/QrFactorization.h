@@ -7,8 +7,6 @@
 class Matrix;
 
 class QrFactorization {
-    Matrix* W;
-    Matrix *b;
     public:
         QrFactorization();
         ~QrFactorization();

@@ -8,14 +8,10 @@ using namespace std;
 TriangularSystemsSolver::TriangularSystemsSolver(){}
 
 TriangularSystemsSolver::~TriangularSystemsSolver(){
-    delete W;
-    delete b;
 }
 
 Matrix* TriangularSystemsSolver::solveOneSystem(Matrix*W, Matrix*b) {
-    this-> W = W;
-    this-> b = b;
-    if(areValidArguments()) {
+    if(areValidArguments(W,b)) {
         Matrix* X = new Matrix(W->columns, 1);
         for(int k = X->rows-1; k >= 0; k--) {
             double finalValue = b->at(k,0);
@@ -49,14 +45,15 @@ Matrix* TriangularSystemsSolver::solveSystems(Matrix*W, Matrix*A){
     return H;
 }
 
-bool TriangularSystemsSolver::areValidArguments() {
-    if(W->rows == b->rows && isTriangularSystem()){
-        return true;
-    }
-    throw std::invalid_argument("W and b must have the same quantity of rows");
+bool TriangularSystemsSolver::areValidArguments(Matrix*W, Matrix*b) {
+    return true;
+    // if(W->rows == b->rows && isTriangularSystem(W)){
+    //     return true;
+    // }
+    // throw std::invalid_argument("W and b must have the same quantity of rows");
 }
 
-bool TriangularSystemsSolver::isTriangularSystem(){
+bool TriangularSystemsSolver::isTriangularSystem(Matrix* W){
     for(int j = 0; j < W->columns; j++) {
         for(int i = W->rows-1; i >= j+1; i--){
             if(abs(W->at(i,j) - 0) > 0.001){

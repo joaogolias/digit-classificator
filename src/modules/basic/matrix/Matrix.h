@@ -28,6 +28,7 @@ class Matrix : public Comparable {
         Matrix* multiply(Matrix* B);
         Matrix* mutiplyByConstant(double c, bool useSameMatrix = true);
         Matrix* transpose();
+        Matrix* transposeAndHanldeNegativeValues();
 
         bool isANonNegativeMatrix();
 

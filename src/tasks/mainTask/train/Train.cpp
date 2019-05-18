@@ -22,7 +22,7 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
     *text += string("Número de colunas da decomposição de A [p]: ") + to_string(p) + string("\n\n\n");
 
     Matrix** result = new Matrix*[ndig_train];
-    Matrix** vectors;
+    // Matrix** vectors;
     
     Matrix* A;
     Matrix* W;
@@ -40,7 +40,10 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
 
         timehelper->start();
         
-        vectors = fileHelper->readSampleMatrixes(&fileName[0], ndig_train); 
+        
+        A = fileHelper->readSampleMatrix(&fileName[0], ndig_train, true); 
+
+        // vectors = fileHelper->readSampleMatrixes(&fileName[0], ndig_train);
         
         timehelper->end();
         double timeToRead = timehelper->calculateSpentTime();
@@ -50,8 +53,8 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
 
         timehelper->start();
 
-        A = processor->joinVectors(vectors, ndig_train);
-        processor->normalize(A);
+        // A = processor->joinVectors(vectors, ndig_train, true);
+        // processor->normalize(A);
 
         W = learning->execute(A, ndig_train, p);
         
@@ -63,11 +66,13 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
 
         cout << "Treinamento do digito " << i << " finalizada em " << timehelper->generateStringTime(timeToRead) << endl;
         result[i] = W;
+
+        delete A;
     }
     
     cout << *text << endl;
 
-    delete A;
+    // delete A;
     delete W; 
 
     delete fileHelper;

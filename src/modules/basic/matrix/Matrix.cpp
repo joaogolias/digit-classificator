@@ -152,6 +152,16 @@ Matrix* Matrix::transpose(){
     return resultMatrix;
 }
 
+Matrix* Matrix::transposeAndHanldeNegativeValues(){
+    Matrix* resultMatrix = new Matrix(columns, rows);
+    for(int i = 0; i < rows ; i ++) {
+        for (int j = 0; j <columns; j++) {
+            resultMatrix -> set(j,i, fmax(0.0, at(i,j)));
+        }
+    }
+    return resultMatrix;
+}
+
 double* Matrix::getRow(int row){
     if(areValidArguments(row, NIL)){
         return values[row];

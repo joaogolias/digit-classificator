@@ -73,14 +73,13 @@ double NonNegativeFactorization::calculateError(Matrix *A, Matrix *W, Matrix *H)
 int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
 {   
 
-    if (!A->isANonNegativeMatrix())
-        throw std::invalid_argument("All matrix values must be non negatives");
+    // if (!A->isANonNegativeMatrix())
+    //     throw std::invalid_argument("All matrix values must be non negatives");
 
-    // Matrix *A_Copy;
-    // Matrix* Wtriangular;
-    // Matrix* At;
-    // Matrix* HtTriangular; 
-    // Matrix* Wt; 
+    Matrix *A_Copy;
+    Matrix* At;
+    Matrix* Ht; 
+    Matrix* Wt; 
 
     QrFactorization* qrFactorization = new QrFactorization();
     TriangularSystemsSolver* triangularSystemSolver = new TriangularSystemsSolver();
@@ -94,52 +93,52 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
     {   
         if(iterationCount >= itmax)
             break;
-        Matrix* A_Copy = A->copy();
+        A_Copy = A->copy();
 
         //TODO: Normalizar W tal que a norma de cada uma das colunas seja 1
         normalize(W);
 
         //TODO: Resolver o problema dos minimos quadrados W * H = A (utiizar A original a cada interação)
-        Matrix* Wtriangular = qrFactorization->execute(W, A_Copy);
-        H = triangularSystemSolver->solveSystems(Wtriangular, A_Copy);
+        
+        // Matrix* Wtriangular = qrFactorization->execute(W, A_Copy);
+        qrFactorization->execute(W, A_Copy);
+        
+        H = triangularSystemSolver->solveSystems(W, A_Copy);
 
         //TODO: Redefinir H hij=max(0, hij)
         handleNegativeValues(H);
         
         //TODO: transpor A (original)
-        Matrix* At = A->transpose();
+        At = A->transpose();
 
         //TODO: Resolver o problema dos minimos quadrados para Ht * Wt = At
-        Matrix* HtTriangular = qrFactorization->execute(H->transpose(), At);
-
-        Matrix* Wt = triangularSystemSolver->solveSystems(HtTriangular, At);
-       
-
+        // Matrix* HtTriangular = qrFactorization->execute(H->transpose(), At);
+        Ht = H->transpose();
+        qrFactorization->execute(Ht, At);
+        Wt = triangularSystemSolver->solveSystems(Ht, At);
 
         //TODO: transpor Wt
         W = Wt->transpose();
         //TODO: Redefinir W wij=max(0, wij)
         handleNegativeValues(W);
 
+        W = Wt->transposeAndHanldeNegativeValues();
+
         double newError = calculateError(A, W, H);
         errorChange = oldError - newError;
         oldError = newError;
 
         iterationCount++;
-        
-       
     }
     this->Wresult = W;
     this->Hresult = H;
     
-    // delete Wtriangular;
-    // delete At;
-    // delete HtTriangular;
-    // delete Wt; 
-    // delete A_Copy;
+    delete At;
+    delete Wt; 
+    delete A_Copy;
 
-    // delete qrFactorization;
-    // delete triangularSystemSolver;
+    delete qrFactorization;
+    delete triangularSystemSolver;
 
     return iterationCount;
 }

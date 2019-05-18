@@ -11,7 +11,7 @@ class ImageProcessor {
 
         Matrix* generateVector(Matrix* image);
         Matrix* regenerateMatrix(Matrix* vector, int rows, int columns);
-        Matrix* joinVectors(Matrix** vectors, int vectorsQuantity);
+        Matrix* joinVectors(Matrix** vectors, int vectorsQuantity, bool normalize = false);
 
         Matrix** splitVectors(Matrix* matrixOfVectors);
 
