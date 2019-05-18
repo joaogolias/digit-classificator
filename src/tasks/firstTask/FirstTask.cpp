@@ -2,10 +2,10 @@
 #include "../../../src/modules/basic/matrix/Matrix.h"
 #include "../../../src/modules/factorization/qr/QrFactorization.h"
 #include "../../../src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.h"
-#include <math.h>
 
 using namespace std;
 
+double abs(double value);
 QrFactorization *qr = new QrFactorization();
 TriangularSystemsSolver* solver = new TriangularSystemsSolver();
 
@@ -117,4 +117,9 @@ Matrix* FirstTask::resultOfExerciseD(Matrix* w, Matrix *a){
     Matrix* r = qr->execute(w, a_copy);
     Matrix* x = solver->solveSystems(r, a_copy);
     return x;
+}
+
+double abs(double value) {
+    if(value < 0) return -value;
+    return value;
 }

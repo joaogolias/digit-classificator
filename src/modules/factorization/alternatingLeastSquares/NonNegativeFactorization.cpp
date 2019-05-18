@@ -8,13 +8,9 @@
 
 using namespace std;
 
-NonNegativeFactorization::NonNegativeFactorization()
-{
-}
+NonNegativeFactorization::NonNegativeFactorization(){}
 
-NonNegativeFactorization::~NonNegativeFactorization()
-{
-}
+NonNegativeFactorization::~NonNegativeFactorization(){}
 
 double NonNegativeFactorization::calculateS(Matrix *M, int column)
 {
@@ -48,7 +44,9 @@ void NonNegativeFactorization::handleNegativeValues(Matrix *M)
     {
         for (int j=0; j < M->columns; j++)
         {
-            M->set(i, j, fmax(0.0, M->at(i, j)));
+            if(M->at(i,j) < 0) M->set(i, j, 0);
+            else M->set(i,j, M->at(i,j));
+            
         }
     }
 }
@@ -63,7 +61,7 @@ double NonNegativeFactorization::calculateError(Matrix *A, Matrix *W, Matrix *H)
         for (int j = 0; j < A->columns; j++)
         {
             double difference = A->at(i, j) - WH->at(i, j);
-            error += pow(difference, 2);
+            error += difference * difference;
         }
     }
 
@@ -118,9 +116,9 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
         Wt = triangularSystemSolver->solveSystems(Ht, At);
 
         //TODO: transpor Wt
-        W = Wt->transpose();
+        // W = Wt->transpose();
         //TODO: Redefinir W wij=max(0, wij)
-        handleNegativeValues(W);
+        // handleNegativeValues(W);
 
         W = Wt->transposeAndHanldeNegativeValues();
 

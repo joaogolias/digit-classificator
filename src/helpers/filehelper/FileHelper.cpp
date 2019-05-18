@@ -26,7 +26,7 @@ Matrix** FileHelper::readSampleMatrixes(char* name, int ndig_treino) {
         int readRows = 0;
         int row = 0;
         
-        while(input.get(fileContent)){
+        while(input){
             if(readRows < ndig_treino) {
                 int num;
                 input >> num;
@@ -63,13 +63,14 @@ void FileHelper::writeFile(string name, string content){
     output.close();
 }
 
-Matrix* FileHelper::readSampleMatrix(char* name, int ndig_treino, bool normalize){
+Matrix* FileHelper::readSampleMatrix(char* name, int ndig_treino, bool normalize, int rowsQuantity){
     //  Matrix** matrices = new Matrix*[ndig_treino];
     // for (int k = 0; k < ndig_treino; k++) {
     //     matrices[k] = new Matrix(VECTOR_ROWS_QUANTITY, 1);
     // }
 
-    Matrix* matrix = new Matrix(VECTOR_ROWS_QUANTITY, ndig_treino);
+    Matrix* matrix = new Matrix(rowsQuantity, ndig_treino);
+    if(!normalize) cout <<  "rows: " << matrix->rows << " columns: " << matrix->columns << endl;
     if(checkFileExists(string(name))){
         input.open(name);
 
@@ -80,11 +81,11 @@ Matrix* FileHelper::readSampleMatrix(char* name, int ndig_treino, bool normalize
         int j = 0;
         
         while(input.get(fileContent)){
+             double num;
+             num = atof(&fileContent);
             if(j < ndig_treino) {
-                int num;
-                input >> num;
-                if(normalize)  matrix->set(i,j,((int) num/255.0));
-                else matrix->set(i,j,(int)num);
+                if(normalize)  matrix->set(i,j,(num/255.0));
+                else matrix->set(i,j,num);
                 j++;
                 totalReadNUmbersQuantity++;
             }

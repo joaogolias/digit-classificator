@@ -33,6 +33,7 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
     Learning *learning = new Learning();
     
     string fileName = "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/train.txt";
+    
     for(int i = 0; i < 10; i++){
         fileName = string("/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/"); 
         fileName += string("train_dig") + to_string(i) ;
@@ -40,11 +41,8 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
 
         timehelper->start();
         
-        
         A = fileHelper->readSampleMatrix(&fileName[0], ndig_train, true); 
-
-        // vectors = fileHelper->readSampleMatrixes(&fileName[0], ndig_train);
-        
+    
         timehelper->end();
         double timeToRead = timehelper->calculateSpentTime();
 
@@ -52,9 +50,6 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
         *text += timehelper->generateStringTime() + string("\n");
 
         timehelper->start();
-
-        // A = processor->joinVectors(vectors, ndig_train, true);
-        // processor->normalize(A);
 
         W = learning->execute(A, ndig_train, p);
         
@@ -67,13 +62,20 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
         cout << "Treinamento do digito " << i << " finalizada em " << timehelper->generateStringTime(timeToRead) << endl;
         result[i] = W;
 
+        // cout << "digito: " << i << endl;
+        // cout << "A row: " << A->rows << endl;
+        // cout << "A column: " << A->columns << endl;
+        // cout << "W row: " << W->rows << endl;
+        // cout << "W column: " << W->columns << endl;
+        // cout << "result[i] row: " << result[i]->rows << endl;
+        // cout << "result[i] column: " << result[i]->columns << endl;
+
         delete A;
     }
     
     cout << *text << endl;
 
-    // delete A;
-    delete W; 
+    // delete W; 
 
     delete fileHelper;
     delete processor;

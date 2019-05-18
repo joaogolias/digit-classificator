@@ -29,6 +29,7 @@ class Matrix : public Comparable {
         Matrix* mutiplyByConstant(double c, bool useSameMatrix = true);
         Matrix* transpose();
         Matrix* transposeAndHanldeNegativeValues();
+        Matrix* calculateCErroVector();
 
         bool isANonNegativeMatrix();
 

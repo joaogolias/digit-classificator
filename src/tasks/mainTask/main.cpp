@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "./train/Train.h"
+#include "./percentagehit/PercentageHit.h"
 #include "../../helpers/filehelper/FileHelper.h"
 
 using namespace std;
@@ -24,13 +25,29 @@ int main(int argc, char *argv[]){
        
        string text;
        string* textRef = &text;
-       
-       train->execute(ndigTrain, p, textRef);
 
+       Matrix** Wmatrices = train->execute(ndigTrain, p, textRef);
+       PercentageHit* percentageHit = new PercentageHit();
+
+       Matrix* A = fileHelper->readSampleMatrix(
+                "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/test_images.txt",
+                10000,
+                true);
+                
+        Matrix* answer = fileHelper->readSampleMatrix(
+                "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/test_index.txt",
+                1,
+                false,
+                10000);
+
+        // answer->print();
+
+       percentageHit->execute(Wmatrices, A, answer);
        fileHelper->writeFile(
                 fileName, 
                 text);
-       
+        
+        // delete textRef;
        return 0;
 }
 

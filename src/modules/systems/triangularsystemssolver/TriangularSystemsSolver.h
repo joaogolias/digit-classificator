@@ -9,7 +9,7 @@ class TriangularSystemsSolver {
         TriangularSystemsSolver();
         ~TriangularSystemsSolver();
         Matrix* solveOneSystem(Matrix*W, Matrix*b);
-        Matrix* solveSystems(Matrix*W, Matrix*A);
+        Matrix* solveSystems(Matrix*W, Matrix*A, bool handleNegativeValues = false);
     private: 
         bool isTriangularSystem(Matrix*W);
         bool areValidArguments(Matrix* W, Matrix*b);

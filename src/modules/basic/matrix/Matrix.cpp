@@ -11,7 +11,7 @@ using namespace std;
 Matrix::Matrix(int r, int col) {
     columns = col;
     rows = r;
-    if(rows < 0) throw std::invalid_argument( "rows must be <= 0" );
+    if(rows < 0) throw std::invalid_argument( "rows must be >= 0" );
     if(rows == 0) rows = 1;
     if(columns <= 0) throw std::invalid_argument( "columns must be > 0" );
     
@@ -160,6 +160,18 @@ Matrix* Matrix::transposeAndHanldeNegativeValues(){
         }
     }
     return resultMatrix;
+}
+
+Matrix* Matrix::calculateCErroVector(){
+    Matrix* c = new Matrix(columns, 1);
+    for(int j = 0; j< columns; j++){
+        double value = 0;
+        for(int i = 0; i < rows; i++){
+            value += at(i,j)*at(i,j);
+        }
+        c->set(j,0,sqrt(value));
+    }
+    return c;
 }
 
 double* Matrix::getRow(int row){

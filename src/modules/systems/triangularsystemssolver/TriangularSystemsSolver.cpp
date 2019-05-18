@@ -1,7 +1,7 @@
 #include "TriangularSystemsSolver.h"
 #include <stdexcept>
 #include <iostream>
-#include <math.h>
+// #include <math.h>
 
 using namespace std;
 
@@ -26,7 +26,7 @@ Matrix* TriangularSystemsSolver::solveOneSystem(Matrix*W, Matrix*b) {
     return NULL;
 }
 
-Matrix* TriangularSystemsSolver::solveSystems(Matrix*W, Matrix*A){
+Matrix* TriangularSystemsSolver::solveSystems(Matrix*W, Matrix*A, bool handleNegativeValues){
     int n = A->rows;
     int m = A->columns;
     int p = W->columns;
@@ -39,7 +39,8 @@ Matrix* TriangularSystemsSolver::solveSystems(Matrix*W, Matrix*A){
             }
             finalValue = finalValue/W->at(k-1,k-1);
             
-            H->set(k-1, j-1, finalValue);
+            if(handleNegativeValues) H->set(k-1, j-1, finalValue);
+            else H->set(k-1, j-1, finalValue);
         }
     }
     return H;
@@ -56,7 +57,10 @@ bool TriangularSystemsSolver::areValidArguments(Matrix*W, Matrix*b) {
 bool TriangularSystemsSolver::isTriangularSystem(Matrix* W){
     for(int j = 0; j < W->columns; j++) {
         for(int i = W->rows-1; i >= j+1; i--){
-            if(abs(W->at(i,j) - 0) > 0.001){
+            double value;
+            if(W->at(i,j) < 0) value = -W->at(i,j);
+            else value = W->at(i,j);
+            if((value - 0)> 0.001){
                 throw std::invalid_argument("W must be triangular");
             }
         }
