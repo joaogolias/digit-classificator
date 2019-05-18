@@ -21,16 +21,10 @@ double QrFactorization::calculateC(double wi, double wj){
 void QrFactorization::Q(Matrix* A, double i, double j, double k,  double c, double s) {
     double wi, wj;
     for(int u = 0; u < A->columns; u++) {
-        // cout << "c: " << c << endl;
-        // cout << "s: " << s << endl;
-        // cout << "wi: " << wi << endl;
         wi = A->at(i,u);
-        // cout << "wj: " << wj << endl;
         wj = A->at(j,u);
         double bi = c*wi-s*wj;
         double bj = s*wi+c*wj;
-        // cout << "bi: " << bi << endl;
-        // cout << "bj: " << bj << endl;
         A->set(i,u, bi);
         A->set(j,u, bj);
     }

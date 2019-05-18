@@ -59,3 +59,9 @@ then
     g++ -std=c++11 -Wno-writable-strings tests/testmanager/TestManager.cpp src/modules/basic/matrix/Matrix.cpp src/modules/imageProcessor/ImageProcessor.cpp  tests/helpers/filehelper/FileHelperTest.cpp src/helpers/filehelper/FileHelper.cpp -o FileHelper.out
     ./FileHelper.out
 fi
+
+if [ $1 = "Training" ] 
+then
+    g++ -std=c++11 -Wno-writable-strings src/modules/classificator/Classificator.cpp src/helpers/timehelper/TimeHelper.cpp src/modules/factorization/qr/QrFactorization.cpp tests/testmanager/TestManager.cpp src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.cpp src/modules/learning/Learning.cpp  src/modules/imageProcessor/ImageProcessor.cpp src/modules/basic/matrix/Matrix.cpp src/helpers/filehelper/FileHelper.cpp src/modules/factorization/alternatingLeastSquares/NonNegativeFactorization.cpp src/tasks/training/Training.cpp -o Training.out
+    ./Training.out
+fi

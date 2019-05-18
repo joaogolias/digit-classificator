@@ -5,6 +5,7 @@ using namespace std;
 
 ImageProcessor::ImageProcessor(){}
 ImageProcessor::~ImageProcessor(){}
+
 Matrix* ImageProcessor::generateVector(Matrix* image){
     int rows = image->rows*image->columns;
     Matrix* vector = new Matrix(rows, 1);
@@ -19,12 +20,13 @@ Matrix* ImageProcessor::generateVector(Matrix* image){
 
 Matrix* ImageProcessor::regenerateMatrix(Matrix* vector, int rows, int columns){
     Matrix* M = new Matrix(rows, columns);
-    for(int j = 0; j < columns; j++) {
-        for(int i = 0; i < rows; i++) {
-            M->set(i,j,vector->at(j*rows + i,0));
-            // M->set(i,j ,vector->at(rows*(rows-j-1) +i, 0));
+
+    for(int i = 0; i < rows; i ++) {
+        for (int j = 0; j < columns; j++){
+            M->set(i,j, vector->at(i + rows*j,0));
         }
     }
+
     return M->transpose();
 }
 
@@ -49,6 +51,7 @@ Matrix** ImageProcessor::splitVectors(Matrix* matrixOfVectors){
         }
         vectors[j] = vector;
     }
+    cout << "finish split" << endl;
     return vectors;
 }
 
@@ -69,37 +72,31 @@ Matrix* ImageProcessor::execute(Matrix** images, int imageQuantity, bool reverse
         Matrix* vector = generateVector(image);
         vectors[k] = vector;
 
-        cout << "v" << k+1 << ": " << endl;
-        vector->print();
+        // cout << "v" << k+1 << ": " << endl;
+        // vector->print();
     }
 
-    cout << endl << "Matrix A" << endl;
+    // cout << endl << "Matrix A" << endl;
     Matrix* A = joinVectors(vectors, imageQuantity);
-    A->print();
+    // A->print();
 
-    cout << endl << "Normalized Matrix A" << endl;
+    // cout << endl << "Normalized Matrix A" << endl;
     normalize(A);
-    A->print();
+    // A->print();
     if(reverse && rows !=0 && columns != 0) { 
-        this->reverse(A, rows, columns);
+        this->reverse(A, rows, columns, imageQuantity);
     }
     return A;
 }
 
-Matrix** ImageProcessor::reverse(Matrix* A, int rows, int columns){
-    cout << endl << "Unnormalized Matrix A" << endl;
-    unnormalize(A);
-    A->print();
+Matrix** ImageProcessor::reverse(Matrix* A, int rows, int columns, int p){
+    // unnormalize(A);
 
     Matrix** matrixes = new Matrix*[A->columns];
     Matrix** vectors = splitVectors(A);
-    for(int l = 0 ; l < A->columns; l++) {
-        cout << "v" << l+1 << ": " << endl;
-        vectors[l]->print();
-
+    for(int l = 0 ; l < p; l++) {
+        
         Matrix* reversedMatrix = regenerateMatrix(vectors[l], rows, columns);
-        cout << "Matrix" << l+1 << ": " << endl;
-        reversedMatrix->print();
 
         matrixes[l] = reversedMatrix;
     }

@@ -9,12 +9,12 @@ using namespace std;
 Classificator::Classificator(){}
 Classificator::~Classificator(){}
 
-Matrix* Classificator::classificate(Matrix* digitTrain, Matrix *image) {
-    Matrix **images = new Matrix*[1];
-    images[0]=image;
+Matrix* Classificator::classificate(Matrix* digitTrain, Matrix *v) {
+    // Matrix **images = new Matrix*[1];
+    // images[0]=image;
     
-    ImageProcessor *imageProcessor = new ImageProcessor();
-    Matrix* v = imageProcessor->execute(images, 1);
+    // ImageProcessor *imageProcessor = new ImageProcessor();
+    // Matrix* v = imageProcessor->execute(images, 1);
 
     QrFactorization* qr = new QrFactorization();
     Matrix* WdTriangular = qr->execute(digitTrain, v);

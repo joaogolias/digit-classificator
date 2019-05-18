@@ -39,6 +39,16 @@ double Matrix::calculateFrobeniusNorm() {
     }
     return sqrt(norm);
 }
+
+double Matrix::euclideanNomr() {
+    double result = 0;
+    for(int i=0; i<rows; i++){
+        for(int j = 0; j < columns; j++){
+            result += at(i,j)*at(i,j);
+        }
+    }
+    return sqrt(result);
+}
 void Matrix::set(int row, int column, double value) {
     if(areValidArguments(row, column)){
         values[row][column] = value;
@@ -136,8 +146,6 @@ double* Matrix::getRow(int row){
 }
 
 bool Matrix::areValidArguments(int row, int column){
-    // cout << row << endl << column;
-    // cout << "columns: " << columns << endl << "rows: " << rows << endl;
     bool validColumn = true;
     bool validRow = true;
     if(column != NIL && column >= columns) validColumn = false; 
@@ -149,14 +157,14 @@ bool Matrix::areValidArguments(int row, int column){
 }
 
 void Matrix::print() {
-    // cout << fixed << setprecision(15) << setfill(' ');
-    cout << fixed << setprecision(0) << setfill(' ');
+    cout << fixed << setprecision(15) << setfill(' ');
+    // cout << fixed << setprecision(0) << setfill(' ');
     for(int i = 0; i<rows; i++){
         for(int j=0;j<columns;j++){
-            // cout << setw(18) << at(i,j) << " ";
-            cout << setw(3) << at(i,j) << " ";
+            // cout << setw(4) << at(i,j) << " ";
+            cout << setw(18) << at(i,j) << " ";
         }
-        cout <<endl;
+        cout << endl;
     }
 }
 

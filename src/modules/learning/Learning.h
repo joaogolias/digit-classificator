@@ -8,8 +8,8 @@ class Learning {
     public: 
         Learning();
         ~Learning();
-        Matrix* execute(Matrix** images, int imageQuantity);
-        Matrix** getImages(Matrix* W, int rows, int columns);
+        Matrix* execute(Matrix* A, int imageQuantity, int p);
+        Matrix** getImages(Matrix* W, int rows, int columns, int p);
 };
 
 #endif

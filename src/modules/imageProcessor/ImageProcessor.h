@@ -20,7 +20,7 @@ class ImageProcessor {
 
         //rows and columns must not be 0 if reverse is true!
         Matrix* execute(Matrix** images, int imageQuantity, bool reverse = false, int rows = 0, int columns = 0);
-        Matrix** reverse(Matrix* A, int rows, int columns);
+        Matrix** reverse(Matrix* A, int rows, int columns, int p);
 };
 
 #endif

@@ -20,6 +20,7 @@ class Matrix : public Comparable {
         double at(int row, int column);
         double* getRow(int row);
         double calculateFrobeniusNorm();
+        double euclideanNomr();
 
         Matrix* copy();
         Matrix* add(Matrix* B);
