@@ -54,25 +54,25 @@ char* TimeHelper::generateStringTime(double offset) {
         double spentTime = calculateSpentTime(offset);
         if(spentTime < 60) {
             strcpy(stringTime, std::to_string(spentTime).c_str());
-            strcat(stringTime, " seconds");
+            strcat(stringTime, " segundos");
         } else if (spentTime < 60*60) {
             int minutes = (int) spentTime/60;
             double seconds = (spentTime/60-minutes)*60;
             strcpy(stringTime, std::to_string(minutes).c_str());
-            strcat(stringTime, " minutes and ");
+            strcat(stringTime, " minutos and ");
             strcat(stringTime, std::to_string(seconds).c_str());
-            strcat(stringTime, " seconds");
+            strcat(stringTime, " segundos");
         } else if(spentTime < 24*60*60) {
             int hours = (int) spentTime/(60*60);
             double decimalMinutes = (spentTime/(60*60) - hours)*60;
             int minutes = (int) decimalMinutes;
             double seconds = (decimalMinutes - minutes)*60;
             strcpy(stringTime, std::to_string(hours).c_str());
-            strcat(stringTime, " hours and ");
+            strcat(stringTime, " horas and ");
             strcat(stringTime, std::to_string(minutes).c_str());
-            strcat(stringTime, " minutes and ");
+            strcat(stringTime, " minutos and ");
             strcat(stringTime, std::to_string(seconds).c_str());
-            strcat(stringTime, " seconds");
+            strcat(stringTime, " segundos");
         }
     }
     return stringTime;

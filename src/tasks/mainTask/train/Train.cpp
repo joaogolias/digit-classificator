@@ -46,7 +46,7 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
         double timeToRead = timehelper->calculateSpentTime();
 
         *text += string("Tempo para ler os arquivos do dígito ") + to_string(i) + string(": ");
-        *text += to_string(timeToRead) + string("\n");
+        *text += timehelper->generateStringTime() + string("\n");
 
         timehelper->start();
 
@@ -59,13 +59,14 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
         double timeToLearn = timehelper->calculateSpentTime();
 
         *text += string("Tempo para aprendizagem do dígito ") + to_string(i) + string(": ");
-        *text += to_string(timeToLearn) + string("\n\n");
+        *text += timehelper->generateStringTime() + string("\n\n");
 
+        cout << "Treinamento do digito " << i << " finalizada em " << timehelper->generateStringTime(timeToRead) << endl;
         result[i] = W;
     }
     
     cout << *text << endl;
-    
+
     delete A;
     delete W; 
 

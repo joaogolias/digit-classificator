@@ -17,8 +17,8 @@ class FileHelper {
         FileHelper();
         ~FileHelper();
         Matrix** readSampleMatrixes(char* name, int ndig_treino);
-        void writeFile(char* name, string content);
-        bool checkFileExists(char* name);
+        void writeFile(string name, string content);
+        bool checkFileExists(string name);
         const int VECTOR_ROWS_QUANTITY = 784;
 };
 #endif

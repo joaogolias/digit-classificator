@@ -18,7 +18,7 @@ Matrix** FileHelper::readSampleMatrixes(char* name, int ndig_treino) {
     for (int k = 0; k < ndig_treino; k++) {
         matrices[k] = new Matrix(VECTOR_ROWS_QUANTITY, 1);
     }
-    if(checkFileExists(name)){
+    if(checkFileExists(string(name))){
         input.open(name);
 
         char fileContent;
@@ -45,7 +45,7 @@ Matrix** FileHelper::readSampleMatrixes(char* name, int ndig_treino) {
     return matrices;
 }
 
-bool FileHelper::checkFileExists(char* name) {
+bool FileHelper::checkFileExists(string name) {
     input.open (name);
     if(input.good()) {
         input.close();
@@ -57,10 +57,8 @@ bool FileHelper::checkFileExists(char* name) {
     }
 }
 
-void FileHelper::writeFile(char* name, string content){
-    if(checkFileExists(name)){
-        output.open(name);
-        output << content;
-        output.close();
-    }
+void FileHelper::writeFile(string name, string content){
+    output.open(name);
+    output << content;
+    output.close();
 }
