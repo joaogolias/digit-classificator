@@ -90,9 +90,10 @@ Matrix* ImageProcessor::execute(Matrix** images, int imageQuantity, bool reverse
 }
 
 Matrix** ImageProcessor::reverse(Matrix* A, int rows, int columns, int p){
-    // unnormalize(A);
+    unnormalize(A);
 
     Matrix** matrixes = new Matrix*[A->columns];
+
     Matrix** vectors = splitVectors(A);
     for(int l = 0 ; l < p; l++) {
         

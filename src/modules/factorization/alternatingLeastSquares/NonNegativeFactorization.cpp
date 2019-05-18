@@ -105,11 +105,13 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
 
         //TODO: Resolver o problema dos minimos quadrados para Ht * Wt = At
         Matrix* HtTriangular = qrFactorization->execute(H->transpose(), At);
+
         Matrix* Wt = triangularSystemSolver->solveSystems(HtTriangular, At);
+       
+
 
         //TODO: transpor Wt
         W = Wt->transpose();
-
         //TODO: Redefinir W wij=max(0, wij)
         handleNegativeValues(W);
 

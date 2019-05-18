@@ -42,6 +42,7 @@ Matrix* TriangularSystemsSolver::solveSystems(Matrix*W, Matrix*A){
                 finalValue = finalValue - (W->at(k-1,i-1)*H->at(i-1,j-1));
             }
             finalValue = finalValue/W->at(k-1,k-1);
+            
             H->set(k-1, j-1, finalValue);
         }
     }

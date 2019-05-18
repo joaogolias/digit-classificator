@@ -27,7 +27,6 @@ Matrix* Learning::execute(Matrix* A, int imageQuantity, int p){
         }
     }
 
-    
     NonNegativeFactorization* factorization = new NonNegativeFactorization();
     factorization->execute(A, W, H);
 

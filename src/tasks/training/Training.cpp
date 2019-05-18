@@ -80,7 +80,6 @@ int main() {
         cout << "Para o 4: " << matrices1[1]->subtract(W->multiply(x))->euclideanNomr() << endl;
 
         imageProcessor->normalize(matrices1[5]);
-        x = classificator->classificate(W, matrices1[5]);
         cout << "Para o 1: " << matrices1[1]->subtract(W->multiply(x))->euclideanNomr() << endl;
 
         return 0;

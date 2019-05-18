@@ -40,18 +40,18 @@ TimeHelper* TimeHelper::end() {
     return this;
 }
 
-double TimeHelper::calculateSpentTime() {
-    double finalValue;
+double TimeHelper::calculateSpentTime(double offset) {
+    double finalValue = offset;
     if(checkState(true)){
-        finalValue =  ((double) (endTime - startTime)) / CLOCKS_PER_SEC;
+        finalValue +=  ((double) (endTime - startTime)) / CLOCKS_PER_SEC;
     }
     return finalValue;
 }
 
-char* TimeHelper::generateStringTime() {
+char* TimeHelper::generateStringTime(double offset) {
     static char stringTime[100] = "";
     if(checkState(true)){
-        double spentTime = calculateSpentTime();
+        double spentTime = calculateSpentTime(offset);
         if(spentTime < 60) {
             strcpy(stringTime, std::to_string(spentTime).c_str());
             strcat(stringTime, " seconds");
