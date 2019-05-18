@@ -1,5 +1,5 @@
 #include "Learning.h"
-#include "../ImageProcessor/ImageProcessor.h"
+#include "../imageprocessor/ImageProcessor.h"
 #include "../factorization/alternatingLeastSquares/NonNegativeFactorization.h"
 
 using namespace std;

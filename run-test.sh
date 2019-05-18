@@ -32,13 +32,13 @@ fi
 
 if [ $1 = "ImageProcessor" ] 
 then
-    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp  src/modules/imageProcessor/ImageProcessor.cpp tests/testmanager/TestManager.cpp tests/modules/imageProcessor/ImageProcessorTest.cpp -o ImageProcessor.out
+    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp  src/modules/imageprocessor/ImageProcessor.cpp tests/testmanager/TestManager.cpp tests/modules/imageprocessor/ImageProcessorTest.cpp -o ImageProcessor.out
     ./ImageProcessor.out
 fi
 
 if [ $1 = "Learning" ] 
 then
-    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp  src/modules/imageProcessor/ImageProcessor.cpp tests/testmanager/TestManager.cpp src/modules/learning/Learning.cpp tests/modules/learning/LearningTest.cpp -o Learning.out
+    g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp  src/modules/imageprocessor/ImageProcessor.cpp tests/testmanager/TestManager.cpp src/modules/learning/Learning.cpp tests/modules/learning/LearningTest.cpp -o Learning.out
     ./Learning.out
 fi
 
@@ -56,18 +56,18 @@ fi
 
 if [ $1 = "FileHelper" ] 
 then
-    g++ -std=c++11 -Wno-writable-strings tests/testmanager/TestManager.cpp src/modules/basic/matrix/Matrix.cpp src/modules/imageProcessor/ImageProcessor.cpp  tests/helpers/filehelper/FileHelperTest.cpp src/helpers/filehelper/FileHelper.cpp -o FileHelper.out
+    g++ -std=c++11 -Wno-writable-strings tests/testmanager/TestManager.cpp src/modules/basic/matrix/Matrix.cpp src/modules/imageprocessor/ImageProcessor.cpp  tests/helpers/filehelper/FileHelperTest.cpp src/helpers/filehelper/FileHelper.cpp -o FileHelper.out
     ./FileHelper.out
 fi
 
 if [ $1 = "Training" ] 
 then
-    g++ -std=c++11 -Wno-writable-strings src/modules/classificator/Classificator.cpp src/helpers/timehelper/TimeHelper.cpp src/modules/factorization/qr/QrFactorization.cpp tests/testmanager/TestManager.cpp src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.cpp src/modules/learning/Learning.cpp  src/modules/imageProcessor/ImageProcessor.cpp src/modules/basic/matrix/Matrix.cpp src/helpers/filehelper/FileHelper.cpp src/modules/factorization/alternatingLeastSquares/NonNegativeFactorization.cpp src/tasks/training/Training.cpp -o Training.out
+    g++ -std=c++11 -Wno-writable-strings src/modules/classificator/Classificator.cpp src/helpers/timehelper/TimeHelper.cpp src/modules/factorization/qr/QrFactorization.cpp tests/testmanager/TestManager.cpp src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.cpp src/modules/learning/Learning.cpp  src/modules/imageprocessor/ImageProcessor.cpp src/modules/basic/matrix/Matrix.cpp src/helpers/filehelper/FileHelper.cpp src/modules/factorization/alternatingLeastSquares/NonNegativeFactorization.cpp src/tasks/training/Training.cpp -o Training.out
     ./Training.out
 fi
 
 if [ $1 = "MainTask" ] 
 then
-    g++ -std=c++11 -Wno-writable-strings src/modules/classificator/Classificator.cpp src/helpers/timehelper/TimeHelper.cpp src/modules/factorization/qr/QrFactorization.cpp tests/testmanager/TestManager.cpp src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.cpp src/modules/learning/Learning.cpp  src/modules/imageProcessor/ImageProcessor.cpp src/modules/basic/matrix/Matrix.cpp src/helpers/filehelper/FileHelper.cpp src/modules/factorization/alternatingLeastSquares/NonNegativeFactorization.cpp  src/tasks/mainTask/train/Train.cpp src/tasks/mainTask/main.cpp -o MainTask.out
+    g++ -std=c++11 -Wno-writable-strings src/modules/classificator/Classificator.cpp src/helpers/timehelper/TimeHelper.cpp src/modules/factorization/qr/QrFactorization.cpp tests/testmanager/TestManager.cpp src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.cpp src/modules/learning/Learning.cpp  src/modules/imageprocessor/ImageProcessor.cpp src/modules/basic/matrix/Matrix.cpp src/helpers/filehelper/FileHelper.cpp src/modules/factorization/alternatingLeastSquares/NonNegativeFactorization.cpp  src/tasks/mainTask/train/Train.cpp src/tasks/mainTask/main.cpp -o MainTask.out
     ./MainTask.out
 fi

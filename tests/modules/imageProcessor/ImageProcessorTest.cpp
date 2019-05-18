@@ -2,7 +2,7 @@
 #include "../../testmanager/TestManager.h"
 #include "../../../src/modules/basic/matrix/Matrix.h"
 #include "../../../src/modules/factorization/qr/QrFactorization.h"
-#include "../../../src/modules/imageProcessor/ImageProcessor.h"
+#include "../../../src/modules/imageprocessor/ImageProcessor.h"
 
 void firstTest();
 void secondTest();

@@ -120,9 +120,17 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
         oldError = newError;
 
         iterationCount++;
+        
+        // delete Wtriangular;
+        // delete At;
+        // delete HtTriangular;
+        // delete Wt; 
     }
     this->Wresult = W;
     this->Hresult = H;
+
+    // delete qrFactorization;
+    // delete triangularSystemSolver;
 
     return iterationCount;
 }

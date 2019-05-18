@@ -2,9 +2,9 @@
 #include <stdexcept>
 #include <iomanip>
 #include "../../helpers/filehelper/FileHelper.h"
-#include "../../helpers/timeHelper/TimeHelper.h"
+#include "../../helpers/timehelper/TimeHelper.h"
 #include "../../modules/learning/Learning.h"
-#include "../../modules/imageProcessor/ImageProcessor.h"
+#include "../../modules/imageprocessor/ImageProcessor.h"
 #include "../../modules/factorization/alternatingLeastSquares/NonNegativeFactorization.h"
 #include "../../modules/classificator/Classificator.h"
 
@@ -13,7 +13,7 @@
 using namespace std;
 
 int main() {
-    TimeHelper* timeHelper = new TimeHelper();
+    TimeHelper* timehelper = new TimeHelper();
     try {
         FileHelper *fileHelper = new FileHelper();
         Learning *learning = new Learning();
@@ -21,7 +21,7 @@ int main() {
         NonNegativeFactorization *factorization = new NonNegativeFactorization();
         Classificator *classificator  = new Classificator();
 
-        timeHelper->start();
+        timehelper->start();
 
         char* fileName = "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/train.txt";
         int n_dig_treino = 100;
@@ -42,10 +42,10 @@ int main() {
         Matrix **images = learning->getImages(W, 28, 28, 10);
 
         cout << "PEGOU" << endl;
-        timeHelper->end();
+        timehelper->end();
 
         cout << "Time to run it all" << endl << endl << endl << endl;
-        cout << timeHelper->generateStringTime() << endl;
+        cout << timehelper->generateStringTime() << endl;
 
         // for(int i = 0; i <10; i++){
         //     cout << endl << endl << "MATRIZ " << i + 1  << endl << endl;
@@ -65,7 +65,7 @@ int main() {
         imageProcessor->normalize(matrices1[1]);
         x = classificator->classificate(W, matrices1[1]);
         cout << "Para o 2: " << matrices1[1]->subtract(W->multiply(x))->euclideanNomr() << endl;
-        // imageProcessor->regenerateMatrix(matrices1[1], 28, 28)->print();
+        // ImageProcessor->regenerateMatrix(matrices1[1], 28, 28)->print();
 
         imageProcessor->normalize(matrices1[2]);
         x = classificator->classificate(W, matrices1[2]);
@@ -84,8 +84,8 @@ int main() {
 
         return 0;
     } catch(std::invalid_argument* e) {
-        timeHelper->end();
-        cout << timeHelper->generateStringTime() << endl;
+        timehelper->end();
+        cout << timehelper->generateStringTime() << endl;
         return 0;
     }
 

@@ -1,5 +1,5 @@
 #include "FileHelper.h"
-#include "../../modules/imageProcessor/ImageProcessor.h"
+#include "../../modules/imageprocessor/ImageProcessor.h"
 
 #include <string>
 #include <fstream>

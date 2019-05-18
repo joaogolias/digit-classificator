@@ -2,9 +2,9 @@
 #include <string>
 #include "Train.h"
 #include "../../../helpers/filehelper/FileHelper.h"
-#include "../../../helpers/timeHelper/TimeHelper.h"
+#include "../../../helpers/timehelper/TimeHelper.h"
 #include "../../../modules/learning/Learning.h"
-#include "../../../modules/imageProcessor/ImageProcessor.h"
+#include "../../../modules/imageprocessor/ImageProcessor.h"
 #include "../../../modules/factorization/alternatingLeastSquares/NonNegativeFactorization.h"
 #include "../../../modules/classificator/Classificator.h"
 
@@ -28,7 +28,7 @@ Matrix** Train::execute(int ndig_train, int p){
     
     FileHelper* fileHelper = new FileHelper();
     ImageProcessor* processor = new ImageProcessor();
-    TimeHelper *timeHelper = new TimeHelper();
+    TimeHelper *timehelper = new TimeHelper();
     Learning *learning = new Learning();
     
     string fileName = "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/train.txt";
@@ -37,29 +37,43 @@ Matrix** Train::execute(int ndig_train, int p){
         fileName += string("train_dig") + to_string(i) ;
         fileName += string(".txt");
 
-        timeHelper->start();
+        timehelper->start();
         
         vectors = fileHelper->readSampleMatrixes(&fileName[0], ndig_train); 
         
-        timeHelper->end();
-        double timeToRead = timeHelper->calculateSpentTime();
+        timehelper->end();
+        double timeToRead = timehelper->calculateSpentTime();
 
         cout << endl << endl << "Tempo para ler os arquivos do dígito " << i << ": ";
         cout << timeToRead << endl;
 
-        timeHelper->start();
+        timehelper->start();
 
-        Matrix* matrix = processor->joinVectors(vectors, ndig_train);
-        processor->normalize(matrix);
+        A = processor->joinVectors(vectors, ndig_train);
+        processor->normalize(A);
 
-        W = learning->execute(matrix, ndig_train, p);
+        W = learning->execute(A, ndig_train, p);
         
-        timeHelper->end();
-        double timeToLearn = timeHelper->calculateSpentTime();
+        timehelper->end();
+        double timeToLearn = timehelper->calculateSpentTime();
 
         cout << "Tempo para aprendizagem do dígito " << i << ": ";
-        cout << timeHelper->generateStringTime(timeToRead) << endl;
+        cout << timehelper->generateStringTime(timeToRead) << endl;
+
+        result[i] = W;
     }
+    
+    delete A;
+    delete W; 
+
+    delete fileHelper;
+    delete processor;
+    delete timehelper;
+    delete learning;
+
+    // for(int i = 0; i < 784; i++) {
+    //     delete vectors[i];
+    // }
     
     return result;
 }

@@ -14,13 +14,27 @@ Matrix::Matrix(int r, int col) {
     if(rows < 0) throw std::invalid_argument( "rows must be <= 0" );
     if(rows == 0) rows = 1;
     if(columns <= 0) throw std::invalid_argument( "columns must be > 0" );
-    if(rows !=0 && columns!=0) {
-        values = (double **) malloc(rows * sizeof(double*));
-        for(int i=0; i<rows; i++) {
-            values[i] = (double *)malloc(columns * sizeof(double));
-        }
+    
+    values = new double*[rows];
+    for(int i=0; i < rows; i++) {
+        values[i] = new double[columns];
     }
 
+    // if(rows !=0 && columns!=0) {
+    //     values = (double **) malloc(rows * sizeof(double*));
+    //     for(int i=0; i<rows; i++) {
+    //         values[i] = (double *)malloc(columns * sizeof(double));
+    //     }
+    // }
+
+}
+
+
+Matrix::~Matrix(){
+    for(int i = 0; i < rows; i++) {
+        delete [] values[i];
+    }
+    delete [] values;
 }
 
 double Matrix::at(int row, int column){
@@ -166,13 +180,6 @@ void Matrix::print() {
         }
         cout << endl;
     }
-}
-
-Matrix::~Matrix(){
-    for(int i = 0; i < rows; i++) {
-        free(values[i]);
-    }
-    free(values);
 }
 
 void Matrix::setRow(int row, double value[], int size) {

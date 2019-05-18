@@ -5,7 +5,7 @@
 
 using namespace std;
 
-TimeHelper *timeHelper = new TimeHelper();
+TimeHelper *timehelper = new TimeHelper();
 TestManager *testManager = new TestManager();
 
 void firstTest();
@@ -25,22 +25,22 @@ int main() {
 }
 
 void firstTest() {
-    timeHelper->start();
+    timehelper->start();
     double j;
     for(long i = 0; i <1000000; i++) {
        for(long j = 0; j < 100000; j++) {
 
        }
     }
-    timeHelper->end();
+    timehelper->end();
     cout << "Time spent to run this loop is: ";
-    cout << timeHelper->generateStringTime() << endl;
+    cout << timehelper->generateStringTime() << endl;
 }
 
 void testCallingEndWithoutStart() {
     bool anErrorOccurred = false;
     try {
-        timeHelper->end();
+        timehelper->end();
     } catch(std::domain_error &e) {
         anErrorOccurred = true;
     }
@@ -54,9 +54,9 @@ void testCallingEndWithoutStart() {
 void testTwoConsecutivesEnds() {
     bool anErrorOccurred = false;
     try {
-        timeHelper->start();
-        timeHelper->end();
-        timeHelper->end();
+        timehelper->start();
+        timehelper->end();
+        timehelper->end();
     } catch(std::domain_error &e) {
         anErrorOccurred = true;
     }

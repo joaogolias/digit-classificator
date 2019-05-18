@@ -1,6 +1,6 @@
 #include "../../../src/helpers/filehelper/FileHelper.h"
 #include "../../testmanager/TestManager.h"
-#include "../../../src/modules/imageProcessor/ImageProcessor.h"
+#include "../../../src/modules/imageprocessor/ImageProcessor.h"
 
 
 #include <iostream>
