@@ -76,6 +76,12 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
     if (!A->isANonNegativeMatrix())
         throw std::invalid_argument("All matrix values must be non negatives");
 
+    // Matrix *A_Copy;
+    // Matrix* Wtriangular;
+    // Matrix* At;
+    // Matrix* HtTriangular; 
+    // Matrix* Wt; 
+
     QrFactorization* qrFactorization = new QrFactorization();
     TriangularSystemsSolver* triangularSystemSolver = new TriangularSystemsSolver();
 
@@ -88,7 +94,7 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
     {   
         if(iterationCount >= itmax)
             break;
-        Matrix *A_Copy = A->copy();
+        Matrix* A_Copy = A->copy();
 
         //TODO: Normalizar W tal que a norma de cada uma das colunas seja 1
         normalize(W);
@@ -121,13 +127,16 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
 
         iterationCount++;
         
-        // delete Wtriangular;
-        // delete At;
-        // delete HtTriangular;
-        // delete Wt; 
+       
     }
     this->Wresult = W;
     this->Hresult = H;
+    
+    // delete Wtriangular;
+    // delete At;
+    // delete HtTriangular;
+    // delete Wt; 
+    // delete A_Copy;
 
     // delete qrFactorization;
     // delete triangularSystemSolver;

@@ -56,3 +56,11 @@ bool FileHelper::checkFileExists(char* name) {
         return false;
     }
 }
+
+void FileHelper::writeFile(char* name, string content){
+    if(checkFileExists(name)){
+        output.open(name);
+        output << content;
+        output.close();
+    }
+}
