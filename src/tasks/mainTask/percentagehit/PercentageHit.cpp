@@ -31,7 +31,6 @@ void PercentageHit::execute(Matrix** W, Matrix* A, Matrix* answer){
 
   Matrix *Wd_copy, *A_copy, *Hd, *c;
   for(int d = 0; d < 10; d++){
-    if(d < 9) {
           cout << "Wd rows" << W[d]->rows << endl;
           cout << "Wd columns" << W[d] -> columns << endl;
           Wd_copy = W[d]->copy();
@@ -41,7 +40,11 @@ void PercentageHit::execute(Matrix** W, Matrix* A, Matrix* answer){
           qr->execute(Wd_copy, A_copy);
           // cout << "fatorou" << endl;
           Hd = solver->solveSystems(Wd_copy, A_copy);
-          // cout << "resolveu" << endl;
+          Matrix* diff = A_copy->subtract(Wd_copy->multiply(Hd));
+          cout << "Para digito " << d << endl;
+          cout << "Soma da 1 coluna: " << diff->sumColumn(0) << endl;
+          cout << "Soma da 2 coluna: " << diff->sumColumn(1) << endl;
+          cout << "Soma da 3 coluna: " << diff->sumColumn(2) << endl;
           c = A_copy->subtract(Wd_copy->multiply(Hd))->calculateCErroVector();
           // cout << "subtraiu" << endl;
           // cout << "c.rows: " << c->rows << endl;
@@ -56,9 +59,6 @@ void PercentageHit::execute(Matrix** W, Matrix* A, Matrix* answer){
               }
             }
           }
-      cout << "d: " << d << endl;
-    }
-    
   }
 
   cout << "b" << endl;
@@ -70,15 +70,16 @@ void PercentageHit::execute(Matrix** W, Matrix* A, Matrix* answer){
 
   int rightAnswer = 0;
   int totalAnswer = 0;
+  cout << "goli chato"<< endl;
 
-  for(int i =0; i < digit->rows - 1; digit++){
+  for(int i =0; i < digit->rows; i++){
     if(digit->at(i,0) == answer->at(i,0)){
       rightAnswer++;
     }
     totalAnswer++;
   }
 
-  cout << "Porcentagem de acerto: " << rightAnswer/totalAnswer << "(" << rightAnswer << "/" << totalAnswer << ")" << endl;
+  cout << "Porcentagem de acerto: " << rightAnswer*100.0/(totalAnswer) << "% (" << rightAnswer << "/" << totalAnswer << ")" << endl;
 
   fileHelper->writeFile(
     "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/results.txt",

@@ -41,8 +41,8 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
 
         timehelper->start();
         
-        A = fileHelper->readSampleMatrix(&fileName[0], ndig_train, true); 
-    
+        A = fileHelper->readSampleMatrix(&fileName[0], ndig_train); 
+        
         timehelper->end();
         double timeToRead = timehelper->calculateSpentTime();
 
@@ -77,10 +77,10 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
 
     // delete W; 
 
-    delete fileHelper;
-    delete processor;
-    delete timehelper;
-    delete learning;
+    // delete fileHelper;
+    // delete processor;
+    // delete timehelper;
+    // delete learning;
 
     // for(int i = 0; i < 784; i++) {
     //     delete vectors[i];

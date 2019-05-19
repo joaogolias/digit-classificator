@@ -22,9 +22,6 @@ int main() {
     cout << endl << "2. ";
     qrForOverdeterminatedSystemTest();
     return 0; 
-
-    delete testManager;
-    delete qr;
 }
 
 void oneSystemFactorizationQr() {
@@ -68,10 +65,10 @@ void oneSystemFactorizationQr() {
         ->assertEquals(b, bresult)
         ->result();
 
-    delete A;
-    delete b;
-    delete Aresult;
-    delete result;
+    // delete A;
+    // delete b;
+    // delete Aresult;
+    // delete result;
 }
 
 
@@ -106,8 +103,8 @@ void qrForOverdeterminatedSystemTest() {
         ->assertEquals(R, realResult)
         ->result();
 
-    delete A;
-    delete b;
-    delete R;
-    delete realResult;
+    // delete A;
+    // delete b;
+    // delete R;
+    // delete realResult;
 }

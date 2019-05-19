@@ -193,12 +193,12 @@ bool Matrix::areValidArguments(int row, int column){
 }
 
 void Matrix::print() {
-    cout << fixed << setprecision(15) << setfill(' ');
-    // cout << fixed << setprecision(0) << setfill(' ');
+    // cout << fixed << setprecision(15) << setfill(' ');
+    cout << fixed << setprecision(10) << setfill(' ');
     for(int i = 0; i<rows; i++){
         for(int j=0;j<columns;j++){
-            // cout << setw(4) << at(i,j) << " ";
-            cout << setw(18) << at(i,j) << " ";
+            cout << setw(4) << at(i,j) << " ";
+            // cout << setw(18) << at(i,j) << " ";
         }
         cout << endl;
     }
@@ -244,4 +244,18 @@ bool Matrix::isANonNegativeMatrix(){
         }
     }
     return true;
+}
+
+void Matrix::printColumn(int j){
+    for(int i = 0; i < rows; i++){
+        cout << at(i,j) << endl;
+    }
+}
+
+double Matrix::sumColumn(int j){
+    double sum = 0;
+    for(int i = 0; i < rows; i++){
+        sum += at(i,j)*at(i,j);
+    }
+    return sqrt(sum);
 }

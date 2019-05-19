@@ -38,9 +38,9 @@ Matrix* TriangularSystemsSolver::solveSystems(Matrix*W, Matrix*A, bool handleNeg
                 finalValue = finalValue - (W->at(k-1,i-1)*H->at(i-1,j-1));
             }
             finalValue = finalValue/W->at(k-1,k-1);
-            
-            if(handleNegativeValues) H->set(k-1, j-1, finalValue);
-            else H->set(k-1, j-1, finalValue);
+            H->set(k-1, j-1, finalValue);
+            // if(handleNegativeValues) H->set(k-1, j-1, finalValue);
+            // else H->set(k-1, j-1, finalValue);
         }
     }
     return H;

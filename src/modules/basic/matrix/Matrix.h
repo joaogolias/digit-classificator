@@ -37,6 +37,8 @@ class Matrix : public Comparable {
         void setRow(int row, double* value);
         void setRow(int row, double value[], int size);
         void print();
+        void printColumn(int j);
+        double sumColumn(int j);
 
     private:
         bool areValidArguments(int row, int column);

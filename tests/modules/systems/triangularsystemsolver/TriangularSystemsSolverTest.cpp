@@ -33,9 +33,9 @@ int main(){
 
     return 0;
 
-    delete testManager;
-    delete solver;
-    delete qr;
+    // delete testManager;
+    // delete solver;
+    // delete qr;
 }
 
 void testTriangularMatrix(){
@@ -63,10 +63,10 @@ void testTriangularMatrix(){
     Matrix* X = solver->solveSystems(A,b);
     testManager->assertEquals(X, expected)->result();
 
-    delete A;
-    delete b;
-    delete expected;
-    delete X;
+    // delete A;
+    // delete b;
+    // delete expected;
+    // delete X;
 }
 
 void testQRAndSystemSolving(){
@@ -96,11 +96,11 @@ void testQRAndSystemSolving(){
 
     testManager->assertEquals(X, expected)->result();
 
-    delete A;
-    delete b;
-    delete R;
-    delete expected;
-    delete X;
+    // delete A;
+    // delete b;
+    // delete R;
+    // delete expected;
+    // delete X;
 }
 
 void mmqOverdeterminatedSystemTest() {
@@ -120,14 +120,21 @@ void mmqOverdeterminatedSystemTest() {
     }
 
     Matrix *b_copy = b->copy();
-    Matrix *R = qr->execute(A, b_copy);
+    // Matrix *R = qr->execute(A, b_copy);
+    qr->execute(A, b_copy);
 
-    Matrix* X = solver->solveSystems(R,b_copy);
+    Matrix* X = solver->solveSystems(A ,b_copy);
+    
     double realResultValues[2][1] = {{23.0/7.0}, {8.0/7.0}};
     Matrix *realResult = new Matrix(2,1);
     for(int i=0; i < 2; i++) {
         realResult->setRow(i,realResultValues[i],1);
     }
+
+    realResult->print();
+
+    cout << "X: " << endl;
+    X->print();
 
     double frobeniusNorm = b->subtract(A->multiply(X))->calculateFrobeniusNorm();
 
@@ -136,10 +143,10 @@ void mmqOverdeterminatedSystemTest() {
         -> assertEquals(frobeniusNorm, sqrt(2.0/7.0))
         -> result();
 
-    delete A;
-    delete b; 
-    delete b_copy; 
-    delete R;
-    delete realResult;
-    delete X;
+    // delete A;
+    // delete b; 
+    // delete b_copy; 
+    // delete R;
+    // delete realResult;
+    // delete X;
 }

@@ -68,10 +68,10 @@ void oneSystemFactorizationQr() {
         ->assertEquals(b, bresult)
         ->result();
 
-    delete A;
-    delete b;
-    delete Aresult;
-    delete result;
+    // delete A;
+    // delete b;
+    // delete Aresult;
+    // delete result;
 }
 
 
@@ -86,7 +86,6 @@ void qrForOverdeterminatedSystemTest() {
     for(int i = 0; i < 4; i++) {
         A->setRow(i,Avalues[i],3);
     }
-
     
     double bvalues[4][1] = {{4}, {6} , {-1}, {2}};
     Matrix* b = new Matrix(4,1);
@@ -95,7 +94,8 @@ void qrForOverdeterminatedSystemTest() {
     }
 
     Matrix *R = qr->execute(A, b);
-
+    
+    
     double realResultValues[4][3] = {{sqrt(2), 0, -2*sqrt(2)}, {0, sqrt(2), 0}, {0, 0, 2}, {0,0,0}};
     Matrix* realResult = new Matrix(4,3);
     for(int i = 0; i < 4; i++) {
