@@ -162,6 +162,14 @@ Matrix* Matrix::transposeAndHanldeNegativeValues(){
     return resultMatrix;
 }
 
+double Matrix::sumColumn(int j){
+    double sum = 0;
+    for(int i = 0; i < rows; i++){
+        sum += at(i,j)*at(i,j);
+    }
+    return sqrt(sum);
+}
+
 Matrix* Matrix::calculateCErroVector(){
     Matrix* c = new Matrix(columns, 1);
     for(int j = 0; j< columns; j++){
@@ -252,10 +260,3 @@ void Matrix::printColumn(int j){
     }
 }
 
-double Matrix::sumColumn(int j){
-    double sum = 0;
-    for(int i = 0; i < rows; i++){
-        sum += at(i,j)*at(i,j);
-    }
-    return sqrt(sum);
-}

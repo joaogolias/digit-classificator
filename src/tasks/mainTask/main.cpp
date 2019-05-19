@@ -33,27 +33,27 @@ int main(int argc, char *argv[])
 	Matrix **Wmatrices = train->execute(ndigTrain, p, textRef);
 	Learning *learning = new Learning();
 
-	for (int k = 0; k < 10; k++)
-	{
-		Matrix **images = learning->getImages(Wmatrices[k], 28, 28, p);
-		for (int g = 0; g < p; g++)
-		{
-			string s = string("pic") + to_string(k) + to_string(g) + string(".ppm");
-			ofstream img(s);
-			img << "P3" << endl;
-			img << 28 << " " << 28 << endl;
-			img << "255" << endl;
-			for (int i = 0; i < images[g]->rows; i++)
-			{
-				for (int j = 0; j < images[g]->columns; j++)
-				{
-					img << (int)(images[g]->at(i, j) * 255) << " " << (int)(images[g]->at(i, j) * 255) << " " << (int)((images[g]->at(i, j) * 255)) << endl;
-				}
-			}
-			string openCommand = string("open ") + s;
-			system(openCommand.c_str());
-		}
-	}
+	// for (int k = 0; k < 10; k++)
+	// {
+	// 	Matrix **images = learning->getImages(Wmatrices[k], 28, 28, p);
+	// 	for (int g = 0; g < p; g++)
+	// 	{
+	// 		string s = string("pic") + to_string(k) + to_string(g) + string(".ppm");
+	// 		ofstream img(s);
+	// 		img << "P3" << endl;
+	// 		img << 28 << " " << 28 << endl;
+	// 		img << "255" << endl;
+	// 		for (int i = 0; i < images[g]->rows; i++)
+	// 		{
+	// 			for (int j = 0; j < images[g]->columns; j++)
+	// 			{
+	// 				img << (int)(images[g]->at(i, j) * 255) << " " << (int)(images[g]->at(i, j) * 255) << " " << (int)((images[g]->at(i, j) * 255)) << endl;
+	// 			}
+	// 		}
+	// 		string openCommand = string("open ") + s;
+	// 		system(openCommand.c_str());
+	// 	}
+	// }
 
 	PercentageHit *percentageHit = new PercentageHit();
 
