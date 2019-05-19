@@ -1,5 +1,8 @@
 #include <iostream>
+#include <fstream>
 #include "ImageProcessor.h"
+#include "../learning/Learning.h"
+
 
 using namespace std;
 
@@ -52,7 +55,6 @@ Matrix** ImageProcessor::splitVectors(Matrix* matrixOfVectors){
         }
         vectors[j] = vector;
     }
-    cout << "finish split" << endl;
     return vectors;
 }
 
@@ -72,18 +74,12 @@ Matrix* ImageProcessor::execute(Matrix** images, int imageQuantity, bool reverse
 
         Matrix* vector = generateVector(image);
         vectors[k] = vector;
-
-        // cout << "v" << k+1 << ": " << endl;
-        // vector->print();
     }
 
-    // cout << endl << "Matrix A" << endl;
     Matrix* A = joinVectors(vectors, imageQuantity);
-    // A->print();
 
-    // cout << endl << "Normalized Matrix A" << endl;
     normalize(A);
-    // A->print();
+
     if(reverse && rows !=0 && columns != 0) { 
         this->reverse(A, rows, columns, imageQuantity);
     }
@@ -105,4 +101,20 @@ Matrix** ImageProcessor::reverse(Matrix* A, int rows, int columns, int p){
     }
 
     return matrixes;
+}
+
+void ImageProcessor::createImageFromColumn(Matrix* imageMatrix, int column, int p, char* fileName){
+    Learning* learning = new Learning();
+    Matrix **images = learning->getImages(imageMatrix, 28, 28, p);
+    ofstream img(fileName);
+    img << "P3" << endl;
+    img << 28 << " " << 28 << endl;
+	img << "255" << endl;
+    for (int i = 0; i < images[column]->rows; i++){
+        for(int j = 0; j < images[column]->columns; j++){
+			img << (int)(images[column]->at(i, j) * 255) << " " << (int)(images[column]->at(i, j) * 255) << " " << (int)((images[column]->at(i, j) * 255)) << endl;
+        }
+    }
+    string openCommand = string("open ") + string(fileName);
+	system(openCommand.c_str());
 }

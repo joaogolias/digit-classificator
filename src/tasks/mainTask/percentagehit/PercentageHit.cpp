@@ -1,10 +1,6 @@
 #include "PercentageHit.h"
 #include "../../../helpers/filehelper/FileHelper.h"
-// #include "../../../helpers/timehelper/TimeHelper.h"
 #include "../../../modules/learning/Learning.h"
-// #include "../../../modules/imageprocessor/ImageProcessor.h"
-// #include "../../../modules/factorization/alternatingLeastSquares/NonNegativeFactorization.h"
-// #include "../../../modules/classificator/Classificator.h"
 #include "../../../modules/factorization/qr/QrFactorization.h"
 #include "../../../modules/systems/triangularsystemssolver/TriangularSystemsSolver.h"
 #include <fstream>
@@ -29,33 +25,20 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer)
   Matrix *digit = new Matrix(N_TEST, 1);
   Matrix *lowestError = new Matrix(N_TEST, 1);
 
-  // answer->print();
-
   string s;
 
   Matrix *Wd_copy, *A_copy, *Hd, *c;
-  for (int d = 0; d < 10; d++)
-  {
-    cout << "Wd rows" << W[d]->rows << endl;
-    cout << "Wd columns" << W[d]->columns << endl;
-    Wd_copy = W[d]->copy();
+  for (int d = 0; d < 10; d++){
 
-    // cout << "copiou wd" << endl;
+    Wd_copy = W[d]->copy();
     A_copy = A->copy();
 
-    // cout << "copiou A" << endl;
     qr->execute(Wd_copy, A_copy);
-    // cout << "fatorou" << endl;
+
     Hd = solver->solveSystems(Wd_copy, A_copy);
-    Matrix *diff = A_copy->subtract(Wd_copy->multiply(Hd));
-    cout << "Para digito " << d << endl;
-    cout << "Soma da 1 coluna: " << diff->sumColumn(0) << endl;
-    cout << "Soma da 2 coluna: " << diff->sumColumn(1) << endl;
-    cout << "Soma da 3 coluna: " << diff->sumColumn(2) << endl;
+
     c = A_copy->subtract(Wd_copy->multiply(Hd))->calculateCErroVector();
-    // cout << "subtraiu" << endl;
-    // cout << "c.rows: " << c->rows << endl;
-    // cout << "lowestError.rows: " << lowestError->rows << endl;
+
     if (d == 0)
     {
       lowestError = c->copy();
@@ -73,8 +56,6 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer)
     }
   }
 
-  cout << "b" << endl;
-
   for (int i = 0; i < N_TEST; i++)
   {
     s += to_string(i) + string(": ") + to_string(digit->at(i, 0)) + string("\n");
@@ -82,7 +63,6 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer)
 
   int rightAnswer = 0;
   int totalAnswer = 0;
-  cout << "goli chato" << endl;
 
   for (int i = 0; i < digit->rows; i++)
   {

@@ -55,7 +55,6 @@ Matrix* QrFactorization::execute(Matrix* W, Matrix *A) {
     int m = A->columns;
     int p = W->columns;
     double wi, wj, c, s;
-    // Matrix* result = W->copy();
     for(int k = 1; k <= p; k++) {
         int j;
         int i;

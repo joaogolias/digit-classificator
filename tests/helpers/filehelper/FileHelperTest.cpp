@@ -18,10 +18,10 @@ int main(){
     fileHelper = new FileHelper();
     testManager = new TestManager();
     
-    // fileExistsTest();
-    // fileDoesNotExistTest();
+    fileExistsTest();
+    fileDoesNotExistTest();
 
-    // readSampleMatricesTest();
+    readSampleMatricesTest();
     isReadingRight();
 }
 

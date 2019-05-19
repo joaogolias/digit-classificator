@@ -19,14 +19,6 @@ Matrix::Matrix(int r, int col) {
     for(int i=0; i < rows; i++) {
         values[i] = new double[columns];
     }
-
-    // if(rows !=0 && columns!=0) {
-    //     values = (double **) malloc(rows * sizeof(double*));
-    //     for(int i=0; i<rows; i++) {
-    //         values[i] = (double *)malloc(columns * sizeof(double));
-    //     }
-    // }
-
 }
 
 

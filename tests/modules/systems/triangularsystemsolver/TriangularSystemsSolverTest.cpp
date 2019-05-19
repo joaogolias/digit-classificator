@@ -131,11 +131,6 @@ void mmqOverdeterminatedSystemTest() {
         realResult->setRow(i,realResultValues[i],1);
     }
 
-    realResult->print();
-
-    cout << "X: " << endl;
-    X->print();
-
     double frobeniusNorm = b->subtract(A->multiply(X))->calculateFrobeniusNorm();
 
     testManager

@@ -39,8 +39,6 @@ Matrix* TriangularSystemsSolver::solveSystems(Matrix*W, Matrix*A, bool handleNeg
             }
             finalValue = finalValue/W->at(k-1,k-1);
             H->set(k-1, j-1, finalValue);
-            // if(handleNegativeValues) H->set(k-1, j-1, finalValue);
-            // else H->set(k-1, j-1, finalValue);
         }
     }
     return H;
@@ -48,10 +46,6 @@ Matrix* TriangularSystemsSolver::solveSystems(Matrix*W, Matrix*A, bool handleNeg
 
 bool TriangularSystemsSolver::areValidArguments(Matrix*W, Matrix*b) {
     return true;
-    // if(W->rows == b->rows && isTriangularSystem(W)){
-    //     return true;
-    // }
-    // throw std::invalid_argument("W and b must have the same quantity of rows");
 }
 
 bool TriangularSystemsSolver::isTriangularSystem(Matrix* W){

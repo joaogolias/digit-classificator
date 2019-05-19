@@ -97,10 +97,7 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
         normalize(W);
 
         //TODO: Resolver o problema dos minimos quadrados W * H = A (utiizar A original a cada interação)
-        
-        // Matrix* Wtriangular = qrFactorization->execute(W, A_Copy);
-        qrFactorization->execute(W, A_Copy);
-        
+        qrFactorization->execute(W, A_Copy);        
         H = triangularSystemSolver->solveSystems(W, A_Copy);
 
         //TODO: Redefinir H hij=max(0, hij)
@@ -110,15 +107,12 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
         At = A->transpose();
 
         //TODO: Resolver o problema dos minimos quadrados para Ht * Wt = At
-        // Matrix* HtTriangular = qrFactorization->execute(H->transpose(), At);
         Ht = H->transpose();
         qrFactorization->execute(Ht, At);
         Wt = triangularSystemSolver->solveSystems(Ht, At);
 
         //TODO: transpor Wt
-        // W = Wt->transpose();
         //TODO: Redefinir W wij=max(0, wij)
-        // handleNegativeValues(W);
 
         W = Wt->transposeAndHanldeNegativeValues();
 
