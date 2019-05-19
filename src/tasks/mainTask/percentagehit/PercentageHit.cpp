@@ -40,28 +40,9 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer)
     cout << "Wd columns" << W[d]->columns << endl;
     Wd_copy = W[d]->copy();
 
-      Matrix **images = learning->getImages(Wd_copy, 28, 28, 5);
-      for (int g = 0; g < 5; g++)
-      {
-        string s = string("pic") + to_string(d) + to_string(g) + string(".ppm");
-        ofstream img(s);
-        img << "P3" << endl;
-        img << 28 << " " << 28 << endl;
-        img << "255" << endl;
-        for (int i = 0; i < images[g]->rows; i++)
-        {
-          for (int j = 0; j < images[g]->columns; j++)
-          {
-            img << (int)(images[g]->at(i, j) * 255) << " " << (int)(images[g]->at(i, j) * 255) << " " << (int)((images[g]->at(i, j) * 255)) << endl;
-          }
-        }
-        string openCommand = string("open ") + s;
-        system(openCommand.c_str());
-      }
-
-
     // cout << "copiou wd" << endl;
     A_copy = A->copy();
+
     // cout << "copiou A" << endl;
     qr->execute(Wd_copy, A_copy);
     // cout << "fatorou" << endl;

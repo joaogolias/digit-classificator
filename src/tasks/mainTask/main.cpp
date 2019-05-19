@@ -62,6 +62,33 @@ int main(int argc, char *argv[])
 			10000,
 			true);
 
+      Matrix **images = learning->getImages(A, 28, 28, 10);
+      for (int g = 0; g < 10; g++)
+      {
+        string s = string("pic") + to_string(g) + string(".ppm");
+        ofstream img(s);
+        img << "P3" << endl;
+        img << 28 << " " << 28 << endl;
+        img << "255" << endl;
+        for (int i = 0; i < images[g]->rows; i++)
+        {
+          for (int j = 0; j < images[g]->columns; j++)
+          {
+            if (images[g]->at(i, j) != 0)
+            {
+              img << 255 << " " << 255 << " " << 255 << endl;
+            }
+            else
+            {
+              img << 0 << " " << 0 << " " << 0 << endl;
+            }
+            // img << (int)(images[g]->at(i, j) * 255) << " " << (int)(images[g]->at(i, j) * 255) << " " << (int)((images[g]->at(i, j) * 255)) << endl;
+          }
+        }
+        string openCommand = string("open ") + s;
+        system(openCommand.c_str());
+      }
+
 	Matrix *answer = fileHelper->readSampleMatrix(
 			"/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/test_index.txt",
 			1,

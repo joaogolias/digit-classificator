@@ -11,17 +11,18 @@ FileHelper* fileHelper;
 TestManager* testManager;
 void fileExistsTest();
 void fileDoesNotExistTest();
-
+void isReadingRight();
 void readSampleMatricesTest();
 
 int main(){
     fileHelper = new FileHelper();
     testManager = new TestManager();
     
-    fileExistsTest();
-    fileDoesNotExistTest();
+    // fileExistsTest();
+    // fileDoesNotExistTest();
 
-    readSampleMatricesTest();
+    // readSampleMatricesTest();
+    isReadingRight();
 }
 
 void fileExistsTest(){
@@ -49,4 +50,12 @@ void readSampleMatricesTest(){
 
     testManager
         ->result();
+}
+
+void isReadingRight(){
+    cout << "4. ";
+    char* fileName = "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/matrix.txt";
+    Matrix *m = fileHelper->readSampleMatrix(fileName, 10, false, 5);
+
+    m->print();
 }
