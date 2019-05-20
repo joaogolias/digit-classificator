@@ -28,7 +28,7 @@ int main(){
 void fileExistsTest(){
     cout << endl << "1. ";
     cout << "Should return true if a file does exists: ";
-    char* fileName = "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/test1.txt";
+    char* fileName = "./test1.txt";
     testManager
             ->assertEquals(fileHelper->checkFileExists(fileName), true)
             ->result();
@@ -45,7 +45,7 @@ void fileDoesNotExistTest(){
 void readSampleMatricesTest(){
     cout << "3. ";
     cout << "Should read a matrix: ";
-    char* fileName = "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/train.txt";
+    char* fileName = "./train.txt";
     Matrix **matrices = fileHelper->readSampleMatrixes(fileName, 20);
 
     testManager
@@ -54,7 +54,7 @@ void readSampleMatricesTest(){
 
 void isReadingRight(){
     cout << "4. ";
-    char* fileName = "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/matrix.txt";
+    char* fileName = "./matrix.txt";
     Matrix *m = fileHelper->readSampleMatrix(fileName, 10, false, 5);
 
     m->print();

@@ -27,7 +27,7 @@ int main()
 
         timehelper->start();
 
-        char *fileName = "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/train_dig2.txt";
+        char *fileName = "./train_dig2.txt";
 
         int n_dig_treino = 100;
 

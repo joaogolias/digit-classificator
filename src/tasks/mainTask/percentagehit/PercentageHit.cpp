@@ -15,7 +15,7 @@ PercentageHit::PercentageHit()
 
 PercentageHit::~PercentageHit() {}
 
-void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer)
+void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer, int ndig_treino, int p)
 {
   QrFactorization *qr = new QrFactorization();
   TriangularSystemsSolver *solver = new TriangularSystemsSolver();
@@ -54,55 +54,27 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer)
     }
   }
 
+  //Writing file with classification results
   for (int i = 0; i < N_TEST; i++)
   {
     s += to_string(i) + string(": ") + to_string(digit->at(i, 0)) + string("\n");
   }
 
-  int rightAnswer = 0;
-  int totalAnswer = 0;
+  string fileName = "./results-for-ndig="+to_string(ndig_treino)+"p="+to_string(p)+ ".txt";
+  fileHelper->writeFile(
+      fileName,
+      s);
 
-  int digit1rightAnswer = 0;
-  int digit1totalAnswer = 0;
-  double digit1PercentageHit = 0;
+  // Writing file with percentage hit results
+  string percentageResults = "";
+  string *percentageResultsRef = &percentageResults;
 
-  int digit2rightAnswer = 0;
-  int digit2totalAnswer = 0;
-  double digit2PercentageHit = 0;
-
-  int digit3rightAnswer = 0;
-  int digit3totalAnswer = 0;
-  double digit3PercentageHit = 0;
-
-  int digit4rightAnswer = 0;
-  int digit4totalAnswer = 0;
-  double digit4PercentageHit = 0;
-
-
-
-
-  for (int i = 0; i < digit->rows; i++)
-  {
-    if(answer->at(i,0) == 1) {
-      if(digit->at(i,0) == answer->at(i,0)){
-        digit1rightAnswer++;
-      }
-      digit1totalAnswer++;
-    } 
-
-    if (digit->at(i, 0) == answer->at(i, 0))
-    {
-      rightAnswer++;
-    }
-    totalAnswer++;
-  }
-
-  cout << "Porcentagem de acerto para o digito 1: " << digit1rightAnswer * 100.0 / (digit1totalAnswer) << "% (" << digit1rightAnswer << "/" << digit1totalAnswer << ")" << endl;
-  cout << "Porcentagem de acerto: " << rightAnswer * 100.0 / (totalAnswer) << "% (" << rightAnswer << "/" << totalAnswer << ")" << endl;
+  calculatePercentageHits(digit, answer, percentageResultsRef, ndig_treino, p);
+  fileName = "./result-percentage-hit-for-ndig="+to_string(ndig_treino)+"p="+to_string(p)+ ".txt";
 
   fileHelper->writeFile(
-      "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/results.txt",
-      s);
+    fileName,
+    percentageResults);
 
   // delete qr;
   // delete solver;
@@ -116,7 +88,7 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer)
 }
 
 
-void calculatePercentageHits(Matrix* digit, Matrix* answer, string* s) {
+void PercentageHit::calculatePercentageHits(Matrix* digit, Matrix* answer, string* s, int ndig_treino, int p) {
   int rightAnswer = 0;
   int totalAnswer = 0;
 
@@ -241,19 +213,21 @@ void calculatePercentageHits(Matrix* digit, Matrix* answer, string* s) {
   double digit8PercentageHit = digit8rightAnswer*100.0/digit8totalAnswer;
   double digit9PercentageHit = digit9rightAnswer*100.0/digit9totalAnswer;
 
-  *s += "Porcentagem de acerto para o digito 0: " + to_string(digit0PercentageHit) + "% (" + to_string(digit1rightAnswer) + "/" + to_string(digit1totalAnswer) + ")";
 
-  cout << "Porcentagem de acerto para o digito 0: " << digit0PercentageHit << "% (" << digit1rightAnswer << "/" << digit1totalAnswer << ")" << endl;
-  cout << "Porcentagem de acerto para o digito 1: " << digit1PercentageHit << "% (" << digit1rightAnswer << "/" << digit1totalAnswer << ")" << endl;
-  cout << "Porcentagem de acerto para o digito 2: " << digit2PercentageHit << "% (" << digit1rightAnswer << "/" << digit1totalAnswer << ")" << endl;
-  cout << "Porcentagem de acerto para o digito 3: " << digit3PercentageHit << "% (" << digit1rightAnswer << "/" << digit1totalAnswer << ")" << endl;
-  cout << "Porcentagem de acerto para o digito 4: " << digit4PercentageHit << "% (" << digit1rightAnswer << "/" << digit1totalAnswer << ")" << endl;
-  cout << "Porcentagem de acerto para o digito 5: " << digit5PercentageHit << "% (" << digit1rightAnswer << "/" << digit1totalAnswer << ")" << endl;
-  cout << "Porcentagem de acerto para o digito 6: " << digit6PercentageHit << "% (" << digit1rightAnswer << "/" << digit1totalAnswer << ")" << endl;
-  cout << "Porcentagem de acerto para o digito 7: " << digit7PercentageHit << "% (" << digit1rightAnswer << "/" << digit1totalAnswer << ")" << endl;
-  cout << "Porcentagem de acerto para o digito 8: " << digit8PercentageHit << "% (" << digit1rightAnswer << "/" << digit1totalAnswer << ")" << endl;
-  cout << "Porcentagem de acerto para o digito 9: " << digit9PercentageHit << "% (" << digit1rightAnswer << "/" << digit1totalAnswer << ")" << endl;
-  
-  
-  cout << "Porcentagem de acerto: " << rightAnswer * 100.0 / (totalAnswer) << "% (" << rightAnswer << "/" << totalAnswer << ")" << endl;
+  *s += "*******************************************************************\n";
+  *s += string("Número de digitos para treino: ") + to_string(ndig_treino) + string("\n");
+  *s += string("Número de colunas da decomposição de A [p]: ") + to_string(p) + string("\n\n\n");
+
+  *s += "Porcentagem de acerto para o digito 0: " + to_string(digit0PercentageHit) + "% (" + to_string(digit0rightAnswer) + "/" + to_string(digit0totalAnswer) + ")\n";
+  *s += "Porcentagem de acerto para o digito 1: " + to_string(digit1PercentageHit) + "% (" + to_string(digit1rightAnswer) + "/" + to_string(digit1totalAnswer) + ")\n";
+  *s += "Porcentagem de acerto para o digito 2: " + to_string(digit2PercentageHit) + "% (" + to_string(digit2rightAnswer) + "/" + to_string(digit2totalAnswer) + ")\n";
+  *s += "Porcentagem de acerto para o digito 3: " + to_string(digit3PercentageHit) + "% (" + to_string(digit3rightAnswer) + "/" + to_string(digit3totalAnswer) + ")\n";
+  *s += "Porcentagem de acerto para o digito 4: " + to_string(digit4PercentageHit) + "% (" + to_string(digit4rightAnswer) + "/" + to_string(digit4totalAnswer) + ")\n";
+  *s += "Porcentagem de acerto para o digito 5: " + to_string(digit5PercentageHit) + "% (" + to_string(digit5rightAnswer) + "/" + to_string(digit5totalAnswer) + ")\n";
+  *s += "Porcentagem de acerto para o digito 6: " + to_string(digit6PercentageHit) + "% (" + to_string(digit6rightAnswer) + "/" + to_string(digit6totalAnswer) + ")\n";
+  *s += "Porcentagem de acerto para o digito 7: " + to_string(digit7PercentageHit) + "% (" + to_string(digit7rightAnswer) + "/" + to_string(digit7totalAnswer) + ")\n";
+  *s += "Porcentagem de acerto para o digito 8: " + to_string(digit8PercentageHit) + "% (" + to_string(digit8rightAnswer) + "/" + to_string(digit8totalAnswer) + ")\n";
+  *s += "Porcentagem de acerto para o digito 9: " + to_string(digit9PercentageHit) + "% (" + to_string(digit9rightAnswer) + "/" + to_string(digit9totalAnswer) + ")\n";
+
+  *s += "\nPorcentagem de acerto: " + to_string(rightAnswer * 100.0 / (totalAnswer)) + "% (" + to_string(rightAnswer) + "/" + to_string(totalAnswer) + ")";
 }

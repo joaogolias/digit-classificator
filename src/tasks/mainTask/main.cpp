@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 	PercentageHit *percentageHit = new PercentageHit();
 
 	Matrix *A = fileHelper->readSampleMatrix(
-			"/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/test_images.txt",
+			"./test_images.txt",
 			10000,
 			true);
 
@@ -80,12 +80,13 @@ int main(int argc, char *argv[])
       // }
 
 	Matrix *answer = fileHelper->readSampleMatrix(
-			"/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/test_index.txt",
+			"./test_index.txt",
 			1,
 			false,
 			10000);
 
-	percentageHit->execute(Wmatrices, A, answer);
+	percentageHit->execute(Wmatrices, A, answer, ndigTrain, p);
+
 	fileHelper->writeFile(
 			fileName,
 			text);
@@ -96,7 +97,7 @@ int main(int argc, char *argv[])
 
 string generateFileName(int argc, char *input, int p, int ndigTrain)
 {
-	string fileName = "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/";
+	string fileName = "./";
 	if (argc == 4)
 	{
 		fileName += string(input);
