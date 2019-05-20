@@ -57,25 +57,25 @@ int main()
 
         Matrix *W = learning->execute(A, n_dig_treino, 10);
         images = learning->getImages(W, 28, 28, 10);
-        images[0]->print();
+        // images[0]->print();
 
-        for (int k = 0; k < 10; k++)
-        {
-            string s = string("pic") + to_string(k) + string(".ppm");
-            ofstream img(s);
-            img << "P3" << endl;
-            img << 28 << " " << 28 << endl;
-            img << "255" << endl;
-            for (int i = 0; i < images[k]->rows; i++)
-            {
-                for (int j = 0; j < images[k]->columns; j++)
-                {
-                    img << (int)(abs(255 - (images[k]->at(i, j)) * 255)) << " " << (int)(abs(255 - (images[k]->at(i, j)) * 255)) << " " << (int)(abs(255 - (images[k]->at(i, j)) * 255)) << endl;
-                }
-            }
-            string openCommand = string("open ") + s;
-            system(openCommand.c_str());
-        }
+        // for (int k = 0; k < 10; k++)
+        // {
+        //     string s = string("pic") + to_string(k) + string(".ppm");
+        //     ofstream img(s);
+        //     img << "P3" << endl;
+        //     img << 28 << " " << 28 << endl;
+        //     img << "255" << endl;
+        //     for (int i = 0; i < images[k]->rows; i++)
+        //     {
+        //         for (int j = 0; j < images[k]->columns; j++)
+        //         {
+        //             img << (int)(abs(255 - (images[k]->at(i, j)) * 255)) << " " << (int)(abs(255 - (images[k]->at(i, j)) * 255)) << " " << (int)(abs(255 - (images[k]->at(i, j)) * 255)) << endl;
+        //         }
+        //     }
+        //     string openCommand = string("open ") + s;
+        //     system(openCommand.c_str());
+        // }
         return 0;
     }
     catch (std::invalid_argument *e)

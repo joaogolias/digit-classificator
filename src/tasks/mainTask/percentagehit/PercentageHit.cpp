@@ -24,7 +24,6 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer)
 
   Matrix *digit = new Matrix(N_TEST, 1);
   Matrix *lowestError = new Matrix(N_TEST, 1);
-
   string s;
 
   Matrix *Wd_copy, *A_copy, *Hd, *c;
@@ -34,7 +33,6 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer)
     A_copy = A->copy();
 
     qr->execute(Wd_copy, A_copy);
-
     Hd = solver->solveSystems(Wd_copy, A_copy);
 
     c = A_copy->subtract(Wd_copy->multiply(Hd))->calculateCErroVector();
