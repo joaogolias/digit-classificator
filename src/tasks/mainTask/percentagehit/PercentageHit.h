@@ -9,6 +9,7 @@ class PercentageHit{
     PercentageHit();
     ~PercentageHit();
     void execute(Matrix** W, Matrix* A, Matrix* answer);
+    // void calculatePercentageHits();
 };
 
 #endif
