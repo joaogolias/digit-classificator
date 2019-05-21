@@ -11,6 +11,7 @@ class TestManager {
        TestManager*  assertEquals(bool actual, bool expected);
        TestManager*  assertEquals(double actual, double expected);
        void result();
+       
        TestManager();
        ~TestManager();
 };

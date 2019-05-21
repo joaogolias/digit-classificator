@@ -65,6 +65,8 @@ double NonNegativeFactorization::calculateError(Matrix *A, Matrix *W, Matrix *H)
         }
     }
 
+    delete WH;
+    
     return error;
 }
 
@@ -91,6 +93,7 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
     {   
         if(iterationCount >= itmax)
             break;
+
         A_Copy = A->copy();
 
         //TODO: Normalizar W tal que a norma de cada uma das colunas seja 1
@@ -121,6 +124,7 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
         oldError = newError;
 
         iterationCount++;
+        
     }
     this->Wresult = W;
     this->Hresult = H;

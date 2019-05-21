@@ -59,7 +59,7 @@ char* TimeHelper::generateStringTime(double offset) {
             int minutes = (int) spentTime/60;
             double seconds = (spentTime/60-minutes)*60;
             strcpy(stringTime, std::to_string(minutes).c_str());
-            strcat(stringTime, " minutos and ");
+            strcat(stringTime, " minutos e ");
             strcat(stringTime, std::to_string(seconds).c_str());
             strcat(stringTime, " segundos");
         } else if(spentTime < 24*60*60) {
@@ -68,9 +68,9 @@ char* TimeHelper::generateStringTime(double offset) {
             int minutes = (int) decimalMinutes;
             double seconds = (decimalMinutes - minutes)*60;
             strcpy(stringTime, std::to_string(hours).c_str());
-            strcat(stringTime, " horas and ");
+            strcat(stringTime, " horas e ");
             strcat(stringTime, std::to_string(minutes).c_str());
-            strcat(stringTime, " minutos and ");
+            strcat(stringTime, " minutos e ");
             strcat(stringTime, std::to_string(seconds).c_str());
             strcat(stringTime, " segundos");
         }

@@ -31,10 +31,10 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
     TimeHelper *timehelper = new TimeHelper();
     Learning *learning = new Learning();
     
-    string fileName = "/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/train.txt";
+    string fileName = "./train.txt";
     
     for(int i = 0; i < 10; i++){
-        fileName = string("/Users/joaogolias/Documents/Personal Projects/C++/digit-classificator/"); 
+        fileName = string("./"); 
         fileName += string("train_dig") + to_string(i) ;
         fileName += string(".txt");
 
@@ -66,14 +66,10 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
 
     // delete W; 
 
-    // delete fileHelper;
-    // delete processor;
-    // delete timehelper;
-    // delete learning;
-
-    // for(int i = 0; i < 784; i++) {
-    //     delete vectors[i];
-    // }
+    delete fileHelper;
+    delete processor;
+    delete timehelper;
+    delete learning;
     
     return result;
 }
