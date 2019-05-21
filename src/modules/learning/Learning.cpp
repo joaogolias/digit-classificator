@@ -32,8 +32,7 @@ Matrix* Learning::execute(Matrix* A, int imageQuantity, int p){
     NonNegativeFactorization* factorization = new NonNegativeFactorization();
     factorization->execute(A, W, H);
 
-    // delete H;
-    // delete factorization;
+    delete H;
     
     return factorization->getW();
 }
@@ -41,6 +40,6 @@ Matrix* Learning::execute(Matrix* A, int imageQuantity, int p){
 Matrix** Learning::getImages(Matrix* W, int rows, int columns, int p){
     ImageProcessor* imageProcessor = new ImageProcessor();
     Matrix** images = imageProcessor->reverse(W, rows, columns, p);
-    // delete imageProcessor;
+    delete imageProcessor;
     return images;
 }

@@ -1,5 +1,6 @@
 #include "PercentageHit.h"
 #include "../../../helpers/filehelper/FileHelper.h"
+#include "../../../helpers/timehelper/TimeHelper.h"
 #include "../../../modules/learning/Learning.h"
 #include "../../../modules/factorization/qr/QrFactorization.h"
 #include "../../../modules/systems/triangularsystemssolver/TriangularSystemsSolver.h"
@@ -21,13 +22,20 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer, int ndig_trei
   TriangularSystemsSolver *solver = new TriangularSystemsSolver();
   FileHelper *fileHelper = new FileHelper();
   Learning *learning = new Learning();
+  TimeHelper *timeHelper = new TimeHelper();
+  TimeHelper *timeHelper2 = new TimeHelper();
 
   Matrix *digit = new Matrix(N_TEST, 1);
   Matrix *lowestError = new Matrix(N_TEST, 1);
   string s;
 
+  string *times = new string[10];
+
+  timeHelper2->start();
+
   Matrix *Wd_copy, *A_copy, *Hd, *c;
   for (int d = 0; d < 10; d++){
+    timeHelper->start();
 
     Wd_copy = W[d]->copy();
     A_copy = A->copy();
@@ -52,7 +60,14 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer, int ndig_trei
         }
       }
     }
+
+    timeHelper->end();
+    times[d] = timeHelper->generateStringTime();
   }
+
+  timeHelper2->end();
+
+  string totalSpentTime = timeHelper2->generateStringTime();
 
   //Writing file with classification results
   for (int i = 0; i < N_TEST; i++)
@@ -70,6 +85,7 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer, int ndig_trei
   string *percentageResultsRef = &percentageResults;
 
   calculatePercentageHits(digit, answer, percentageResultsRef, ndig_treino, p);
+  generateTotalTimeStringToSave(times, totalSpentTime, percentageResultsRef);
   fileName = "./result-percentage-hit-for-ndig="+to_string(ndig_treino)+"p="+to_string(p)+ ".txt";
 
   fileHelper->writeFile(
@@ -230,4 +246,20 @@ void PercentageHit::calculatePercentageHits(Matrix* digit, Matrix* answer, strin
   *s += "Porcentagem de acerto para o digito 9: " + to_string(digit9PercentageHit) + "% (" + to_string(digit9rightAnswer) + "/" + to_string(digit9totalAnswer) + ")\n";
 
   *s += "\nPorcentagem de acerto: " + to_string(rightAnswer * 100.0 / (totalAnswer)) + "% (" + to_string(rightAnswer) + "/" + to_string(totalAnswer) + ")";
+}
+
+void PercentageHit::generateTotalTimeStringToSave(string* times, string totalTime, string *s){
+  *s += "\n\n";
+  *s += "Tempo para testar os números com o dígito 0: " + times[0] + "\n";
+  *s += "Tempo para testar os números com o dígito 1: " + times[1] + "\n";
+  *s += "Tempo para testar os números com o dígito 2: " + times[2] + "\n";
+  *s += "Tempo para testar os números com o dígito 3: " + times[3] + "\n";
+  *s += "Tempo para testar os números com o dígito 4: " + times[4] + "\n";
+  *s += "Tempo para testar os números com o dígito 5: " + times[5] + "\n";
+  *s += "Tempo para testar os números com o dígito 6: " + times[6] + "\n";
+  *s += "Tempo para testar os números com o dígito 7: " + times[7] + "\n";
+  *s += "Tempo para testar os números com o dígito 8: " + times[8] + "\n";
+  *s += "Tempo para testar os números com o dígito 9: " + times[9] + "\n";
+
+  *s += "\nTempo total para usado no teste: "  + totalTime;
 }

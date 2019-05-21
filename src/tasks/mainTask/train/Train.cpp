@@ -66,14 +66,10 @@ Matrix** Train::execute(int ndig_train, int p, string* text){
 
     // delete W; 
 
-    // delete fileHelper;
-    // delete processor;
-    // delete timehelper;
-    // delete learning;
-
-    // for(int i = 0; i < 784; i++) {
-    //     delete vectors[i];
-    // }
+    delete fileHelper;
+    delete processor;
+    delete timehelper;
+    delete learning;
     
     return result;
 }

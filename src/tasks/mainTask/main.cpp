@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 			true);
 
 	ImageProcessor *imageProcessor = new ImageProcessor();
-	imageProcessor->createImageFromColumn(A, 0, p, "minhaImagem.ppm");
+	// imageProcessor->createImageFromColumn(A, 0, p, "minhaImagem.ppm");
       // Matrix **images = learning->getImages(A, 28, 28, 10);
 
 

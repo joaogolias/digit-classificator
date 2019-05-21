@@ -13,6 +13,7 @@ class PercentageHit{
     ~PercentageHit();
     void execute(Matrix** W, Matrix* A, Matrix* answer, int ndig_treino, int p);
     void calculatePercentageHits(Matrix* digit, Matrix* answer, string* s, int ndig_treino, int p);
+    void generateTotalTimeStringToSave(string* times, string totalTime, string *s);
 };
 
 #endif
