@@ -6,7 +6,6 @@
 #include "../../../modules/learning/Learning.h"
 #include "../../../modules/imageprocessor/ImageProcessor.h"
 #include "../../../modules/factorization/alternatingLeastSquares/NonNegativeFactorization.h"
-#include "../../../modules/classificator/Classificator.h"
 
 
 using namespace std;

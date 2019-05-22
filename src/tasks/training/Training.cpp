@@ -8,7 +8,6 @@
 #include "../../modules/learning/Learning.h"
 #include "../../modules/imageprocessor/ImageProcessor.h"
 #include "../../modules/factorization/alternatingLeastSquares/NonNegativeFactorization.h"
-#include "../../modules/classificator/Classificator.h"
 
 #define VECTOR_ROWS 784
 
@@ -23,7 +22,6 @@ int main()
         Learning *learning = new Learning();
         ImageProcessor *imageProcessor = new ImageProcessor();
         NonNegativeFactorization *factorization = new NonNegativeFactorization();
-        Classificator *classificator = new Classificator();
 
         timehelper->start();
 
