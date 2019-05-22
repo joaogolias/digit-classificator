@@ -27,29 +27,6 @@ void QrFactorization::Q(Matrix* A, double i, double j, double k,  double c, doub
     }
 }
 
-Matrix* QrFactorization::executeForOneSystem(Matrix* W, Matrix *b) {
-    double wi, wj, c, s;
-    Matrix* result = W->copy();
-    for(int k = 1; k <= result->columns; k++) {
-        int j;
-        int i;
-        for(j = result->rows; j >= k+1; j--){
-            i = j - 1;
-            if(result->at(j-1,k-1) != 0) {
-                wi = result->at(i-1, k-1);
-                wj = result->at(j-1, k-1);
-                c = calculateC(wi, wj);
-                s = calculateS(wi,wj);
-                Q(result, i-1, j-1, k, c, s);
-                if(b != NULL) Q(b, i-1,j-1,k,c,s);
-            
-            }
-        }
-    }
-    return result;
-}
-
-
 Matrix* QrFactorization::execute(Matrix* W, Matrix *A) {
     int n = A->rows;
     int m = A->columns;

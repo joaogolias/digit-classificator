@@ -2,6 +2,7 @@
 #include "../qr/QrFactorization.h"
 #include "../../systems/triangularsystemssolver/TriangularSystemsSolver.h"
 #include <math.h>
+#include <iomanip>
 
 #define itmax 100
 #define epsilon 10e-5
@@ -77,9 +78,12 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
         throw std::invalid_argument("All matrix values must be non negatives");
 
     Matrix *A_Copy = new Matrix(A->rows, A->columns);
-    Matrix* At;
-    Matrix* Ht; 
-    Matrix* Wt; 
+    Matrix* At = new Matrix(A->columns, A->rows);
+    Matrix* Ht = new Matrix(H->columns, H->rows); 
+    Matrix* Wt;
+
+    this->Wresult = W->copy();
+    this->Hresult = H->copy();
 
     QrFactorization* qrFactorization = new QrFactorization();
     TriangularSystemsSolver* triangularSystemSolver = new TriangularSystemsSolver();
@@ -98,25 +102,27 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
         A->copyTo(A_Copy);
 
         //Normalizar W tal que a norma de cada uma das colunas seja 1
-        normalize(W);
+        normalize(this->Wresult);
 
         //Resolver o problema dos minimos quadrados W * H = A (utiizar A original a cada interação)
-        qrFactorization->execute(W, A_Copy);        
-        H = triangularSystemSolver->solveSystems(W, A_Copy);
+        qrFactorization->execute(this->Wresult, A_Copy);
+        this->Hresult = triangularSystemSolver->solveSystems(this->Wresult, A_Copy);
 
         //Redefinir H hij=max(0, hij)
-        handleNegativeValues(H);
+        handleNegativeValues(this->Hresult);
         
         //transpor A (original)
-        At = A->transpose();
+        A->transpose(At);
 
         //Resolver o problema dos minimos quadrados para Ht * Wt = At
-        Ht = H->transpose();
+        this->Hresult->transpose(Ht);
+
         qrFactorization->execute(Ht, At);
         Wt = triangularSystemSolver->solveSystems(Ht, At);
 
         //Redefinir W
-        W = Wt->transposeAndHanldeNegativeValues();
+        Wt->transposeAndHandleNegativeValues(this->Wresult);
+
 
         //Atualizar variação do erro
         newError = calculateError(A, W, H);
@@ -124,14 +130,12 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
         oldError = newError;
 
         iterationCount++;
-        
     }
-    this->Wresult = W;
-    this->Hresult = H;
-    
-    delete At;
-    delete Wt; 
+
     delete A_Copy;
+    delete At;
+    delete Ht; 
+    delete Wt;
 
     delete qrFactorization;
     delete triangularSystemSolver;

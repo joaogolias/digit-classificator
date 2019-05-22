@@ -120,10 +120,11 @@ void mmqOverdeterminatedSystemTest() {
     }
 
     Matrix *b_copy = b->copy();
+    Matrix* acopy = A->copy();
     // Matrix *R = qr->execute(A, b_copy);
-    qr->execute(A, b_copy);
+    qr->execute(acopy, b_copy);
 
-    Matrix* X = solver->solveSystems(A ,b_copy);
+    Matrix* X = solver->solveSystems(acopy ,b_copy);
     
     double realResultValues[2][1] = {{23.0/7.0}, {8.0/7.0}};
     Matrix *realResult = new Matrix(2,1);

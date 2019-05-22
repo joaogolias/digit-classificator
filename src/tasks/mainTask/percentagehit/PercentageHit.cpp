@@ -140,11 +140,12 @@ void PercentageHit::calculatePercentageHits(Matrix* digit, Matrix* answer, strin
 
   for (int i = 0; i < digit->rows; i++)
   {
-
     if(answer->at(i,0) == 0) {
       if(digit->at(i,0) == answer->at(i,0)){
         digit0rightAnswer++;
+        cout << "is correct" << endl;
       }
+      cout << "is zero" << endl;
       digit0totalAnswer++;
     }
 
@@ -218,6 +219,7 @@ void PercentageHit::calculatePercentageHits(Matrix* digit, Matrix* answer, strin
     totalAnswer++;
   }
 
+  cout << " digit0rightAnswer: " << digit0rightAnswer << endl;
   double digit0PercentageHit = digit0rightAnswer*100.0/digit0totalAnswer;
   double digit1PercentageHit = digit1rightAnswer*100.0/digit1totalAnswer;
   double digit2PercentageHit = digit2rightAnswer*100.0/digit2totalAnswer;
