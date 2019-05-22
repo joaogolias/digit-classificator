@@ -11,6 +11,7 @@ TriangularSystemsSolver* solver = new TriangularSystemsSolver();
 
 
 Matrix* FirstTask::resultOfExerciseA(Matrix* w, Matrix *b) {
+    // referente ao exercicio A da primeira entrega
     int w_size = w->columns;
     int i, j;
     for(i = 1; i < w_size+1; i++) {
@@ -42,6 +43,7 @@ Matrix* FirstTask::resultOfExerciseA(Matrix* w, Matrix *b) {
 }
 
 Matrix* FirstTask::resultOfExerciseB(Matrix* w, Matrix *b) {
+    // referente ao exercicio B da primeira entrega
     int i, j;
     for(i=1 ; i<w->rows+1 ; i++) {
         for(j=1 ; j < w->columns+1; j++) {
@@ -64,6 +66,7 @@ Matrix* FirstTask::resultOfExerciseB(Matrix* w, Matrix *b) {
 }
 
 Matrix* FirstTask::resultOfExerciseC(Matrix* w, Matrix *a){
+    // referente ao exercicio C da primeira entrega
     int w_size = w->columns;
     int i, j;
     for(i = 1; i < w_size+1; i++) {
@@ -95,6 +98,7 @@ Matrix* FirstTask::resultOfExerciseC(Matrix* w, Matrix *a){
 }
 
 Matrix* FirstTask::resultOfExerciseD(Matrix* w, Matrix *a){
+    // referente ao exercicio D da primeira entrega
     int w_size = w->columns;
     int i, j;
     for(i=1 ; i<w->rows+1 ; i++) {

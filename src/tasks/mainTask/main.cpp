@@ -14,6 +14,10 @@ string generateFileName(int argc, char *fileName, int p, int ndigTraina);
 
 int main(int argc, char *argv[])
 {
+	// lê os 3 parâmetros de entrada do programa:
+	// (1) ndig train; (2) valor do p; (3) nome dos arquivos para 
+	// salvar as informações desse programa
+
 	if (argc < 3)
 	{
 		cout << "You must provide ndigTrain and p!" << endl;
@@ -30,61 +34,28 @@ int main(int argc, char *argv[])
 	string text;
 	string *textRef = &text;
 
+	// realiza o treino de todos os dígitos e devolve um array com os Wd
 	Matrix **Wmatrices = train->execute(ndigTrain, p, textRef);
 	Learning *learning = new Learning();
 
-
-
 	PercentageHit *percentageHit = new PercentageHit();
 
+	// lê o arquivo de teste
 	Matrix *A = fileHelper->readSampleMatrix(
 			"./test_images.txt",
 			10000,
 			true);
 
 	ImageProcessor *imageProcessor = new ImageProcessor();
-	// imageProcessor->createImageFromColumn(A, 0, p, "minhaImagem.ppm");
-      // Matrix **images = learning->getImages(A, 28, 28, 10);
 
-
-
-
-
-
-
-
-      // for (int g = 0; g < 10; g++)
-      // {
-      //   string s = string("pic") + to_string(g) + string(".ppm");
-      //   ofstream img(s);
-      //   img << "P3" << endl;
-      //   img << 28 << " " << 28 << endl;
-      //   img << "255" << endl;
-      //   for (int i = 0; i < images[g]->rows; i++)
-      //   {
-      //     for (int j = 0; j < images[g]->columns; j++)
-      //     {
-      //       if (images[g]->at(i, j) != 0)
-      //       {
-      //         img << 255 << " " << 255 << " " << 255 << endl;
-      //       }
-      //       else
-      //       {
-      //         img << 0 << " " << 0 << " " << 0 << endl;
-      //       }
-      //       // img << (int)(images[g]->at(i, j) * 255) << " " << (int)(images[g]->at(i, j) * 255) << " " << (int)((images[g]->at(i, j) * 255)) << endl;
-      //     }
-      //   }
-      //   string openCommand = string("open ") + s;
-      //   system(openCommand.c_str());
-      // }
-
+	// lê o arquvio de respostas
 	Matrix *answer = fileHelper->readSampleMatrix(
 			"./test_index.txt",
 			1,
 			false,
 			10000);
 
+	// realiza os testes e determina a porcentagem de acertos
 	percentageHit->execute(Wmatrices, A, answer, ndigTrain, p);
 
 	fileHelper->writeFile(
@@ -97,6 +68,7 @@ int main(int argc, char *argv[])
 
 string generateFileName(int argc, char *input, int p, int ndigTrain)
 {
+	// gera o nome do arquivo para salvar as informações desse programa
 	string fileName = "./";
 	if (argc == 4)
 	{
