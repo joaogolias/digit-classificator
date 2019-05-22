@@ -10,6 +10,7 @@ ImageProcessor::ImageProcessor(){}
 ImageProcessor::~ImageProcessor(){}
 
 Matrix* ImageProcessor::generateVector(Matrix* image){
+    // função que gera um vetor 
     int rows = image->rows*image->columns;
     Matrix* vector = new Matrix(rows, 1);
 
