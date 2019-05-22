@@ -16,6 +16,8 @@ double QrFactorization::calculateC(double wi, double wj){
 }
 
 void QrFactorization::Q(Matrix* A, double i, double j, double k,  double c, double s) {
+    // Essa função Q é a que realiza a rotação de Givens na matriz <A>
+    // Passamos os valores dos índices que devem ser mudados <i, j>, a iteração <k> 
     double wi, wj;
     for(int u = 0; u < A->columns; u++) {
         wi = A->at(i,u);
@@ -28,6 +30,7 @@ void QrFactorization::Q(Matrix* A, double i, double j, double k,  double c, doub
 }
 
 Matrix* QrFactorization::execute(Matrix* W, Matrix *A) {
+    // executa a fatoração QR para as matrizes <W> e <A>
     int n = A->rows;
     int m = A->columns;
     int p = W->columns;
@@ -43,6 +46,7 @@ Matrix* QrFactorization::execute(Matrix* W, Matrix *A) {
                 c = calculateC(wi, wj);
                 s = calculateS(wi,wj);
                 Q(W, i-1, j-1, k, c, s);
+                // deixamos a opção de só se fatorar a matriz <W>, por questões de testes
                 if(A != NULL) Q(A, i-1,j-1,k,c,s);
             
             }
