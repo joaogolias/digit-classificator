@@ -33,18 +33,23 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer, int ndig_trei
 
   timeHelper2->start();
 
-  Matrix *Wd_copy, *A_copy, *Hd, *c;
+  Matrix  *Hd, *c;
+  Matrix* A_copy = new Matrix(A->rows, A->columns);
+  Matrix* differences = new Matrix(A->rows, A->columns);
+  Matrix* WdH = new Matrix(W[0]->rows, A->columns);
+  
+
   for (int d = 0; d < 10; d++){
     timeHelper->start();
 
-    Wd_copy = W[d]->copy();
-    A_copy = A->copy();
+    A->copyTo(A_copy);
 
-    qr->execute(Wd_copy, A_copy);
-    Hd = solver->solveSystems(Wd_copy, A_copy);
+    qr->execute(W[d], A_copy);
+    Hd = solver->solveSystems(W[d], A_copy);
 
-    c = A_copy->subtract(Wd_copy->multiply(Hd))->calculateCErroVector();
-
+    W[d]->multiply(Hd, WdH);
+    A_copy->subtract(WdH, differences);
+    c = differences->calculateCErroVector();
     if (d == 0)
     {
       lowestError = c->copy();
@@ -92,15 +97,14 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer, int ndig_trei
     fileName,
     percentageResults);
 
-  // delete qr;
-  // delete solver;
-  // delete fileHelper;
-  // delete digit;
-  // delete lowestError;
-  // delete Wd_copy;
-  // delete A_copy;
-  // delete Hd;
-  // delete c;
+  delete qr;
+  delete solver;
+  delete fileHelper;
+  delete digit;
+  delete lowestError;
+  delete A_copy;
+  delete Hd;
+  delete c;
 }
 
 
@@ -143,9 +147,7 @@ void PercentageHit::calculatePercentageHits(Matrix* digit, Matrix* answer, strin
     if(answer->at(i,0) == 0) {
       if(digit->at(i,0) == answer->at(i,0)){
         digit0rightAnswer++;
-        cout << "is correct" << endl;
       }
-      cout << "is zero" << endl;
       digit0totalAnswer++;
     }
 
@@ -219,7 +221,6 @@ void PercentageHit::calculatePercentageHits(Matrix* digit, Matrix* answer, strin
     totalAnswer++;
   }
 
-  cout << " digit0rightAnswer: " << digit0rightAnswer << endl;
   double digit0PercentageHit = digit0rightAnswer*100.0/digit0totalAnswer;
   double digit1PercentageHit = digit1rightAnswer*100.0/digit1totalAnswer;
   double digit2PercentageHit = digit2rightAnswer*100.0/digit2totalAnswer;
