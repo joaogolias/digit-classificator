@@ -67,6 +67,14 @@ void Matrix::setRow(int row, double* value){
     }
 }
 
+void Matrix::copyTo(Matrix* to) {
+     for(int i = 0; i < rows; i++) {
+        for(int j = 0; j<columns; j++) {
+            to->set(i,j,at(i,j));
+        }
+    }
+}
+
 Matrix* Matrix::copy(){
     Matrix *copyMatrix = new Matrix(rows, columns);
     for(int i = 0; i < rows; i++) {

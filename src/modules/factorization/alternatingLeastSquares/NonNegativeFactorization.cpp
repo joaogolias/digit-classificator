@@ -73,10 +73,10 @@ double NonNegativeFactorization::calculateError(Matrix *A, Matrix *W, Matrix *H)
 int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
 {   
 
-    // if (!A->isANonNegativeMatrix())
-    //     throw std::invalid_argument("All matrix values must be non negatives");
+    if (!A->isANonNegativeMatrix())
+        throw std::invalid_argument("All matrix values must be non negatives");
 
-    Matrix *A_Copy;
+    Matrix *A_Copy = new Matrix(A->rows, A->columns);
     Matrix* At;
     Matrix* Ht; 
     Matrix* Wt; 
@@ -87,39 +87,39 @@ int NonNegativeFactorization::execute(Matrix *A, Matrix *W, Matrix *H )
     int iterationCount = 0;
     double errorChange = 10;
     double oldError = 0;
-
+    double newError = 0;
 
     while (abs(errorChange) > epsilon)
     {   
         if(iterationCount >= itmax)
             break;
 
-        A_Copy = A->copy();
+        // A_Copy = A->copy();
+        A->copyTo(A_Copy);
 
-        //TODO: Normalizar W tal que a norma de cada uma das colunas seja 1
+        //Normalizar W tal que a norma de cada uma das colunas seja 1
         normalize(W);
 
-        //TODO: Resolver o problema dos minimos quadrados W * H = A (utiizar A original a cada interação)
+        //Resolver o problema dos minimos quadrados W * H = A (utiizar A original a cada interação)
         qrFactorization->execute(W, A_Copy);        
         H = triangularSystemSolver->solveSystems(W, A_Copy);
 
-        //TODO: Redefinir H hij=max(0, hij)
+        //Redefinir H hij=max(0, hij)
         handleNegativeValues(H);
         
-        //TODO: transpor A (original)
+        //transpor A (original)
         At = A->transpose();
 
-        //TODO: Resolver o problema dos minimos quadrados para Ht * Wt = At
+        //Resolver o problema dos minimos quadrados para Ht * Wt = At
         Ht = H->transpose();
         qrFactorization->execute(Ht, At);
         Wt = triangularSystemSolver->solveSystems(Ht, At);
 
-        //TODO: transpor Wt
-        //TODO: Redefinir W wij=max(0, wij)
-
+        //Redefinir W
         W = Wt->transposeAndHanldeNegativeValues();
 
-        double newError = calculateError(A, W, H);
+        //Atualizar variação do erro
+        newError = calculateError(A, W, H);
         errorChange = oldError - newError;
         oldError = newError;
 

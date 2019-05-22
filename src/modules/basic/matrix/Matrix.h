@@ -23,6 +23,7 @@ class Matrix : public Comparable {
         double euclideanNomr();
 
         Matrix* copy();
+        void copyTo(Matrix* to);
         Matrix* add(Matrix* B);
         Matrix* subtract(Matrix *B);
         Matrix* multiply(Matrix* B);
