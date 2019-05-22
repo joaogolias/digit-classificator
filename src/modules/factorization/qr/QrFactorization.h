@@ -13,7 +13,6 @@ class QrFactorization {
 
         void Q(Matrix* W, double i, double j, double k, double c, double s);
 
-        Matrix* executeForOneSystem(Matrix* W, Matrix *b);
         Matrix* execute(Matrix* W, Matrix *A);
 
     private: 

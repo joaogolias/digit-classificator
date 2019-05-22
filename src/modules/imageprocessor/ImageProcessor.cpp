@@ -60,11 +60,11 @@ Matrix** ImageProcessor::splitVectors(Matrix* matrixOfVectors){
 
 
 void ImageProcessor::normalize(Matrix* image){
-    image = image->mutiplyByConstant(1/(255.0));
+    image->mutiplyByConstant(1/(255.0));
 }
 
 void ImageProcessor::unnormalize(Matrix* image){
-    image = image->mutiplyByConstant(255.0);
+    image->mutiplyByConstant(255.0);
 }
 
 Matrix* ImageProcessor::execute(Matrix** images, int imageQuantity, bool reverse, int rows, int columns) {

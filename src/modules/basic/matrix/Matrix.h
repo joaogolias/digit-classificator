@@ -28,17 +28,22 @@ class Matrix : public Comparable {
         Matrix* multiply(Matrix* B);
         Matrix* mutiplyByConstant(double c, bool useSameMatrix = true);
         Matrix* transpose();
-        Matrix* transposeAndHanldeNegativeValues();
+        Matrix* transposeAndHandleNegativeValues();
         Matrix* calculateCErroVector();
 
         bool isANonNegativeMatrix();
 
+        void copyTo(Matrix* to);
+        void add(Matrix* B, Matrix* result);
+        void subtract(Matrix* B, Matrix* result);
+        void multiply(Matrix* B, Matrix* result);
+        void transpose(Matrix* result);
+        void transposeAndHandleNegativeValues(Matrix* result);
         void set(int row, int column, double value);
         void setRow(int row, double* value);
         void setRow(int row, double value[], int size);
         void print();
         void printColumn(int j);
-        double sumColumn(int j);
 
     private:
         bool areValidArguments(int row, int column);

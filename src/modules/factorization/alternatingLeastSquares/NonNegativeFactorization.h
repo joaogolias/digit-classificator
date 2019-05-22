@@ -9,12 +9,11 @@ class Matrix;
 class NonNegativeFactorization {
     public:
         NonNegativeFactorization();
+        ~NonNegativeFactorization();
         
         void normalize(Matrix* M);
-        void generate();
         void handleNegativeValues(Matrix* M);
 
-        ~NonNegativeFactorization();
 
         int execute(Matrix* A, Matrix* W, Matrix* H);
 
@@ -25,7 +24,6 @@ class NonNegativeFactorization {
         Matrix *Hresult;
         Matrix *Wresult;
         double calculateS(Matrix *M, int column);
-        double calculateC(double wi, double wj);
         double calculateError(Matrix* A, Matrix* W, Matrix* H);
 
 };

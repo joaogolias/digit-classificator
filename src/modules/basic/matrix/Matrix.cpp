@@ -18,6 +18,9 @@ Matrix::Matrix(int r, int col) {
     values = new double*[rows];
     for(int i=0; i < rows; i++) {
         values[i] = new double[columns];
+        for(int j=0;j<columns;j++){
+            values[i][j] = 0;
+        }
     }
 }
 
@@ -30,10 +33,10 @@ Matrix::~Matrix(){
 }
 
 double Matrix::at(int row, int column){
-    if(areValidArguments(row, column)){
-        return values[row][column];
-    }
-    return NIL;
+    // if(areValidArguments(row, column)){
+    //     return values[row][column];
+    // }
+    return values[row][column];
 }
 
 double Matrix::calculateFrobeniusNorm() {
@@ -67,6 +70,14 @@ void Matrix::setRow(int row, double* value){
     }
 }
 
+void Matrix::copyTo(Matrix* to) {
+     for(int i = 0; i < rows; i++) {
+        for(int j = 0; j<columns; j++) {
+            to->set(i,j,at(i,j));
+        }
+    }
+}
+
 Matrix* Matrix::copy(){
     Matrix *copyMatrix = new Matrix(rows, columns);
     for(int i = 0; i < rows; i++) {
@@ -77,49 +88,72 @@ Matrix* Matrix::copy(){
     return copyMatrix;
     
 }
+
+void Matrix::add(Matrix* B, Matrix* result) {
+    if(rows != B->rows || columns != B->columns) {
+        throw std::invalid_argument("Demensions don't match");
+    }
+
+    for(int i = 0; i<rows; i++) {
+        for(int j=0; j<columns; j++) {
+            result->set(i, j, at(i,j) + B->at(i,j));
+        }
+    }
+}
         
 Matrix* Matrix::add(Matrix* B) {
-    if(rows == B->rows && columns == B-> columns) {
-        Matrix* returnMatrix = copy();
-        for(int i = 0; i<rows; i++) {
-            for(int j=0; j<columns; j++) {
-                returnMatrix->set(i, j, at(i,j) + B->at(i,j));
-            }
-        }
-        return returnMatrix;
+    Matrix* returnMatrix = new Matrix(rows, columns);
+    add(B, returnMatrix);
+    return returnMatrix;
+}
+
+void Matrix::subtract(Matrix* B, Matrix* result) {
+    if(rows != B->rows || columns != B->columns) {
+        throw std::invalid_argument("Demensions don't match");
     }
-    else throw std::invalid_argument("Demensions don't match");
+
+    for(int i = 0; i<rows; i++) {
+        for(int j=0; j<columns; j++) {
+            result->set(i, j, at(i,j) - B->at(i,j));
+        }
+    }
 }
 
 Matrix* Matrix::subtract(Matrix *B){
-    if(rows == B->rows && columns == B-> columns) {
-        Matrix* returnMatrix = copy();
-        for(int i = 0; i<rows; i++) {
-            for(int j=0; j<columns; j++) {
-                returnMatrix->set(i, j, at(i,j) - B->at(i,j));
-            }
-        }
-        return returnMatrix;
+    Matrix* returnMatrix = new Matrix(rows, columns);
+    subtract(B, returnMatrix);
+    return returnMatrix;
+}
+
+void Matrix::multiply(Matrix* B, Matrix* result) {
+    if(B->rows != columns) {
+        throw std::invalid_argument("A columns must be equal to B rows.");
     }
-    else throw std::invalid_argument("Demensions don't match");
+    
+    if(rows != result->rows) {
+        throw std::invalid_argument("result rows must be equal to A rows");
+    }
+
+    if(B->columns != result->columns) {
+        throw std::invalid_argument("result columns must be equal to B columns.");
+    }
+
+    int dimension = columns;
+    for(int i = 0; i < result->rows; i++) {
+        for(int j = 0; j < result->columns; j++){
+            double finalValue = 0;
+            for(int k = 0; k<dimension; k++){
+                finalValue+=at(i,k)*B->at(k,j);
+            }
+            result->set(i,j, finalValue);
+        }
+    }
 }
 
 Matrix* Matrix::multiply(Matrix* B) {
-    if(B->rows == columns) {
-        int dimension = columns;
-        Matrix* returnableMatrix = new Matrix(rows, B->columns);
-        for(int i = 0; i < returnableMatrix->rows; i++) {
-            for(int j = 0; j < returnableMatrix->columns; j++){
-                double finalValue = 0;
-                for(int k = 0; k<dimension; k++){
-                    finalValue+=at(i,k)*B->at(k,j);
-                }
-                returnableMatrix->set(i,j, finalValue);
-            }
-        }
-        return returnableMatrix;
-    }
-    throw std::invalid_argument("A columns must be equal to B rows.");
+    Matrix* returnableMatrix = new Matrix(rows, B->columns);
+    multiply(B, returnableMatrix);
+    return returnableMatrix;
 }
 
 Matrix* Matrix::mutiplyByConstant(double c, bool useSameMatrix) {
@@ -134,32 +168,34 @@ Matrix* Matrix::mutiplyByConstant(double c, bool useSameMatrix) {
     return returnMatrix;
 }
 
+
+void Matrix::transpose(Matrix* result){
+    for(int i = 0; i < rows ; i ++) {
+        for (int j = 0; j <columns; j++) {
+            result -> set(j,i, at(i,j));
+        }
+    }
+}
+
+
 Matrix* Matrix::transpose(){
     Matrix* resultMatrix = new Matrix(columns, rows);
-    for(int i = 0; i < rows ; i ++) {
-        for (int j = 0; j <columns; j++) {
-            resultMatrix -> set(j,i, at(i,j));
-        }
-    }
+    transpose(resultMatrix);
     return resultMatrix;
 }
 
-Matrix* Matrix::transposeAndHanldeNegativeValues(){
+void Matrix::transposeAndHandleNegativeValues(Matrix* result){
+    for(int i = 0; i < rows ; i ++) {
+        for (int j = 0; j < columns; j++) {
+            result -> set(j,i, fmax(0.0, at(i,j)));
+        }
+    }
+}
+
+Matrix* Matrix::transposeAndHandleNegativeValues(){
     Matrix* resultMatrix = new Matrix(columns, rows);
-    for(int i = 0; i < rows ; i ++) {
-        for (int j = 0; j <columns; j++) {
-            resultMatrix -> set(j,i, fmax(0.0, at(i,j)));
-        }
-    }
+    transposeAndHandleNegativeValues(resultMatrix);
     return resultMatrix;
-}
-
-double Matrix::sumColumn(int j){
-    double sum = 0;
-    for(int i = 0; i < rows; i++){
-        sum += at(i,j)*at(i,j);
-    }
-    return sqrt(sum);
 }
 
 Matrix* Matrix::calculateCErroVector(){
