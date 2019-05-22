@@ -60,12 +60,6 @@ then
     ./FileHelper.out
 fi
 
-if [ $1 = "Training" ] 
-then
-    g++ -std=c++11 -Wno-writable-strings src/helpers/timehelper/TimeHelper.cpp src/modules/factorization/qr/QrFactorization.cpp tests/testmanager/TestManager.cpp src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.cpp src/modules/learning/Learning.cpp  src/modules/imageprocessor/ImageProcessor.cpp src/modules/basic/matrix/Matrix.cpp src/helpers/filehelper/FileHelper.cpp src/modules/factorization/alternatingLeastSquares/NonNegativeFactorization.cpp src/tasks/training/Training.cpp -o Training.out
-    ./Training.out
-fi
-
 if [ $1 = "MainTask" ] 
 then
     g++ -std=c++11 -Wno-writable-strings src/helpers/timehelper/TimeHelper.cpp src/modules/factorization/qr/QrFactorization.cpp tests/testmanager/TestManager.cpp src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.cpp src/modules/learning/Learning.cpp  src/modules/imageprocessor/ImageProcessor.cpp src/modules/basic/matrix/Matrix.cpp src/helpers/filehelper/FileHelper.cpp src/modules/factorization/alternatingLeastSquares/NonNegativeFactorization.cpp  src/tasks/mainTask/train/Train.cpp src/tasks/mainTask/main.cpp src/tasks/mainTask/percentagehit/PercentageHit.cpp -o MainTask.out
