@@ -11,6 +11,7 @@ TriangularSystemsSolver::~TriangularSystemsSolver(){
 }
 
 Matrix* TriangularSystemsSolver::solveOneSystem(Matrix*W, Matrix*b) {
+    // determina a solução de um sistema linear trinagular
     if(areValidArguments(W,b)) {
         Matrix* X = new Matrix(W->columns, 1);
         for(int k = X->rows-1; k >= 0; k--) {
@@ -27,6 +28,7 @@ Matrix* TriangularSystemsSolver::solveOneSystem(Matrix*W, Matrix*b) {
 }
 
 Matrix* TriangularSystemsSolver::solveSystems(Matrix*W, Matrix*A, bool handleNegativeValues){
+    // determina a solução vários sistemas lineares trinagulares simultâneos
     int n = A->rows;
     int m = A->columns;
     int p = W->columns;
@@ -45,10 +47,11 @@ Matrix* TriangularSystemsSolver::solveSystems(Matrix*W, Matrix*A, bool handleNeg
 }
 
 bool TriangularSystemsSolver::areValidArguments(Matrix*W, Matrix*b) {
-    return true;
+    return W->columns == b->columns;
 }
 
 bool TriangularSystemsSolver::isTriangularSystem(Matrix* W){
+    // determina se uma matriz é tringular ou não 
     for(int j = 0; j < W->columns; j++) {
         for(int i = W->rows-1; i >= j+1; i--){
             double value;

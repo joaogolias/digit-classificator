@@ -9,6 +9,8 @@
 using namespace std;
 
 Matrix::Matrix(int r, int col) {
+    // Aqui, inicilizamos a matriz, alocando memória para o values
+    // E setando seus valores iniciais como 0
     columns = col;
     rows = r;
     if(rows < 0) throw std::invalid_argument( "rows must be >= 0" );
@@ -33,13 +35,15 @@ Matrix::~Matrix(){
 }
 
 double Matrix::at(int row, int column){
-    // if(areValidArguments(row, column)){
-    //     return values[row][column];
-    // }
+    //retorna o valor da matriz na linha e coluna especificadas
+    if(areValidArguments(row, column)){
+        return values[row][column];
+    }
     return values[row][column];
 }
 
 double Matrix::calculateFrobeniusNorm() {
+    // calcula a norma de Frobenius, usado para se ter uma noção de erro
     double norm = 0.0;
     for(int i = 0; i < rows; i++) {
         for(int j = 0; j<columns; j++) {
@@ -50,6 +54,7 @@ double Matrix::calculateFrobeniusNorm() {
 }
 
 double Matrix::euclideanNomr() {
+    // calcula a norma euclidiana
     double result = 0;
     for(int i=0; i<rows; i++){
         for(int j = 0; j < columns; j++){
@@ -59,18 +64,21 @@ double Matrix::euclideanNomr() {
     return sqrt(result);
 }
 void Matrix::set(int row, int column, double value) {
+    // sobrescreve o valor da matriz em <row, colum> por <value>
     if(areValidArguments(row, column)){
         values[row][column] = value;
     }
 }
 
 void Matrix::setRow(int row, double* value){
+    // sobrescreve a linha <row> inteira da matriz
     if(areValidArguments(row, NIL)){
         values[row] = value;
     }
 }
 
 void Matrix::copyTo(Matrix* to) {
+    // faz uma copia da matriz em <to>
      for(int i = 0; i < rows; i++) {
         for(int j = 0; j<columns; j++) {
             to->set(i,j,at(i,j));
@@ -79,6 +87,7 @@ void Matrix::copyTo(Matrix* to) {
 }
 
 Matrix* Matrix::copy(){
+    // cria uma nova matriz e realiza a copia para ela
     Matrix *copyMatrix = new Matrix(rows, columns);
     for(int i = 0; i < rows; i++) {
         for(int j = 0; j<columns; j++) {
@@ -90,6 +99,7 @@ Matrix* Matrix::copy(){
 }
 
 void Matrix::add(Matrix* B, Matrix* result) {
+    //realiza a soma de duas matrizes, sobrescrevendo <result>
     if(rows != B->rows || columns != B->columns) {
         throw std::invalid_argument("Demensions don't match");
     }
@@ -102,12 +112,14 @@ void Matrix::add(Matrix* B, Matrix* result) {
 }
         
 Matrix* Matrix::add(Matrix* B) {
+    //realiza a soma de duas matrizes, criando uma nova matriz para isso
     Matrix* returnMatrix = new Matrix(rows, columns);
     add(B, returnMatrix);
     return returnMatrix;
 }
 
 void Matrix::subtract(Matrix* B, Matrix* result) {
+    //realiza a subtração de duas matrizes, sobrescrevendo <result>
     if(rows != B->rows || columns != B->columns) {
         throw std::invalid_argument("Demensions don't match");
     }
@@ -120,12 +132,14 @@ void Matrix::subtract(Matrix* B, Matrix* result) {
 }
 
 Matrix* Matrix::subtract(Matrix *B){
+    //realiza a subtração de duas matrizes, criando uma nova matriz para isso
     Matrix* returnMatrix = new Matrix(rows, columns);
     subtract(B, returnMatrix);
     return returnMatrix;
 }
 
 void Matrix::multiply(Matrix* B, Matrix* result) {
+    //realiza a multiplicação de duas matrizes, sobrescrevendo <result>
     if(B->rows != columns) {
         throw std::invalid_argument("A columns must be equal to B rows.");
     }
@@ -151,12 +165,14 @@ void Matrix::multiply(Matrix* B, Matrix* result) {
 }
 
 Matrix* Matrix::multiply(Matrix* B) {
+    //realiza a multiplicação de duas matrizes, criando uma nova matriz para isso
     Matrix* returnableMatrix = new Matrix(rows, B->columns);
     multiply(B, returnableMatrix);
     return returnableMatrix;
 }
 
 Matrix* Matrix::mutiplyByConstant(double c, bool useSameMatrix) {
+    //realiza a multiplicação de uma matriz por uma constante real
     Matrix* returnMatrix;
     if(useSameMatrix) returnMatrix = this;
     else returnMatrix = new Matrix(this->rows, this->columns);
@@ -170,6 +186,7 @@ Matrix* Matrix::mutiplyByConstant(double c, bool useSameMatrix) {
 
 
 void Matrix::transpose(Matrix* result){
+    // faz a matriz transposta, sobrescrevendo a <result>
     for(int i = 0; i < rows ; i ++) {
         for (int j = 0; j <columns; j++) {
             result -> set(j,i, at(i,j));
@@ -179,12 +196,15 @@ void Matrix::transpose(Matrix* result){
 
 
 Matrix* Matrix::transpose(){
+    // faz a matriz transposta, criando uma nova matriz para isso
     Matrix* resultMatrix = new Matrix(columns, rows);
     transpose(resultMatrix);
     return resultMatrix;
 }
 
 void Matrix::transposeAndHandleNegativeValues(Matrix* result){
+    // faz a matriz transposta, sobrescrevendo a <result>
+    // só que ela transforma todos os valores negativos em 0
     for(int i = 0; i < rows ; i ++) {
         for (int j = 0; j < columns; j++) {
             result -> set(j,i, fmax(0.0, at(i,j)));
@@ -193,12 +213,16 @@ void Matrix::transposeAndHandleNegativeValues(Matrix* result){
 }
 
 Matrix* Matrix::transposeAndHandleNegativeValues(){
+    // faz a matriz transposta, criando uma nova
+    // só que ela transforma todos os valores negativos em 0
     Matrix* resultMatrix = new Matrix(columns, rows);
     transposeAndHandleNegativeValues(resultMatrix);
     return resultMatrix;
 }
 
 Matrix* Matrix::calculateCErroVector(){
+    // determina o vetor C
+    // que contém a norma euclidiana de cada coluna da matriz original
     Matrix* c = new Matrix(columns, 1);
     for(int j = 0; j< columns; j++){
         double value = 0;
@@ -211,6 +235,7 @@ Matrix* Matrix::calculateCErroVector(){
 }
 
 double* Matrix::getRow(int row){
+    // retorna uma referência a uma linha inteira da matriz <row>
     if(areValidArguments(row, NIL)){
         return values[row];
     } 
@@ -218,6 +243,7 @@ double* Matrix::getRow(int row){
 }
 
 bool Matrix::areValidArguments(int row, int column){
+    // serve só para verificar se <row, column> está dentro do range de limite
     bool validColumn = true;
     bool validRow = true;
     if(column != NIL && column >= columns) validColumn = false; 
@@ -229,18 +255,19 @@ bool Matrix::areValidArguments(int row, int column){
 }
 
 void Matrix::print() {
-    // cout << fixed << setprecision(15) << setfill(' ');
+    // imprime a matriz no terminal
     cout << fixed << setprecision(10) << setfill(' ');
     for(int i = 0; i<rows; i++){
         for(int j=0;j<columns;j++){
             cout << setw(4) << at(i,j) << " ";
-            // cout << setw(18) << at(i,j) << " ";
         }
         cout << endl;
     }
 }
 
 void Matrix::setRow(int row, double value[], int size) {
+    // seta o valor de uma linha inteira da matriz
+    // só que recebe um array como argumento, junto com o seu tamanho
     if(size != columns) {
         throw std::invalid_argument("Invalid argument of size");
     }
@@ -250,6 +277,8 @@ void Matrix::setRow(int row, double value[], int size) {
 }
 
 bool Matrix::isEqualsTo(Matrix* compare, double error) {
+    // é a função que compara os valores 2 matrizes entre si,
+    // considerando um erro para isso 
     if(columns != compare->columns || rows != compare->rows) {
         return false;
     }
@@ -264,6 +293,7 @@ bool Matrix::isEqualsTo(Matrix* compare, double error) {
 }
 
 bool Matrix::isEqualsTo(Comparable* compare, double error) {
+    // é a implementação da função da classe abstrata, que a matriz extende
     Matrix* M = dynamic_cast<Matrix*>(compare);
     if(M != NULL) {
         return isEqualsTo(M, error);
@@ -272,6 +302,7 @@ bool Matrix::isEqualsTo(Comparable* compare, double error) {
 }
 
 bool Matrix::isANonNegativeMatrix(){
+    // devolve true, se todos os valores da matriz forem maiores que 0
     for(int i = 0; i < rows; i++) {
         for (int j = 0; j<columns; j++){
             if(at(i,j) < 0) {
@@ -283,6 +314,7 @@ bool Matrix::isANonNegativeMatrix(){
 }
 
 void Matrix::printColumn(int j){
+    // imprime uma coluna inteira da matriz no terminal
     for(int i = 0; i < rows; i++){
         cout << at(i,j) << endl;
     }

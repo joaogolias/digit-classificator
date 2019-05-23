@@ -25,7 +25,10 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer, int ndig_trei
   TimeHelper *timeHelper = new TimeHelper();
   TimeHelper *timeHelper2 = new TimeHelper();
 
+  // define o vetor com os valores da classificação dos digitos
   Matrix *digit = new Matrix(N_TEST, 1);
+
+  // define o vetor com os erros relativos de cada classificação
   Matrix *lowestError = new Matrix(N_TEST, 1);
   string s;
 
@@ -44,12 +47,17 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer, int ndig_trei
 
     A->copyTo(A_copy);
 
+    // resolve o sistema Wd*H = A
     qr->execute(W[d], A_copy);
     Hd = solver->solveSystems(W[d], A_copy);
 
+    // realiza a determinação do erro de das classifições e monta 
+    // o vetor c 
     W[d]->multiply(Hd, WdH);
     A_copy->subtract(WdH, differences);
     c = differences->calculateCErroVector();
+
+    // verifica o menor erro e assume como o dígito correto
     if (d == 0)
     {
       lowestError = c->copy();
@@ -74,7 +82,7 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer, int ndig_trei
 
   string totalSpentTime = timeHelper2->generateStringTime();
 
-  //Writing file with classification results
+  // escrevendo o arquivo com os resultados dos testes
   for (int i = 0; i < N_TEST; i++)
   {
     s += to_string(i) + string(": ") + to_string(digit->at(i, 0)) + string("\n");
@@ -85,10 +93,10 @@ void PercentageHit::execute(Matrix **W, Matrix *A, Matrix *answer, int ndig_trei
       fileName,
       s);
 
-  // Writing file with percentage hit results
   string percentageResults = "";
   string *percentageResultsRef = &percentageResults;
 
+  // escrevendo o arquivo com as porcentagens de acertos
   calculatePercentageHits(digit, answer, percentageResultsRef, ndig_treino, p);
   generateTotalTimeStringToSave(times, totalSpentTime, percentageResultsRef);
   fileName = "./result-percentage-hit-for-ndig="+to_string(ndig_treino)+"p="+to_string(p)+ ".txt";
