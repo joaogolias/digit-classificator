@@ -65,13 +65,4 @@ void runExerciseA(bool printResult)
     Matrix *aproxA = W->multiply(H);
     cout << "Matriz aproxA=======================" <<endl;
     aproxA->print();
-
-    if (aproxA->isEqualsTo(A))
-    {
-        cout << "Correct, because W*h = A" << endl;
-    }
-    else
-    {
-        cout << "Wrong, because W*H != A" << endl;
-    }
 }
