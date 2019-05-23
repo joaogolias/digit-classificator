@@ -47,7 +47,7 @@ Matrix* TriangularSystemsSolver::solveSystems(Matrix*W, Matrix*A, bool handleNeg
 }
 
 bool TriangularSystemsSolver::areValidArguments(Matrix*W, Matrix*b) {
-    return true;
+    return W->columns == b->columns;
 }
 
 bool TriangularSystemsSolver::isTriangularSystem(Matrix* W){
