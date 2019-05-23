@@ -1,3 +1,9 @@
+/****
+ *  Nomes:
+ *      	Guilherme C. Santos (9349590)
+ *          João V. Golias (8992902)
+ */
+
 #ifndef MATRIX_H
 #define MATRIX_H
 #include "../../../../tests/comparable/Comparable.h"

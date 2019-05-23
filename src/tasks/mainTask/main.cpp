@@ -1,3 +1,9 @@
+/****
+ *  Nomes:
+ *      	Guilherme C. Santos (9349590)
+ *          João V. Golias (8992902)
+ */
+
 #include <iostream>
 #include <string>
 #include "./train/Train.h"

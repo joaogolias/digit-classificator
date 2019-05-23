@@ -29,6 +29,9 @@ then
     g++ -std=c++11 src/modules/basic/matrix/Matrix.cpp src/modules/factorization/qr/QrFactorization.cpp tests/testmanager/TestManager.cpp src/modules/systems/triangularsystemssolver/TriangularSystemsSolver.cpp src/tasks/firstTask/FirstTask.cpp src/tasks/firstTask/FirstTaskRunner.cpp -o FirstTask.out
     ./FirstTask.out
 fi
+# NOMES:
+# Guilherme C. Santos (9349590)
+# João V. Golias (8992902)
 
 if [ $1 = "ImageProcessor" ] 
 then
